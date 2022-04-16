@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <link rel="icon" href="%svelte.assets%/favicon.png" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    %svelte.head%
+    <style>
+      @font-face {
+        font-family: 'Lora';
+        font-style: normal;
+        font-display: swap;
+        font-weight: 400;
+        src: local('Lora'), local('Lora Regular'),
+          local('Lora-VariableFont_wght'),
+          url('../static/fonts/Lora.ttf') format('ttf');
+      }
+
+      @font-face {
+        font-family: 'Lora';
+        font-style: italic;
+        font-display: swap;
+        font-weight: 400;
+        src: local('Lora'), local('Lora Italic'),
+          local('Lora-Italic-VariableFont_wght'),
+          url('../static/fonts/Lora-Italic.ttf')
+            format('ttf');
+      }
+    </style>
+  </head>
+  <body>
+    <div>%svelte.body%</div>
+    <script
+      defer
+      data-goatcounter="https://neugierdsnase.goatcounter.com/count"
+      async
+      src="//gc.zgo.at/count.js"
+    ></script>
+  </body>
+</html>
