@@ -4,5 +4,5 @@
 
 <PageHeading
   heading="Konstantin Kovar"
-  subheading="webdev extraordinaire"
+  subheading="a front-end devs journey to WebAssembly in Rust"
 />
