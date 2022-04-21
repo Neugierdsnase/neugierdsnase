@@ -1,7 +1,8 @@
 <script lang="ts">
+  import BlogpostCard from '../components/BlogpostCard/BlogpostCard.svelte'
+
   import { BLOGPOSTS } from '../constants'
   import type { BlogpostType } from '../types/blogpost'
-  import BlogpostCard from '../components/BlogpostCard/BlogpostCard.svelte'
 
   const blogPosts: BlogpostType[] = BLOGPOSTS
 </script>

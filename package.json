@@ -38,6 +38,7 @@
   "type": "module",
   "dependencies": {
     "@sveltejs/adapter-vercel": "^1.0.0-next.47",
+    "clsx": "^1.1.1",
     "dayjs": "^1.11.1"
   }
 }

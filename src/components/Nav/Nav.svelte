@@ -1,6 +1,9 @@
 <script lang="ts">
   import { fly } from 'svelte/transition'
+  let y: number
 </script>
+
+<svelte:window bind:scrollY={y} />
 
 <nav class="mb-8 border-b-4 border-stone-700 py-4">
   <ul transition:fly class="flex justify-around">
