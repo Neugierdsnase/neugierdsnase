@@ -6,7 +6,7 @@
   <title>Blog | Konstantin Kovar</title>
 </svelte:head>
 
-<article class="prose prose-stone xl:prose-xl">
+<article class="prose prose-stone">
   <slot />
 </article>
 <Footer />

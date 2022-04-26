@@ -9,9 +9,9 @@
   export let subheading: string = ''
 </script>
 
-<div class="flex h-52 flex-col items-center justify-center">
+<div class="relative my-4 h-52 w-full text-center">
   <h1
-    class="text-6xl"
+    class="mb-8 text-6xl"
     in:fly={{
       y: 40,
       duration: TRANSITION_DURATION,
@@ -35,7 +35,7 @@
         y: -20,
         duration: TRANSITION_DURATION,
       }}
-      class="mt-8 font-serif text-xl italic"
+      class="font-serif text-xl italic"
       >{subheading}</subtitle
     >
   {/if}
