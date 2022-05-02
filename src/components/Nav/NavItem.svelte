@@ -6,10 +6,11 @@
 </script>
 
 <li>
-  <a
-    class="w-36 rounded py-2 text-center transition-colors hover:bg-stone-600 hover:text-stone-200"
-    href={path}
-  >
-    <div>{label}</div>
+  <a href={path}>
+    <div
+      class="w-36 rounded py-2 text-center transition-colors hover:bg-stone-600 hover:text-stone-200"
+    >
+      {label}
+    </div>
   </a>
 </li>
