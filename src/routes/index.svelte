@@ -9,10 +9,10 @@
 
 <div class="relative h-52 overflow-hidden">
   <PageHeading
-    heading={y < 120 ? 'Konstantin Kovar' : 'about'}
-    subheading={y < 120
-      ? 'react and web developer'
-      : 'staying up to date in web development'}
+    heading={y > 120 ? 'about' : 'Konstantin Kovar'}
+    subheading={y > 120
+      ? 'staying up to date in web development'
+      : 'react and web developer'}
   />
   {#if y < 450}
     <div
