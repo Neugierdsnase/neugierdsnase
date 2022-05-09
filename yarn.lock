@@ -1436,6 +1436,11 @@ path-type@^4.0.0:
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
 
+phosphor-svelte@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/phosphor-svelte/-/phosphor-svelte-1.1.2.tgz#edc8c4ba4c1b76d6e8bb40cb6ba2987cc23d22c7"
+  integrity sha512-YeS3qkENpg7oDG3G4fAWZBOgF5TnK1nSNKOxUyh/+K48RQ76qjK1nq7FaVjfQOCYiqrJqlul6HNdqRlX1RGZhw==
+
 picocolors@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.0.0.tgz#cb5bdc74ff3f51892236eaf79d68bc44564ab81c"

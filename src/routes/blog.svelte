@@ -1,16 +1,16 @@
-<script lang="ts">
+<script lang="ts" context="module">
+  import { metadata as compairingTailwindWithPlainCssIsWrongBlogPost } from './blog/comparing-tailwind-with-plain-css-is-wrong.md'
   import BlogpostCard from '../components/BlogpostCard/BlogpostCard.svelte'
 
-  import { BLOGPOSTS } from '../constants'
-  import type { BlogpostType } from '../types/blogpost'
-
-  const blogPosts: BlogpostType[] = BLOGPOSTS
+  const blogPosts = [
+    compairingTailwindWithPlainCssIsWrongBlogPost,
+  ]
 </script>
 
 <div
   class="grid grid-cols-1 gap-6 lg:grid-cols-2 2xl:grid-cols-3"
 >
-  {#each blogPosts as blogPost, index}
-    <BlogpostCard {index} {blogPost} />
+  {#each blogPosts as metadata, index}
+    <BlogpostCard {index} {metadata} />
   {/each}
 </div>

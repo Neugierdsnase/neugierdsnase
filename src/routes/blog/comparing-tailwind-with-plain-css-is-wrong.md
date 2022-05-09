@@ -1,3 +1,15 @@
+---
+title: Comparing TailwindCSS with plain CSS is plain wrong
+author: Konstantin <mail@vomkonstant.in>
+published: '2022-05-09'
+illustration: '<svg viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke-width="10" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M11.27 89.844c5.437-7.04 11.214-12.512 18.943-16.929 55.62-31.782 87.677 36.25 135.593 50.062 30.354 8.75 73.913-3.376 72.299-42.482" stroke="currentcolor" stroke-width="20.491799999999998"/>
+        <path d="M46.136 139.77c25.21-18.149 44.616-.906 65.137 14.145 26.56 19.479 59 38.254 91.556 19.935" stroke="currentColor" stroke-width="20.491799999999998"/>
+    </g>
+</svg>'
+---
+
 A year ago I was teaching web development students about the various approaches to writing and organizing CSS, which is notoriously hard to maintain, in its "natural" form. Among the things I was showing was a brief mention of the "atomic CSS"-approach and the fact that TailwindCSS had gained a considerable amount of steam over the last few years. Back then, I was playing it down as a fad, telling them I didn't understand what all the fuss was about, basically telling them it was unjustified hype.
 
 Fast forward to this semester, when I taught the same course to another class. My view had changed. I told my students, that I now believe there are good chances TailwindCSS will dominate the space for years to come, similar to how Bootstrap had been doing in the mid-2000s.
@@ -26,7 +38,6 @@ None of this comes without a cost. The whole convoluted sentence you just decide
 So what if we could have all of that power, but none of that runtime overhead? Sounds too good to be true? Well, let's take a look at how we would replace styled-system code with TailwindCSS in this simple example.
 
 ```tsx
-
 const SomeComponent: FunctionComponent = ({children}) => (
   <SomeKindOfGeneralPurposeDiv
     position='absolute'

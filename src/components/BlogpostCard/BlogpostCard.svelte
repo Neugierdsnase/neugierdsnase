@@ -1,14 +1,14 @@
 <script lang="ts">
+  import dayjs from 'dayjs'
+
   import { fly } from 'svelte/transition'
-  import type { BlogpostType } from '../../types/blogpost'
   import {
     TRANSITION_DELAY,
     TRANSITION_DURATION,
   } from './../../constants'
   export let index: number
-  export let blogPost: BlogpostType
-  const { title, publishDate, slug, illustration } =
-    blogPost
+  export let metadata
+  const { title, published, illustration } = metadata
 </script>
 
 <a
@@ -21,21 +21,23 @@
     y: -20,
     duration: TRANSITION_DURATION,
   }}
-  href={slug}
+  href={'#'}
 >
   <article
     class="blogpost_card--hovereffect relative flex h-40 overflow-hidden border-8 border-stone-800"
   >
-    <div class="bg-red-400" />
+    <div class="flex items-center justify-center p-8">
+      {@html illustration}
+    </div>
     <div
-      class="flex h-1/3 items-center self-center text-ellipsis pl-8"
+      class="flex h-1/3 items-center self-center text-ellipsis pl-8 pr-4"
     >
       <h2 class="text-l font-bold">{title}</h2>
     </div>
     <span
       class="absolute bottom-1 right-1 font-serif text-xs font-bold italic"
-      ><time datetime={publishDate.toString()}>
-        {publishDate.format('DD MMMM YY')}
+      ><time datetime={published.toString()}>
+        {dayjs(published).format('DD MMMM YY')}
       </time>
     </span>
   </article>
