@@ -26,9 +26,7 @@
   <article
     class="blogpost_card--hovereffect relative flex h-40 overflow-hidden border-8 border-stone-800"
   >
-    <div
-      class="hidden items-center justify-center p-8 lg:flex"
-    >
+    <div class="flex items-center justify-center p-8">
       {@html illustration}
     </div>
     <div

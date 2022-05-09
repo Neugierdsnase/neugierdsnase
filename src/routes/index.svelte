@@ -1,32 +1,19 @@
 <script lang="ts">
   import PageHeading from '../components/PageHeading/PageHeading.svelte'
   import '../app.css'
-
-  let y: number
+  import Article from 'src/components/Article/Article.svelte'
 </script>
-
-<svelte:window bind:scrollY={y} />
 
 <div class="relative h-52 overflow-hidden">
   <PageHeading
-    heading={y > 120 ? 'about' : 'Konstantin Kovar'}
-    subheading={y > 120
-      ? 'staying up to date in web development'
-      : 'react and web developer'}
+    headings={['Konstantin Kovar', 'about']}
+    subheadings={[
+      'react and web developer',
+      'staying up to date in web development',
+    ]}
   />
-  {#if y < 450}
-    <div
-      class="absolute top-0 right-0 bg-stone-800"
-      style={`width: ${y * 0.8}%; height: ${404 - y}px`}
-    />
-  {/if}
 </div>
-<article
-  class="prose mx-auto mt-4 xl:prose-xl 2xl:prose-2xl"
-  style={`transform: ${
-    y < 450 ? `translateY(${450 - y}px)` : 'translate(0px)'
-  };`}
->
+<Article>
   <p>
     Web development is fascinating. As an information
     platform, the web is unique in many ways. It is open to
@@ -57,4 +44,4 @@
     unpredictable, ever-changing waters of modern web dev
     and trying to stay on its bleeding edge.
   </p>
-</article>
+</Article>
