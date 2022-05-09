@@ -3,7 +3,10 @@
   import BlogpostCard from '../components/BlogpostCard/BlogpostCard.svelte'
 
   const blogPosts = [
-    compairingTailwindWithPlainCssIsWrongBlogPost,
+    {
+      ...compairingTailwindWithPlainCssIsWrongBlogPost,
+      slug: 'comparing-tailwind-with-plain-css-is-wrong',
+    },
   ]
 </script>
 

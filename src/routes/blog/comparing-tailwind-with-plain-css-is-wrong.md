@@ -10,6 +10,8 @@ illustration: '<svg viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2
 </svg>'
 ---
 
+# Comparing TailwindCSS with plain CSS is plain wrong
+
 A year ago I was teaching web development students about the various approaches to writing and organizing CSS, which is notoriously hard to maintain, in its "natural" form. Among the things I was showing was a brief mention of the "atomic CSS"-approach and the fact that TailwindCSS had gained a considerable amount of steam over the last few years. Back then, I was playing it down as a fad, telling them I didn't understand what all the fuss was about, basically telling them it was unjustified hype.
 
 Fast forward to this semester, when I taught the same course to another class. My view had changed. I told my students, that I now believe there are good chances TailwindCSS will dominate the space for years to come, similar to how Bootstrap had been doing in the mid-2000s.

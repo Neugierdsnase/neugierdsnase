@@ -8,7 +8,7 @@
   } from './../../constants'
   export let index: number
   export let metadata
-  const { title, published, illustration } = metadata
+  const { title, published, illustration, slug } = metadata
 </script>
 
 <a
@@ -21,12 +21,14 @@
     y: -20,
     duration: TRANSITION_DURATION,
   }}
-  href={'#'}
+  href={`./blog/${slug}`}
 >
   <article
     class="blogpost_card--hovereffect relative flex h-40 overflow-hidden border-8 border-stone-800"
   >
-    <div class="flex items-center justify-center p-8">
+    <div
+      class="hidden items-center justify-center p-8 lg:flex"
+    >
       {@html illustration}
     </div>
     <div
