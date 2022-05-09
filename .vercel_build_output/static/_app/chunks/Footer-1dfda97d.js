@@ -1,1 +1,0 @@
-import{S as n,i as c,s as i,e as l,c as h,a as f,d as a,b as m,g as p,n as s}from"./index-189a526a.js";function u(o){let t;return{c(){t=l("footer"),this.h()},l(e){t=h(e,"FOOTER",{class:!0}),f(t).forEach(a),this.h()},h(){m(t,"class","h-4 p-2")},m(e,r){p(e,t,r)},p:s,i:s,o:s,d(e){e&&a(t)}}}class _ extends n{constructor(t){super(),c(this,t,null,u,i,{})}}export{_ as F};

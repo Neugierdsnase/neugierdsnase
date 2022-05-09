@@ -1,12 +1,22 @@
 <script lang="ts">
-  import Footer from './Footer/Footer.svelte'
+  import Article from '../components/Article/Article.svelte'
+  import PageHeading from '../components/PageHeading/PageHeading.svelte'
+  export let title
+  export let alternateTitle
+  export let subtitle
+  export let alternateSubtitle
+  export let illustration
 </script>
 
 <svelte:head>
   <title>Blog | Konstantin Kovar</title>
 </svelte:head>
 
-<article class="prose prose-stone mx-auto">
+<PageHeading
+  headings={[title, alternateTitle]}
+  subheadings={[subtitle, alternateSubtitle]}
+  {illustration}
+/>
+<Article>
   <slot />
-</article>
-<Footer />
+</Article>

@@ -1,7 +1,7 @@
 <script lang="ts">
   import PageHeading from '../components/PageHeading/PageHeading.svelte'
   import '../app.css'
-  import Article from 'src/components/Article/Article.svelte'
+  import Article from '../components/Article/Article.svelte'
 </script>
 
 <div class="relative h-52 overflow-hidden">

@@ -5513,27 +5513,15 @@ var init_hooks_1c45ba0b = __esm({
   }
 });
 
-// .svelte-kit/output/server/chunks/Footer-ee6a4782.js
-var Footer;
-var init_Footer_ee6a4782 = __esm({
-  ".svelte-kit/output/server/chunks/Footer-ee6a4782.js"() {
-    init_index_87d5ee21();
-    Footer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      return `<footer class="${"h-4 p-2"}"></footer>`;
-    });
-  }
-});
-
 // .svelte-kit/output/server/entries/pages/__layout.svelte.js
 var layout_svelte_exports = {};
 __export(layout_svelte_exports, {
   default: () => _layout
 });
-var navRoutes, NavItem, Nav, _layout;
+var navRoutes, NavItem, Nav, Footer, _layout;
 var init_layout_svelte = __esm({
   ".svelte-kit/output/server/entries/pages/__layout.svelte.js"() {
     init_index_87d5ee21();
-    init_Footer_ee6a4782();
     navRoutes = [
       {
         label: "home",
@@ -5549,7 +5537,7 @@ var init_layout_svelte = __esm({
       const { path, label } = route;
       if ($$props.route === void 0 && $$bindings.route && route !== void 0)
         $$bindings.route(route);
-      return `<li><a class="${"w-36 rounded py-2 text-center transition-colors hover:bg-stone-600 hover:text-stone-200"}"${add_attribute("href", path, 0)}><div>${escape(label)}</div></a></li>`;
+      return `<li><a${add_attribute("href", path, 0)}><div class="${"w-36 rounded py-2 text-center transition-colors hover:bg-stone-600 hover:text-stone-200"}">${escape(label)}</div></a></li>`;
     });
     Nav = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       return `
@@ -5557,6 +5545,9 @@ var init_layout_svelte = __esm({
 <nav class="${"mx-auto mb-8 border-b-4 border-stone-700 py-4"}"><ul class="${"flex justify-around"}">${each(navRoutes, (route) => {
         return `${validate_component(NavItem, "NavItem").$$render($$result, { route }, {}, {})}`;
       })}</ul></nav>`;
+    });
+    Footer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      return `<footer class="${"h-4 p-2"}"></footer>`;
     });
     _layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       return `${$$result.head += `${$$result.title = `<title>Konstantin Kovar</title>`, ""}`, ""}
@@ -5582,9 +5573,9 @@ var entry, js, css;
 var init__ = __esm({
   ".svelte-kit/output/server/nodes/0.js"() {
     init_layout_svelte();
-    entry = "pages/__layout.svelte-f8a2cd15.js";
-    js = ["pages/__layout.svelte-f8a2cd15.js", "chunks/index-189a526a.js", "chunks/index-8edb78f7.js", "chunks/Footer-1dfda97d.js"];
-    css = ["assets/app-f4368bc7.css"];
+    entry = "pages/__layout.svelte-f06db7d9.js";
+    js = ["pages/__layout.svelte-f06db7d9.js", "chunks/index-60c65196.js", "chunks/index-cc273379.js"];
+    css = ["assets/app-2ef04176.css"];
   }
 });
 
@@ -5632,8 +5623,8 @@ var entry2, js2, css2;
 var init__2 = __esm({
   ".svelte-kit/output/server/nodes/1.js"() {
     init_error_svelte();
-    entry2 = "error.svelte-0342b42d.js";
-    js2 = ["error.svelte-0342b42d.js", "chunks/index-189a526a.js"];
+    entry2 = "error.svelte-2158f84d.js";
+    js2 = ["error.svelte-2158f84d.js", "chunks/index-60c65196.js"];
     css2 = [];
   }
 });
@@ -5756,7 +5747,6 @@ var Root = create_ssr_component(($$result, $$props, $$bindings, slots) => {
   let { props_0 = null } = $$props;
   let { props_1 = null } = $$props;
   let { props_2 = null } = $$props;
-  let { props_3 = null } = $$props;
   setContext("__svelte__", stores);
   afterUpdate(stores.page.notify);
   if ($$props.stores === void 0 && $$bindings.stores && stores !== void 0)
@@ -5771,8 +5761,6 @@ var Root = create_ssr_component(($$result, $$props, $$bindings, slots) => {
     $$bindings.props_1(props_1);
   if ($$props.props_2 === void 0 && $$bindings.props_2 && props_2 !== void 0)
     $$bindings.props_2(props_2);
-  if ($$props.props_3 === void 0 && $$bindings.props_3 && props_3 !== void 0)
-    $$bindings.props_3(props_3);
   {
     stores.page.set(page);
   }
@@ -5783,11 +5771,7 @@ ${components[1] ? `${validate_component(components[0] || missing_component, "sve
     default: () => {
       return `${components[2] ? `${validate_component(components[1] || missing_component, "svelte:component").$$render($$result, Object.assign(props_1 || {}), {}, {
         default: () => {
-          return `${components[3] ? `${validate_component(components[2] || missing_component, "svelte:component").$$render($$result, Object.assign(props_2 || {}), {}, {
-            default: () => {
-              return `${validate_component(components[3] || missing_component, "svelte:component").$$render($$result, Object.assign(props_3 || {}), {}, {})}`;
-            }
-          })}` : `${validate_component(components[2] || missing_component, "svelte:component").$$render($$result, Object.assign(props_2 || {}), {}, {})}`}`;
+          return `${validate_component(components[2] || missing_component, "svelte:component").$$render($$result, Object.assign(props_2 || {}), {}, {})}`;
         }
       })}` : `${validate_component(components[1] || missing_component, "svelte:component").$$render($$result, Object.assign(props_1 || {}), {}, {})}`}`;
     }
@@ -7666,7 +7650,7 @@ function set_paths(paths) {
   base = paths.base;
   assets = paths.assets || base;
 }
-var template = ({ head, body, assets: assets2, nonce }) => '<!DOCTYPE html>\n<html lang="en">\n  <head>\n    <meta charset="utf-8" />\n    <meta name="description" content="" />\n    <link rel="icon" href="' + assets2 + '/favicon.png" />\n    <meta\n      name="viewport"\n      content="width=device-width, initial-scale=1"\n    />\n    ' + head + "\n    <style>\n      @font-face {\n        font-family: 'Lora';\n        font-style: normal;\n        font-display: swap;\n        font-weight: 400;\n        src: local('Lora'), local('Lora Regular'),\n          local('Lora-VariableFont_wght'),\n          url('../static/fonts/Lora.ttf') format('ttf');\n      }\n\n      @font-face {\n        font-family: 'Lora';\n        font-style: italic;\n        font-display: swap;\n        font-weight: 400;\n        src: local('Lora'), local('Lora Italic'),\n          local('Lora-Italic-VariableFont_wght'),\n          url('../static/fonts/Lora-Italic.ttf')\n            format('ttf');\n      }\n    </style>\n  </head>\n  <body>\n    <div>" + body + '</div>\n    <script\n      defer\n      data-goatcounter="https://neugierdsnase.goatcounter.com/count"\n      async\n      src="//gc.zgo.at/count.js"\n    ><\/script>\n  </body>\n</html>\n';
+var template = ({ head, body, assets: assets2, nonce }) => '<!DOCTYPE html>\n<html lang="en">\n  <head>\n    <meta charset="utf-8" />\n    <meta name="description" content="" />\n    <link rel="icon" href="' + assets2 + '/favicon.png" />\n    <link\n      href="' + assets2 + '/syntaxHighlighting.css"\n      rel="stylesheet"\n      type="text/css"\n    />\n    <meta\n      name="viewport"\n      content="width=device-width, initial-scale=1"\n    />\n    ' + head + "\n    <style>\n      @font-face {\n        font-family: 'Lora';\n        font-style: normal;\n        font-display: swap;\n        font-weight: 400;\n        src: local('Lora'), local('Lora Regular'),\n          local('Lora-VariableFont_wght'),\n          url('../static/fonts/Lora.ttf') format('ttf');\n      }\n\n      @font-face {\n        font-family: 'Lora';\n        font-style: italic;\n        font-display: swap;\n        font-weight: 400;\n        src: local('Lora'), local('Lora Italic'),\n          local('Lora-Italic-VariableFont_wght'),\n          url('../static/fonts/Lora-Italic.ttf')\n            format('ttf');\n      }\n    </style>\n  </head>\n  <body>\n    <div>" + body + '</div>\n    <script\n      defer\n      data-goatcounter="https://neugierdsnase.goatcounter.com/count"\n      async\n      src="//gc.zgo.at/count.js"\n    ><\/script>\n  </body>\n</html>\n';
 var read = null;
 set_paths({ "base": "", "assets": "" });
 var Server = class {
@@ -7723,10 +7707,10 @@ var Server = class {
 // .svelte-kit/vercel-tmp/manifest.js
 var manifest = {
   appDir: "_app",
-  assets: /* @__PURE__ */ new Set(["favicon.png", "fonts/Lora-Italic.ttf", "fonts/Lora.ttf"]),
-  mimeTypes: { ".png": "image/png", ".ttf": "font/ttf" },
+  assets: /* @__PURE__ */ new Set(["favicon.png", "fonts/Lora-Italic.ttf", "fonts/Lora.ttf", "syntaxHighlighting.css"]),
+  mimeTypes: { ".png": "image/png", ".ttf": "font/ttf", ".css": "text/css" },
   _: {
-    entry: { "file": "start-5a13f038.js", "js": ["start-5a13f038.js", "chunks/index-189a526a.js"], "css": [] },
+    entry: { "file": "start-a8241e49.js", "js": ["start-a8241e49.js", "chunks/index-60c65196.js"], "css": [] },
     nodes: [
       () => Promise.resolve().then(() => (init__(), __exports)),
       () => Promise.resolve().then(() => (init__2(), __exports2))

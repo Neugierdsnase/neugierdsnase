@@ -1,12 +1,17 @@
 <script lang="ts">
+  import base64 from 'base-64'
   import {
     TRANSITION_DELAY,
     TRANSITION_DURATION,
   } from './../../constants'
   import { fly } from 'svelte/transition'
 
-  export let headings: [string, string]
-  export let subheadings: [string, string] = ['', '']
+  export let headings: [string, string | undefined]
+  export let subheadings: [
+    string | undefined,
+    string | undefined,
+  ] = [undefined, undefined]
+  export let illustration: string | undefined = undefined
   let y: number
 </script>
 
@@ -26,7 +31,7 @@
         duration: TRANSITION_DURATION,
       }}
     >
-      {y > 120 ? headings[1] : headings[0]}
+      {y > 120 ? headings[1] || '' : headings[0] || ''}
     </h1>
     {#if subheadings.some(Boolean)}
       <subtitle
@@ -41,8 +46,8 @@
         }}
         class="font-serif text-xl italic"
         >{y > 120
-          ? subheadings[1]
-          : subheadings[0]}</subtitle
+          ? subheadings[1] || ''
+          : subheadings[0] || ''}</subtitle
       >
     {/if}
   </div>
@@ -53,3 +58,9 @@
     />
   {/if}
 </div>
+<div
+  class="relative h-80 bg-contain bg-center bg-no-repeat text-red-500"
+  style={`background-image: url("data:image/svg;base64,${base64.encode(
+    illustration,
+  )}"`}
+/>

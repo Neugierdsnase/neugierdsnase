@@ -5,8 +5,8 @@
 @layer base {
   body {
     @apply bg-stone-200 text-stone-800;
-      scroll-behavior: smooth;
-    }
+    scroll-behavior: smooth;
+  }
 
   .blogpost_card--hovereffect > div {
     @apply transition-transform duration-300;
