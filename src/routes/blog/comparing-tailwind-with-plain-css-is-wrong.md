@@ -1,5 +1,3 @@
-# Comparing TailwindCSS with plain CSS is wrong
-
 A year ago I was teaching web development students about the various approaches to writing and organizing CSS, which is notoriously hard to maintain, in its "natural" form. Among the things I was showing was a brief mention of the "atomic CSS"-approach and the fact that TailwindCSS had gained a considerable amount of steam over the last few years. Back then, I was playing it down as a fad, telling them I didn't understand what all the fuss was about, basically telling them it was unjustified hype.
 
 Fast forward to this semester, when I taught the same course to another class. My view had changed. I told my students, that I now believe there are good chances TailwindCSS will dominate the space for years to come, similar to how Bootstrap had been doing in the mid-2000s.
@@ -23,7 +21,7 @@ Let's focus on the last two points. These have likely been integrated because ke
 
 ## Performance-gore
 
-None of this comes without a cost. The whole convoluted sentence you just decided not to read, is computed *at runtime* and believe me when I tell you, a peek under styled-systems hood reveals some treacherous caveats.
+None of this comes without a cost. The whole convoluted sentence you just decided not to read, is computed *at runtime* and believe me when I tell you, a peek under styled-system's hood reveals some treacherous caveats.
 
 So what if we could have all of that power, but none of that runtime overhead? Sounds too good to be true? Well, let's take a look at how we would replace styled-system code with TailwindCSS in this simple example.
 
@@ -110,7 +108,7 @@ The "but tailwind is hard to read" argument backfires at this point. Tailwind of
 
 Inexplicably, Tailwind does not yet support the `pointer` media query, which I frequently used to enlargen clickable areas for buttons on touch displays. [There seems to be an plugin in development](https://github.com/ShiftLimits/tailwindcss-interaction-media), but its activity doesn't stoke confidence. 
 
-Aside from this minor nuisance, there are also natural limits to the atomic CSS approach. The one that had the most impact on me (while coding this very blog, actually) is the fact that there is no way to style an element while *another* element is interacted with. Consider the following SCSS, in which an image gets shown when it's sibling text is hovered over.
+Aside from this minor nuisance, there are also natural limits to the atomic CSS approach. The one that had the most impact on me (while coding this very blog, actually) is the fact that there is no way to style an element while *another* element is interacted with. Consider the following SCSS, in which an image gets shown when its sibling text is hovered over.
 
 ```scss
 .image {
@@ -124,7 +122,7 @@ Aside from this minor nuisance, there are also natural limits to the atomic CSS 
 }
 ```
 
-It is not possible to emulate this behaviour with atomic classes alone, in fact, whenever we want to express relationships between certain elements, we have to deviate from the atomic CSS principle, by writing custom classes in our entry CSS file and applying those to our elements.
+It is not possible to emulate this behavior with atomic classes alone, in fact, whenever we want to express relationships between certain elements, we have to deviate from the atomic CSS principle, by writing custom classes in our entry CSS file and applying those to our elements.
 
 ## Conclusion
 

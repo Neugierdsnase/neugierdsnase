@@ -6,4 +6,10 @@ export const TRANSITION_DELAY = 250
 
 const generateBlogpostSlug = (s: string) => `/blog/${s}`
 
-export const BLOGPOSTS: BlogpostType[] = []
+export const BLOGPOSTS: BlogpostType[] = [
+  {
+    title: "Comparing TailwindCSS with plain CSS is wrong",
+    slug: generateBlogpostSlug('comparing-tailwind-with-plain-css-is-wrong.md'),
+    publishDate: dayjs('2022-05-09'),
+  }
+]
