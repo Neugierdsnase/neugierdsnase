@@ -12,7 +12,7 @@
       ...yourNotJustLateForCryptoBlogPost,
       slug: 'youre-not-just-late-to-crypto',
     },
-  ]
+  ].reverse()
 </script>
 
 <div
