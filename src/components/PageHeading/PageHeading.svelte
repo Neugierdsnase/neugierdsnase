@@ -58,6 +58,15 @@
   {/if}
 </div>
 <div
+  in:fly={{
+    y: 20,
+    duration: TRANSITION_DURATION,
+    delay: 2 * TRANSITION_DELAY + 250,
+  }}
+  out:fly={{
+    y: -20,
+    duration: TRANSITION_DURATION,
+  }}
   class="relative h-56 bg-contain bg-center bg-no-repeat text-red-500"
   style={`background-image: url('data:image/svg+xml;utf8,${illustration}');`}
 />
