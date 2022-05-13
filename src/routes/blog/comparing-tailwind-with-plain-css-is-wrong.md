@@ -1,5 +1,5 @@
 ---
-title: Comparing TailwindCSS with plain CSS is plain wrong
+title: Don't compare TailwindCSS with CSS
 author: Konstantin <mail@vomkonstant.in>
 published: '2022-05-09'
 illustration: '<svg viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">
