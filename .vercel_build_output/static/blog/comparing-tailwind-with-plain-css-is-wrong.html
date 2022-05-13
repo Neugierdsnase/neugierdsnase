@@ -14,15 +14,15 @@
       content="width=device-width, initial-scale=1"
     />
     <meta http-equiv="content-security-policy" content=""><title>Blog | Konstantin Kovar</title>
-	<link rel="stylesheet" href="/_app/assets/app-2ef04176.css">
-	<link rel="modulepreload" href="/_app/start-3fd06dcb.js">
+	<link rel="stylesheet" href="/_app/assets/app-10caf8e2.css">
+	<link rel="modulepreload" href="/_app/start-63f0ec1e.js">
 	<link rel="modulepreload" href="/_app/chunks/index-60c65196.js">
 	<link rel="modulepreload" href="/_app/pages/__layout.svelte-f06db7d9.js">
 	<link rel="modulepreload" href="/_app/chunks/index-cc273379.js">
-	<link rel="modulepreload" href="/_app/pages/blog/comparing-tailwind-with-plain-css-is-wrong.md-8660c008.js">
-	<link rel="modulepreload" href="/_app/chunks/BlogPostLayout-49c432fc.js">
+	<link rel="modulepreload" href="/_app/pages/blog/comparing-tailwind-with-plain-css-is-wrong.md-97d76a1e.js">
+	<link rel="modulepreload" href="/_app/chunks/BlogPostLayout-61d73c1a.js">
 	<link rel="modulepreload" href="/_app/chunks/Article-59e33f16.js">
-	<link rel="modulepreload" href="/_app/chunks/PageHeading-53856508.js">
+	<link rel="modulepreload" href="/_app/chunks/PageHeading-a1dcc715.js">
     <style>
       @font-face {
         font-family: 'Lora';
@@ -64,7 +64,7 @@
 <div class="relative h-52 overflow-hidden"><div class="relative my-4 h-52 w-full text-center"><h1 class="mb-8 text-6xl">Comparing TailwindCSS with plain CSS is plain wrong</h1>
     </div>
   </div>
-<div class="relative h-80 bg-contain bg-center bg-no-repeat text-red-500" style="background-image: url(&quot;data:image/svg;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjUwIDI1MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4gPGcgc3Ryb2tlLXdpZHRoPSIxMCIgc3Ryb2tlLW1pdGVybGltaXQ9IjEuNSIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIj4gPHBhdGggZD0iTTExLjI3IDg5Ljg0NGM1LjQzNy03LjA0IDExLjIxNC0xMi41MTIgMTguOTQzLTE2LjkyOSA1NS42Mi0zMS43ODIgODcuNjc3IDM2LjI1IDEzNS41OTMgNTAuMDYyIDMwLjM1NCA4Ljc1IDczLjkxMy0zLjM3NiA3Mi4yOTktNDIuNDgyIiBzdHJva2U9ImN1cnJlbnRjb2xvciIgc3Ryb2tlLXdpZHRoPSIyMC40OTE3OTk5OTk5OTk5OTgiLz4gPHBhdGggZD0iTTQ2LjEzNiAxMzkuNzdjMjUuMjEtMTguMTQ5IDQ0LjYxNi0uOTA2IDY1LjEzNyAxNC4xNDUgMjYuNTYgMTkuNDc5IDU5IDM4LjI1NCA5MS41NTYgMTkuOTM1IiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyMC40OTE3OTk5OTk5OTk5OTgiLz4gPC9nPiA8L3N2Zz4=&quot;"></div>
+<div class="relative h-56 bg-contain bg-center bg-no-repeat text-red-500" style="background-image: url(&#39;data:image/svg+xml;utf8,&lt;svg viewBox=&quot;0 0 250 250&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt; &lt;g stroke-width=&quot;10&quot; stroke-miterlimit=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt; &lt;path d=&quot;M11.27 89.844c5.437-7.04 11.214-12.512 18.943-16.929 55.62-31.782 87.677 36.25 135.593 50.062 30.354 8.75 73.913-3.376 72.299-42.482&quot; stroke=&quot;currentcolor&quot; stroke-width=&quot;20.491799999999998&quot;/&gt; &lt;path d=&quot;M46.136 139.77c25.21-18.149 44.616-.906 65.137 14.145 26.56 19.479 59 38.254 91.556 19.935&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;20.491799999999998&quot;/&gt; &lt;/g&gt; &lt;/svg&gt;&#39;);"></div>
 
 
 <article class="prose prose-stone mx-auto mt-4 xl:prose-xl 2xl:prose-2xl" style="transform: translate(0px);"><p>A year ago I was teaching web development students about the various approaches to writing and organizing CSS, which is notoriously hard to maintain, in its “natural” form. Among the things I was showing was a brief mention of the “atomic CSS”-approach and the fact that TailwindCSS had gained a considerable amount of steam over the last few years. Back then, I was playing it down as a fad, telling them I didn’t understand what all the fuss was about, basically telling them it was unjustified hype.</p>
@@ -111,9 +111,10 @@
     </span><span class="token punctuation">&#123;</span>children<span class="token punctuation">&#125;</span><span class="token plain-text">
   </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
 )</span></code><!-- HTML_TAG_END --></pre>
-<p>As we can see, the ideas at play are the same. In both examples, we use both</p>
-<ul><li>values defined in our theme/config for the padding and</li>
-<li>arbitrary values that are presumably at this single spot for the positioning and width.</li></ul>
+<p>As we can see, the ideas at play are the same. In both examples, we</p>
+<ul><li>use values defined in our theme/config for the padding</li>
+<li>use arbitrary values for the positioning and width</li>
+<li>defined all of the styles inline</li></ul>
 <h2>Responsiveness</h2>
 <p>Let’s take a look at responsive styling. I will just show single lines for brevity. This is how you might change a components margin depending on screen size in styled-system.</p>
 <pre class="language-tsx"><!-- HTML_TAG_START --><code class="language-tsx">  m<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span>sm<span class="token operator">:</span> <span class="token string">'4px'</span><span class="token punctuation">,</span> md<span class="token operator">:</span> <span class="token string">'8px'</span><span class="token punctuation">,</span> lg<span class="token operator">:</span> <span class="token string">'16px'</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span></code><!-- HTML_TAG_END --></pre>
@@ -131,9 +132,9 @@
 <span class="token punctuation">/></span></span></code><!-- HTML_TAG_END --></pre>
 <p>Now if that isn’t some ugly code. Let’s compare this to what tailwind has to offer:</p>
 <pre class="language-tsx"><!-- HTML_TAG_START --><code class="language-tsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>hover:bg-red-500<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></code><!-- HTML_TAG_END --></pre>
-<p>The “but tailwind is hard to read” argument backfires at this point. Tailwind offers the same principles with most of the other pseudo-selectors and media queries you would normally use: <code>focus</code>, <code>active</code>, <code>visited</code>, <code>first</code>, <code>last</code> and even <code>even</code>. If you are using animations or transitions, there is even a modifier to handle the <code>prefers-reduced-motion</code> media query with <code>motion-reduce:</code>.</p>
+<p>The “but tailwind is hard to read” argument backfires at this point. Tailwind offers the same principles with most of the other pseudo-selectors and media queries you would normally use: <code>focus</code>, <code>active</code>, <code>visited</code>, <code>first</code>, <code>last</code> and even <code>even</code>. If you are using animations or transitions, there is even a modifier to handle the <code>prefers-reduced-motion</code> media query with <code>motion-reduce</code>.</p>
 <h2>… but it won’t do that</h2>
-<p>Inexplicably, Tailwind does not yet support the <code>pointer</code> media query, which I frequently used to enlargen clickable areas for buttons on touch displays. <a href="https://github.com/ShiftLimits/tailwindcss-interaction-media" rel="nofollow">There seems to be an plugin in development</a>, but its activity doesn’t stoke confidence.</p>
+<p>Inexplicably, Tailwind does not yet support the <code>pointer</code> media query, which I frequently used to enlargen clickable areas for buttons on touch displays. <a href="https://github.com/ShiftLimits/tailwindcss-interaction-media" rel="nofollow">There seems to be a plugin in development</a>, but its activity doesn’t stoke confidence.</p>
 <p>Aside from this minor nuisance, there are also natural limits to the atomic CSS approach. The one that had the most impact on me (while coding this very blog, actually) is the fact that there is no way to style an element while <em>another</em> element is interacted with. Consider the following SCSS, in which an image gets shown when its sibling text is hovered over.</p>
 <pre class="language-scss"><!-- HTML_TAG_START --><code class="language-scss"><span class="token selector">.image </span><span class="token punctuation">&#123;</span>
   <span class="token property">opacity</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
@@ -146,14 +147,14 @@
 <span class="token punctuation">&#125;</span></code><!-- HTML_TAG_END --></pre>
 <p>It is not possible to emulate this behavior with atomic classes alone, in fact, whenever we want to express relationships between certain elements, we have to deviate from the atomic CSS principle, by writing custom classes in our entry CSS file and applying those to our elements.</p>
 <h2>Conclusion</h2>
-<p>Comparing TailwindCSS to plain CSS or even Sass/SCSS, you might question it’s benefit. When did you last write plain CSS though? Modern projects often rely on complex, component-based architectures, for which appropriate styling methods have evolved, and have long reigned supreme in the space. When compared to <em>these</em> styling methods, it becomes clear why TailwindCSS has gained such a strong following over the past years.</p></article></div>
+<p>Comparing TailwindCSS to plain CSS or even Sass/SCSS, you might question its benefit. When did you last write plain CSS though? Modern projects often rely on complex, component-based architectures, for which appropriate styling methods have evolved, and have long reigned supreme in the space. When compared to <em>these</em> styling methods, it becomes clear why TailwindCSS has gained such a strong following over the past years.</p></article></div>
     <footer class="h-4 p-2"></footer></div></div>
 
 
-		<script type="module" data-hydrate="e1vre1">
-		import { start } from "/_app/start-3fd06dcb.js";
+		<script type="module" data-hydrate="n5fxfp">
+		import { start } from "/_app/start-63f0ec1e.js";
 		start({
-			target: document.querySelector('[data-hydrate="e1vre1"]').parentNode,
+			target: document.querySelector('[data-hydrate="n5fxfp"]').parentNode,
 			paths: {"base":"","assets":""},
 			session: {},
 			route: true,
@@ -164,7 +165,7 @@
 				error: null,
 				nodes: [
 					import("/_app/pages/__layout.svelte-f06db7d9.js"),
-						import("/_app/pages/blog/comparing-tailwind-with-plain-css-is-wrong.md-8660c008.js")
+						import("/_app/pages/blog/comparing-tailwind-with-plain-css-is-wrong.md-97d76a1e.js")
 				],
 				params: {},
 				routeId: "blog/comparing-tailwind-with-plain-css-is-wrong"

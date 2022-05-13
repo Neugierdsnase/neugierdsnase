@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-3fd06dcb.js",
+    "file": "start-63f0ec1e.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -10,6 +10,7 @@
       "src/routes/__layout.svelte",
       ".svelte-kit/runtime/components/error.svelte",
       "src/routes/blog/comparing-tailwind-with-plain-css-is-wrong.md",
+      "src/routes/blog/league-of-miserables.md",
       "src/routes/blog/rust-and-wasm.md",
       "src/routes/blog/rustlings.md",
       "src/routes/blog/the-book.md",
@@ -30,7 +31,7 @@
       "_index-cc273379.js"
     ],
     "css": [
-      "assets/app-2ef04176.css"
+      "assets/app-10caf8e2.css"
     ]
   },
   ".svelte-kit/runtime/components/error.svelte": {
@@ -43,122 +44,135 @@
     ]
   },
   "src/routes/blog/comparing-tailwind-with-plain-css-is-wrong.md": {
-    "file": "pages/blog/comparing-tailwind-with-plain-css-is-wrong.md-8660c008.js",
+    "file": "pages/blog/comparing-tailwind-with-plain-css-is-wrong.md-97d76a1e.js",
     "src": "src/routes/blog/comparing-tailwind-with-plain-css-is-wrong.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_BlogPostLayout-49c432fc.js",
+      "_BlogPostLayout-61d73c1a.js",
       "_Article-59e33f16.js",
-      "_PageHeading-53856508.js",
+      "_PageHeading-a1dcc715.js",
+      "_index-cc273379.js"
+    ]
+  },
+  "src/routes/blog/league-of-miserables.md": {
+    "file": "pages/blog/league-of-miserables.md-31994646.js",
+    "src": "src/routes/blog/league-of-miserables.md",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-60c65196.js",
+      "_BlogPostLayout-61d73c1a.js",
+      "_Article-59e33f16.js",
+      "_PageHeading-a1dcc715.js",
       "_index-cc273379.js"
     ]
   },
   "src/routes/blog/rust-and-wasm.md": {
-    "file": "pages/blog/rust-and-wasm.md-1a817522.js",
+    "file": "pages/blog/rust-and-wasm.md-1def46d6.js",
     "src": "src/routes/blog/rust-and-wasm.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_BlogPostLayout-49c432fc.js",
+      "_BlogPostLayout-61d73c1a.js",
       "_Article-59e33f16.js",
-      "_PageHeading-53856508.js",
+      "_PageHeading-a1dcc715.js",
       "_index-cc273379.js"
     ]
   },
   "src/routes/blog/rustlings.md": {
-    "file": "pages/blog/rustlings.md-0e23a52d.js",
+    "file": "pages/blog/rustlings.md-bcc40805.js",
     "src": "src/routes/blog/rustlings.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_BlogPostLayout-49c432fc.js",
+      "_BlogPostLayout-61d73c1a.js",
       "_Article-59e33f16.js",
-      "_PageHeading-53856508.js",
+      "_PageHeading-a1dcc715.js",
       "_index-cc273379.js"
     ]
   },
   "src/routes/blog/the-book.md": {
-    "file": "pages/blog/the-book.md-27802daa.js",
+    "file": "pages/blog/the-book.md-7a14cb98.js",
     "src": "src/routes/blog/the-book.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_BlogPostLayout-49c432fc.js",
+      "_BlogPostLayout-61d73c1a.js",
       "_Article-59e33f16.js",
-      "_PageHeading-53856508.js",
+      "_PageHeading-a1dcc715.js",
       "_index-cc273379.js"
     ]
   },
   "src/routes/blog/wordpress-is-probably-all-you-need.md": {
-    "file": "pages/blog/wordpress-is-probably-all-you-need.md-6ea87dcd.js",
+    "file": "pages/blog/wordpress-is-probably-all-you-need.md-48627fe5.js",
     "src": "src/routes/blog/wordpress-is-probably-all-you-need.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_BlogPostLayout-49c432fc.js",
+      "_BlogPostLayout-61d73c1a.js",
       "_Article-59e33f16.js",
-      "_PageHeading-53856508.js",
+      "_PageHeading-a1dcc715.js",
       "_index-cc273379.js"
     ]
   },
   "src/routes/blog/youre-not-just-late-to-crypto.md": {
-    "file": "pages/blog/youre-not-just-late-to-crypto.md-e1d02d07.js",
+    "file": "pages/blog/youre-not-just-late-to-crypto.md-cec2868f.js",
     "src": "src/routes/blog/youre-not-just-late-to-crypto.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_BlogPostLayout-49c432fc.js",
+      "_BlogPostLayout-61d73c1a.js",
       "_Article-59e33f16.js",
-      "_PageHeading-53856508.js",
+      "_PageHeading-a1dcc715.js",
       "_index-cc273379.js"
     ]
   },
   "src/routes/blog.svelte": {
-    "file": "pages/blog.svelte-2a3e212d.js",
+    "file": "pages/blog.svelte-c58828db.js",
     "src": "src/routes/blog.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_PageHeading-53856508.js",
       "_index-cc273379.js",
+      "_PageHeading-a1dcc715.js",
       "src/routes/blog/youre-not-just-late-to-crypto.md",
       "src/routes/blog/comparing-tailwind-with-plain-css-is-wrong.md",
-      "_BlogPostLayout-49c432fc.js",
+      "_BlogPostLayout-61d73c1a.js",
       "_Article-59e33f16.js"
     ]
   },
   "src/routes/cv/index.svelte": {
-    "file": "pages/cv/index.svelte-1303c6f9.js",
+    "file": "pages/cv/index.svelte-dbc07e54.js",
     "src": "src/routes/cv/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_PageHeading-53856508.js",
+      "_PageHeading-a1dcc715.js",
       "_index-cc273379.js"
     ]
   },
   "src/routes/index.svelte": {
-    "file": "pages/index.svelte-d7cafa53.js",
+    "file": "pages/index.svelte-9fabf295.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_PageHeading-53856508.js",
+      "_PageHeading-a1dcc715.js",
       "_Article-59e33f16.js",
       "_index-cc273379.js"
     ],
     "css": [
-      "assets/app-2ef04176.css"
+      "assets/app-10caf8e2.css"
     ]
   },
   "_index-60c65196.js": {
@@ -170,12 +184,12 @@
       "_index-60c65196.js"
     ]
   },
-  "_BlogPostLayout-49c432fc.js": {
-    "file": "chunks/BlogPostLayout-49c432fc.js",
+  "_BlogPostLayout-61d73c1a.js": {
+    "file": "chunks/BlogPostLayout-61d73c1a.js",
     "imports": [
       "_index-60c65196.js",
       "_Article-59e33f16.js",
-      "_PageHeading-53856508.js"
+      "_PageHeading-a1dcc715.js"
     ]
   },
   "_Article-59e33f16.js": {
@@ -184,8 +198,8 @@
       "_index-60c65196.js"
     ]
   },
-  "_PageHeading-53856508.js": {
-    "file": "chunks/PageHeading-53856508.js",
+  "_PageHeading-a1dcc715.js": {
+    "file": "chunks/PageHeading-a1dcc715.js",
     "imports": [
       "_index-60c65196.js",
       "_index-cc273379.js"

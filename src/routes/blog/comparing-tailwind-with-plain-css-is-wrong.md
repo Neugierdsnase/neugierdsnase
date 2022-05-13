@@ -73,6 +73,7 @@ const SomeComponent: FunctionComponent = ({children}) => (
 ```
 
 As we can see, the ideas at play are the same. In both examples, we
+
 - use values defined in our theme/config for the padding
 - use arbitrary values for the positioning and width
 - defined all of the styles inline
