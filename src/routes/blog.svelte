@@ -1,9 +1,14 @@
 <script lang="ts" context="module">
   import { metadata as compairingTailwindWithPlainCssIsWrongBlogPost } from './blog/comparing-tailwind-with-plain-css-is-wrong.md'
   import { metadata as yourNotJustLateForCryptoBlogPost } from './blog/youre-not-just-late-to-crypto.md'
+  import { metadata as pythonsMostUnderratedGameEngineBlogPost } from './blog/pythons-most-underrated-game-engine.md'
   import BlogpostCard from '../components/BlogpostCard/BlogpostCard.svelte'
 
   const blogPosts = [
+    {
+      ...pythonsMostUnderratedGameEngineBlogPost,
+      slug: 'pythons-most-underrated-game-engine',
+    },
     {
       ...compairingTailwindWithPlainCssIsWrongBlogPost,
       slug: 'comparing-tailwind-with-plain-css-is-wrong',

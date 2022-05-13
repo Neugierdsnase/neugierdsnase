@@ -1,3 +1,7 @@
+<script context="module">
+  export const prerender = true
+</script>
+
 <script lang="ts">
   import Article from '../components/Article/Article.svelte'
   import PageHeading from '../components/PageHeading/PageHeading.svelte'

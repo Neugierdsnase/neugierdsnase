@@ -1,3 +1,7 @@
+<script context="module">
+  export const prerender = true
+</script>
+
 <script lang="ts">
   import Nav from '../components/Nav/Nav.svelte'
 

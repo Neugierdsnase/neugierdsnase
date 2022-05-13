@@ -5,7 +5,7 @@
 <svelte:window bind:scrollY={y} />
 
 <article
-  class="prose prose-stone mx-auto mt-4 xl:prose-xl 2xl:prose-2xl"
+  class="prose prose-stone mx-auto mt-4 prose-code:font-mono prose-code:text-lg prose-code:font-normal before:prose-code:hidden after:prose-code:hidden xl:prose-xl 2xl:prose-2xl"
   style={`transform: ${
     y < 450 ? `translateY(${450 - y}px)` : 'translate(0px)'
   };`}
