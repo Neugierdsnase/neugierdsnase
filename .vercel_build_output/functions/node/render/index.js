@@ -7710,7 +7710,7 @@ var manifest = {
   assets: /* @__PURE__ */ new Set(["favicon.png", "fonts/Lora-Italic.ttf", "fonts/Lora.ttf", "syntaxHighlighting.css"]),
   mimeTypes: { ".png": "image/png", ".ttf": "font/ttf", ".css": "text/css" },
   _: {
-    entry: { "file": "start-a8241e49.js", "js": ["start-a8241e49.js", "chunks/index-60c65196.js"], "css": [] },
+    entry: { "file": "start-3fd06dcb.js", "js": ["start-3fd06dcb.js", "chunks/index-60c65196.js"], "css": [] },
     nodes: [
       () => Promise.resolve().then(() => (init__(), __exports)),
       () => Promise.resolve().then(() => (init__2(), __exports2))

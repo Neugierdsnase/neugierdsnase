@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-a8241e49.js",
+    "file": "start-3fd06dcb.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -95,7 +95,7 @@
     ]
   },
   "src/routes/blog/wordpress-is-probably-all-you-need.md": {
-    "file": "pages/blog/wordpress-is-probably-all-you-need.md-37b27d7b.js",
+    "file": "pages/blog/wordpress-is-probably-all-you-need.md-6ea87dcd.js",
     "src": "src/routes/blog/wordpress-is-probably-all-you-need.md",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -108,7 +108,7 @@
     ]
   },
   "src/routes/blog/youre-not-just-late-to-crypto.md": {
-    "file": "pages/blog/youre-not-just-late-to-crypto.md-7eebdde3.js",
+    "file": "pages/blog/youre-not-just-late-to-crypto.md-e1d02d07.js",
     "src": "src/routes/blog/youre-not-just-late-to-crypto.md",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -121,7 +121,7 @@
     ]
   },
   "src/routes/blog.svelte": {
-    "file": "pages/blog.svelte-2ebb66ad.js",
+    "file": "pages/blog.svelte-2a3e212d.js",
     "src": "src/routes/blog.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -129,6 +129,7 @@
       "_index-60c65196.js",
       "_PageHeading-53856508.js",
       "_index-cc273379.js",
+      "src/routes/blog/youre-not-just-late-to-crypto.md",
       "src/routes/blog/comparing-tailwind-with-plain-css-is-wrong.md",
       "_BlogPostLayout-49c432fc.js",
       "_Article-59e33f16.js"
