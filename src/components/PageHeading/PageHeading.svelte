@@ -1,5 +1,4 @@
 <script lang="ts">
-  import base64 from 'base-64'
   import {
     TRANSITION_DELAY,
     TRANSITION_DURATION,
@@ -59,8 +58,6 @@
   {/if}
 </div>
 <div
-  class="relative h-80 bg-contain bg-center bg-no-repeat text-red-500"
-  style={`background-image: url("data:image/svg;base64,${base64.encode(
-    illustration,
-  )}"`}
+  class="relative h-56 bg-contain bg-center bg-no-repeat text-red-500"
+  style={`background-image: url('data:image/svg+xml;utf8,${illustration}');`}
 />
