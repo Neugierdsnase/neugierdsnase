@@ -72,10 +72,10 @@ const SomeComponent: FunctionComponent = ({children}) => (
 )
 ```
 
-As we can see, the ideas at play are the same. In both examples, we use both
-
-- values defined in our theme/config for the padding and
-- arbitrary values that are presumably at this single spot for the positioning and width.
+As we can see, the ideas at play are the same. In both examples, we
+- use values defined in our theme/config for the padding
+- use arbitrary values for the positioning and width
+- defined all of the styles inline
 
 ## Responsiveness
 
@@ -113,11 +113,11 @@ Now if that isn't some ugly code. Let's compare this to what tailwind has to off
 <div className="hover:bg-red-500">
 ```
 
-The "but tailwind is hard to read" argument backfires at this point. Tailwind offers the same principles with most of the other pseudo-selectors and media queries you would normally use: `focus`, `active`, `visited`, `first`, `last` and even `even`. If you are using animations or transitions, there is even a modifier to handle the `prefers-reduced-motion` media query with `motion-reduce:`.
+The "but tailwind is hard to read" argument backfires at this point. Tailwind offers the same principles with most of the other pseudo-selectors and media queries you would normally use: `focus`, `active`, `visited`, `first`, `last` and even `even`. If you are using animations or transitions, there is even a modifier to handle the `prefers-reduced-motion` media query with `motion-reduce`.
 
 ## ... but it won't do that
 
-Inexplicably, Tailwind does not yet support the `pointer` media query, which I frequently used to enlargen clickable areas for buttons on touch displays. [There seems to be an plugin in development](https://github.com/ShiftLimits/tailwindcss-interaction-media), but its activity doesn't stoke confidence.
+Inexplicably, Tailwind does not yet support the `pointer` media query, which I frequently used to enlargen clickable areas for buttons on touch displays. [There seems to be a plugin in development](https://github.com/ShiftLimits/tailwindcss-interaction-media), but its activity doesn't stoke confidence.
 
 Aside from this minor nuisance, there are also natural limits to the atomic CSS approach. The one that had the most impact on me (while coding this very blog, actually) is the fact that there is no way to style an element while _another_ element is interacted with. Consider the following SCSS, in which an image gets shown when its sibling text is hovered over.
 
@@ -137,4 +137,4 @@ It is not possible to emulate this behavior with atomic classes alone, in fact, 
 
 ## Conclusion
 
-Comparing TailwindCSS to plain CSS or even Sass/SCSS, you might question it's benefit. When did you last write plain CSS though? Modern projects often rely on complex, component-based architectures, for which appropriate styling methods have evolved, and have long reigned supreme in the space. When compared to _these_ styling methods, it becomes clear why TailwindCSS has gained such a strong following over the past years.
+Comparing TailwindCSS to plain CSS or even Sass/SCSS, you might question its benefit. When did you last write plain CSS though? Modern projects often rely on complex, component-based architectures, for which appropriate styling methods have evolved, and have long reigned supreme in the space. When compared to _these_ styling methods, it becomes clear why TailwindCSS has gained such a strong following over the past years.
