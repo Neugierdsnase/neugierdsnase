@@ -1,4 +1,4 @@
-import{S as q,i as F,s as H,e as c,x as P,k as b,c as f,a as h,y as S,d as r,m as $,b as I,g as d,z as T,r as E,p as M,C as K,t as y,h as v,F as w,n as V}from"../chunks/index-60c65196.js";import{P as j}from"../chunks/PageHeading-a1dcc715.js";/* empty css                    */import{A as J}from"../chunks/Article-59e33f16.js";import"../chunks/index-cc273379.js";function L(_){let n,a,l,o,p,e,i,m,g,u,k;return{c(){n=c("p"),a=y(`Web development is fascinating. As an information
+import{S as q,i as F,s as H,e as c,x as P,k as b,c as f,a as h,y as S,d as r,m as $,b as I,g as d,z as T,r as E,p as M,C as K,t as y,h as v,F as w,n as V}from"../chunks/index-60c65196.js";import{P as j}from"../chunks/PageHeading-aabc0962.js";/* empty css                    */import{A as J}from"../chunks/Article-2ce336f1.js";import"../chunks/index-cc273379.js";function L(_){let n,a,l,o,p,e,i,m,g,u,k;return{c(){n=c("p"),a=y(`Web development is fascinating. As an information
     platform, the web is unique in many ways. It is open to
     anyone and owned by no one (or so the idea). As a
     result, it is filled with wonderful things in some

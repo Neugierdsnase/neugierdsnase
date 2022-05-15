@@ -3,6 +3,7 @@
     TRANSITION_DELAY,
     TRANSITION_DURATION,
   } from './../../constants'
+  import clsx from 'clsx'
   import { fly } from 'svelte/transition'
 
   export let headings: [string, string | undefined]
@@ -12,6 +13,9 @@
   ] = [undefined, undefined]
   export let illustration: string | undefined = undefined
   let y: number
+  let longHeadings = headings.some(
+    (h) => h && h.length > 30,
+  )
 </script>
 
 <svelte:window bind:scrollY={y} />
@@ -19,7 +23,10 @@
 <div class="relative h-52 overflow-hidden">
   <div class="relative my-4 h-52 w-full text-center">
     <h1
-      class="mb-8 text-6xl"
+      class={clsx(
+        'mb-8',
+        longHeadings ? 'text-3xl' : 'text-6xl',
+      )}
       in:fly={{
         y: 40,
         duration: TRANSITION_DURATION,

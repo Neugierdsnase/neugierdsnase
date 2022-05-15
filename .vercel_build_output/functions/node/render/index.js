@@ -5516,9 +5516,10 @@ var init_hooks_1c45ba0b = __esm({
 // .svelte-kit/output/server/entries/pages/__layout.svelte.js
 var layout_svelte_exports = {};
 __export(layout_svelte_exports, {
-  default: () => _layout
+  default: () => _layout,
+  prerender: () => prerender
 });
-var navRoutes, NavItem, Nav, Footer, _layout;
+var navRoutes, NavItem, Nav, Footer, prerender, _layout;
 var init_layout_svelte = __esm({
   ".svelte-kit/output/server/entries/pages/__layout.svelte.js"() {
     init_index_87d5ee21();
@@ -5549,6 +5550,7 @@ var init_layout_svelte = __esm({
     Footer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       return `<footer class="${"h-4 p-2"}"></footer>`;
     });
+    prerender = true;
     _layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
       return `${$$result.head += `${$$result.title = `<title>Konstantin Kovar</title>`, ""}`, ""}
 
@@ -5573,9 +5575,9 @@ var entry, js, css;
 var init__ = __esm({
   ".svelte-kit/output/server/nodes/0.js"() {
     init_layout_svelte();
-    entry = "pages/__layout.svelte-f06db7d9.js";
-    js = ["pages/__layout.svelte-f06db7d9.js", "chunks/index-60c65196.js", "chunks/index-cc273379.js"];
-    css = ["assets/app-10caf8e2.css"];
+    entry = "pages/__layout.svelte-d5aed45a.js";
+    js = ["pages/__layout.svelte-d5aed45a.js", "chunks/index-60c65196.js", "chunks/index-cc273379.js"];
+    css = ["assets/app-cfe219f4.css"];
   }
 });
 
@@ -6378,7 +6380,7 @@ var quoted = /* @__PURE__ */ new Set([
 ]);
 var crypto_pattern = /^(nonce|sha\d\d\d)-/;
 var Csp = class {
-  constructor({ mode, directives }, { dev, prerender, needs_nonce }) {
+  constructor({ mode, directives }, { dev, prerender: prerender2, needs_nonce }) {
     __privateAdd2(this, _use_hashes, void 0);
     __privateAdd2(this, _dev, void 0);
     __privateAdd2(this, _script_needs_csp, void 0);
@@ -6386,7 +6388,7 @@ var Csp = class {
     __privateAdd2(this, _directives, void 0);
     __privateAdd2(this, _script_src, void 0);
     __privateAdd2(this, _style_src, void 0);
-    __privateSet2(this, _use_hashes, mode === "hash" || mode === "auto" && prerender);
+    __privateSet2(this, _use_hashes, mode === "hash" || mode === "auto" && prerender2);
     __privateSet2(this, _directives, dev ? __spreadValues({}, directives) : directives);
     __privateSet2(this, _dev, dev);
     const d = __privateGet2(this, _directives);
@@ -7022,12 +7024,12 @@ async function load_node({
     uses_credentials
   };
 }
-async function load_shadow_data(route, event, options, prerender) {
+async function load_shadow_data(route, event, options, prerender2) {
   if (!route.shadow)
     return {};
   try {
     const mod = await route.shadow();
-    if (prerender && (mod.post || mod.put || mod.del || mod.patch)) {
+    if (prerender2 && (mod.post || mod.put || mod.del || mod.patch)) {
       throw new Error("Cannot prerender pages that have endpoints with mutative methods");
     }
     const method = normalize_request_method(event);
@@ -7710,7 +7712,7 @@ var manifest = {
   assets: /* @__PURE__ */ new Set(["favicon.png", "fonts/Lora-Italic.ttf", "fonts/Lora.ttf", "syntaxHighlighting.css"]),
   mimeTypes: { ".png": "image/png", ".ttf": "font/ttf", ".css": "text/css" },
   _: {
-    entry: { "file": "start-63f0ec1e.js", "js": ["start-63f0ec1e.js", "chunks/index-60c65196.js"], "css": [] },
+    entry: { "file": "start-4fcbeda7.js", "js": ["start-4fcbeda7.js", "chunks/index-60c65196.js"], "css": [] },
     nodes: [
       () => Promise.resolve().then(() => (init__(), __exports)),
       () => Promise.resolve().then(() => (init__2(), __exports2))

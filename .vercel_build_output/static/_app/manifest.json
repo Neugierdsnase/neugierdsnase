@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-63f0ec1e.js",
+    "file": "start-4fcbeda7.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -9,8 +9,11 @@
     "dynamicImports": [
       "src/routes/__layout.svelte",
       ".svelte-kit/runtime/components/error.svelte",
+      "src/routes/2019/01/21/pythons-most-underrated-game-engine-for-beginners.svelte",
       "src/routes/blog/comparing-tailwind-with-plain-css-is-wrong.md",
       "src/routes/blog/league-of-miserables.md",
+      "src/routes/blog/pythons-most-underrated-game-engine-2.md",
+      "src/routes/blog/pythons-most-underrated-game-engine.md",
       "src/routes/blog/rust-and-wasm.md",
       "src/routes/blog/rustlings.md",
       "src/routes/blog/the-book.md",
@@ -22,7 +25,7 @@
     ]
   },
   "src/routes/__layout.svelte": {
-    "file": "pages/__layout.svelte-f06db7d9.js",
+    "file": "pages/__layout.svelte-d5aed45a.js",
     "src": "src/routes/__layout.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -31,7 +34,7 @@
       "_index-cc273379.js"
     ],
     "css": [
-      "assets/app-10caf8e2.css"
+      "assets/app-cfe219f4.css"
     ]
   },
   ".svelte-kit/runtime/components/error.svelte": {
@@ -43,136 +46,173 @@
       "_index-60c65196.js"
     ]
   },
+  "src/routes/2019/01/21/pythons-most-underrated-game-engine-for-beginners.svelte": {
+    "file": "pages/2019/01/21/pythons-most-underrated-game-engine-for-beginners.svelte-93e87514.js",
+    "src": "src/routes/2019/01/21/pythons-most-underrated-game-engine-for-beginners.svelte",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-60c65196.js"
+    ]
+  },
   "src/routes/blog/comparing-tailwind-with-plain-css-is-wrong.md": {
-    "file": "pages/blog/comparing-tailwind-with-plain-css-is-wrong.md-97d76a1e.js",
+    "file": "pages/blog/comparing-tailwind-with-plain-css-is-wrong.md-4e659c1b.js",
     "src": "src/routes/blog/comparing-tailwind-with-plain-css-is-wrong.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_BlogPostLayout-61d73c1a.js",
-      "_Article-59e33f16.js",
-      "_PageHeading-a1dcc715.js",
+      "_BlogPostLayout-f8946bf1.js",
+      "_Article-2ce336f1.js",
+      "_PageHeading-aabc0962.js",
       "_index-cc273379.js"
     ]
   },
   "src/routes/blog/league-of-miserables.md": {
-    "file": "pages/blog/league-of-miserables.md-31994646.js",
+    "file": "pages/blog/league-of-miserables.md-a5b95dfb.js",
     "src": "src/routes/blog/league-of-miserables.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_BlogPostLayout-61d73c1a.js",
-      "_Article-59e33f16.js",
-      "_PageHeading-a1dcc715.js",
+      "_BlogPostLayout-f8946bf1.js",
+      "_Article-2ce336f1.js",
+      "_PageHeading-aabc0962.js",
+      "_index-cc273379.js"
+    ]
+  },
+  "src/routes/blog/pythons-most-underrated-game-engine-2.md": {
+    "file": "pages/blog/pythons-most-underrated-game-engine-2.md-c3377a52.js",
+    "src": "src/routes/blog/pythons-most-underrated-game-engine-2.md",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-60c65196.js",
+      "_BlogPostLayout-f8946bf1.js",
+      "_Article-2ce336f1.js",
+      "_PageHeading-aabc0962.js",
+      "_index-cc273379.js"
+    ]
+  },
+  "src/routes/blog/pythons-most-underrated-game-engine.md": {
+    "file": "pages/blog/pythons-most-underrated-game-engine.md-89ce546c.js",
+    "src": "src/routes/blog/pythons-most-underrated-game-engine.md",
+    "isEntry": true,
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-60c65196.js",
+      "_BlogPostLayout-f8946bf1.js",
+      "_Article-2ce336f1.js",
+      "_PageHeading-aabc0962.js",
       "_index-cc273379.js"
     ]
   },
   "src/routes/blog/rust-and-wasm.md": {
-    "file": "pages/blog/rust-and-wasm.md-1def46d6.js",
+    "file": "pages/blog/rust-and-wasm.md-44d36067.js",
     "src": "src/routes/blog/rust-and-wasm.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_BlogPostLayout-61d73c1a.js",
-      "_Article-59e33f16.js",
-      "_PageHeading-a1dcc715.js",
+      "_BlogPostLayout-f8946bf1.js",
+      "_Article-2ce336f1.js",
+      "_PageHeading-aabc0962.js",
       "_index-cc273379.js"
     ]
   },
   "src/routes/blog/rustlings.md": {
-    "file": "pages/blog/rustlings.md-bcc40805.js",
+    "file": "pages/blog/rustlings.md-7c9ff0af.js",
     "src": "src/routes/blog/rustlings.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_BlogPostLayout-61d73c1a.js",
-      "_Article-59e33f16.js",
-      "_PageHeading-a1dcc715.js",
+      "_BlogPostLayout-f8946bf1.js",
+      "_Article-2ce336f1.js",
+      "_PageHeading-aabc0962.js",
       "_index-cc273379.js"
     ]
   },
   "src/routes/blog/the-book.md": {
-    "file": "pages/blog/the-book.md-7a14cb98.js",
+    "file": "pages/blog/the-book.md-1fd1f756.js",
     "src": "src/routes/blog/the-book.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_BlogPostLayout-61d73c1a.js",
-      "_Article-59e33f16.js",
-      "_PageHeading-a1dcc715.js",
+      "_BlogPostLayout-f8946bf1.js",
+      "_Article-2ce336f1.js",
+      "_PageHeading-aabc0962.js",
       "_index-cc273379.js"
     ]
   },
   "src/routes/blog/wordpress-is-probably-all-you-need.md": {
-    "file": "pages/blog/wordpress-is-probably-all-you-need.md-48627fe5.js",
+    "file": "pages/blog/wordpress-is-probably-all-you-need.md-8023cccc.js",
     "src": "src/routes/blog/wordpress-is-probably-all-you-need.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_BlogPostLayout-61d73c1a.js",
-      "_Article-59e33f16.js",
-      "_PageHeading-a1dcc715.js",
+      "_BlogPostLayout-f8946bf1.js",
+      "_Article-2ce336f1.js",
+      "_PageHeading-aabc0962.js",
       "_index-cc273379.js"
     ]
   },
   "src/routes/blog/youre-not-just-late-to-crypto.md": {
-    "file": "pages/blog/youre-not-just-late-to-crypto.md-cec2868f.js",
+    "file": "pages/blog/youre-not-just-late-to-crypto.md-babf371d.js",
     "src": "src/routes/blog/youre-not-just-late-to-crypto.md",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_BlogPostLayout-61d73c1a.js",
-      "_Article-59e33f16.js",
-      "_PageHeading-a1dcc715.js",
+      "_BlogPostLayout-f8946bf1.js",
+      "_Article-2ce336f1.js",
+      "_PageHeading-aabc0962.js",
       "_index-cc273379.js"
     ]
   },
   "src/routes/blog.svelte": {
-    "file": "pages/blog.svelte-c58828db.js",
+    "file": "pages/blog.svelte-28311f7b.js",
     "src": "src/routes/blog.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
       "_index-cc273379.js",
-      "_PageHeading-a1dcc715.js",
+      "_PageHeading-aabc0962.js",
+      "src/routes/blog/pythons-most-underrated-game-engine-2.md",
+      "src/routes/blog/pythons-most-underrated-game-engine.md",
       "src/routes/blog/youre-not-just-late-to-crypto.md",
       "src/routes/blog/comparing-tailwind-with-plain-css-is-wrong.md",
-      "_BlogPostLayout-61d73c1a.js",
-      "_Article-59e33f16.js"
+      "_BlogPostLayout-f8946bf1.js",
+      "_Article-2ce336f1.js"
     ]
   },
   "src/routes/cv/index.svelte": {
-    "file": "pages/cv/index.svelte-dbc07e54.js",
+    "file": "pages/cv/index.svelte-0255d62c.js",
     "src": "src/routes/cv/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_PageHeading-a1dcc715.js",
+      "_PageHeading-aabc0962.js",
       "_index-cc273379.js"
     ]
   },
   "src/routes/index.svelte": {
-    "file": "pages/index.svelte-9fabf295.js",
+    "file": "pages/index.svelte-68e2c480.js",
     "src": "src/routes/index.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
       "_index-60c65196.js",
-      "_PageHeading-a1dcc715.js",
-      "_Article-59e33f16.js",
+      "_PageHeading-aabc0962.js",
+      "_Article-2ce336f1.js",
       "_index-cc273379.js"
     ],
     "css": [
-      "assets/app-10caf8e2.css"
+      "assets/app-cfe219f4.css"
     ]
   },
   "_index-60c65196.js": {
@@ -184,22 +224,22 @@
       "_index-60c65196.js"
     ]
   },
-  "_BlogPostLayout-61d73c1a.js": {
-    "file": "chunks/BlogPostLayout-61d73c1a.js",
+  "_BlogPostLayout-f8946bf1.js": {
+    "file": "chunks/BlogPostLayout-f8946bf1.js",
     "imports": [
       "_index-60c65196.js",
-      "_Article-59e33f16.js",
-      "_PageHeading-a1dcc715.js"
+      "_Article-2ce336f1.js",
+      "_PageHeading-aabc0962.js"
     ]
   },
-  "_Article-59e33f16.js": {
-    "file": "chunks/Article-59e33f16.js",
+  "_Article-2ce336f1.js": {
+    "file": "chunks/Article-2ce336f1.js",
     "imports": [
       "_index-60c65196.js"
     ]
   },
-  "_PageHeading-a1dcc715.js": {
-    "file": "chunks/PageHeading-a1dcc715.js",
+  "_PageHeading-aabc0962.js": {
+    "file": "chunks/PageHeading-aabc0962.js",
     "imports": [
       "_index-60c65196.js",
       "_index-cc273379.js"

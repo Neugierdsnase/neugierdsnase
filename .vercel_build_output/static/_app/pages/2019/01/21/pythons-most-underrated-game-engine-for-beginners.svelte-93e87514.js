@@ -1,0 +1,1 @@
+import{S as n,i as t,s}from"../../../../chunks/index-60c65196.js";async function a(){return{status:301,redirect:"/blog/pythons-most-underrated-game-engine"}}class u extends n{constructor(e){super(),t(this,e,null,null,s,{})}}export{u as default,a as load};
