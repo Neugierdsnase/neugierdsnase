@@ -1626,10 +1626,10 @@ var init_install_fetch = __esm({
           [PullSteps](readRequest) {
             const stream = this._controlledReadableByteStream;
             if (this._queueTotalSize > 0) {
-              const entry3 = this._queue.shift();
-              this._queueTotalSize -= entry3.byteLength;
+              const entry4 = this._queue.shift();
+              this._queueTotalSize -= entry4.byteLength;
               ReadableByteStreamControllerHandleQueueDrain(this);
-              const view = new Uint8Array(entry3.buffer, entry3.byteOffset, entry3.byteLength);
+              const view = new Uint8Array(entry4.buffer, entry4.byteOffset, entry4.byteLength);
               readRequest._chunkSteps(view);
               return;
             }
@@ -5474,7 +5474,7 @@ function create_ssr_component(fn) {
       return {
         html,
         css: {
-          code: Array.from(result.css).map((css3) => css3.code).join("\n"),
+          code: Array.from(result.css).map((css4) => css4.code).join("\n"),
           map: null
         },
         head: result.title + result.head
@@ -5628,6 +5628,46 @@ var init__2 = __esm({
     entry2 = "error.svelte-2158f84d.js";
     js2 = ["error.svelte-2158f84d.js", "chunks/index-60c65196.js"];
     css2 = [];
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/2019/01/21/_slug_.svelte.js
+var slug_svelte_exports = {};
+__export(slug_svelte_exports, {
+  default: () => U5Bslugu5D,
+  load: () => load2
+});
+async function load2() {
+  return {
+    status: 301,
+    redirect: "/blog/pythons-most-underrated-game-engine"
+  };
+}
+var U5Bslugu5D;
+var init_slug_svelte = __esm({
+  ".svelte-kit/output/server/entries/pages/2019/01/21/_slug_.svelte.js"() {
+    init_index_87d5ee21();
+    U5Bslugu5D = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      return ``;
+    });
+  }
+});
+
+// .svelte-kit/output/server/nodes/2.js
+var __exports3 = {};
+__export(__exports3, {
+  css: () => css3,
+  entry: () => entry3,
+  js: () => js3,
+  module: () => slug_svelte_exports
+});
+var entry3, js3, css3;
+var init__3 = __esm({
+  ".svelte-kit/output/server/nodes/2.js"() {
+    init_slug_svelte();
+    entry3 = "pages/2019/01/21/_slug_.svelte-fd6b37e6.js";
+    js3 = ["pages/2019/01/21/_slug_.svelte-fd6b37e6.js", "chunks/index-60c65196.js"];
+    css3 = [];
   }
 });
 
@@ -5967,12 +6007,12 @@ function devalue(value) {
   }
   walk(value);
   var names = /* @__PURE__ */ new Map();
-  Array.from(counts).filter(function(entry3) {
-    return entry3[1] > 1;
+  Array.from(counts).filter(function(entry4) {
+    return entry4[1] > 1;
   }).sort(function(a, b) {
     return b[1] - a[1];
-  }).forEach(function(entry3, i2) {
-    names.set(entry3[0], getName(i2));
+  }).forEach(function(entry4, i2) {
+    names.set(entry4[0], getName(i2));
   });
   function stringify(thing) {
     if (names.has(thing)) {
@@ -7712,12 +7752,25 @@ var manifest = {
   assets: /* @__PURE__ */ new Set(["favicon.png", "fonts/Lora-Italic.ttf", "fonts/Lora.ttf", "syntaxHighlighting.css"]),
   mimeTypes: { ".png": "image/png", ".ttf": "font/ttf", ".css": "text/css" },
   _: {
-    entry: { "file": "start-4fcbeda7.js", "js": ["start-4fcbeda7.js", "chunks/index-60c65196.js"], "css": [] },
+    entry: { "file": "start-a0832c24.js", "js": ["start-a0832c24.js", "chunks/index-60c65196.js"], "css": [] },
     nodes: [
       () => Promise.resolve().then(() => (init__(), __exports)),
-      () => Promise.resolve().then(() => (init__2(), __exports2))
+      () => Promise.resolve().then(() => (init__2(), __exports2)),
+      () => Promise.resolve().then(() => (init__3(), __exports3))
     ],
-    routes: [],
+    routes: [
+      {
+        type: "page",
+        id: "2019/01/21/[slug]",
+        pattern: /^\/2019\/01\/21\/([^/]+?)\/?$/,
+        names: ["slug"],
+        types: [null],
+        path: null,
+        shadow: null,
+        a: [0, 2],
+        b: [1]
+      }
+    ],
     matchers: async () => {
       return {};
     }

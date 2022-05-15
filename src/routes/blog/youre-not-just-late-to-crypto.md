@@ -1,5 +1,6 @@
 ---
 title: You're not just late to crypto, it's already over
+alternateTitle: Scammers and fraudsters have destroyed it
 author: Konstantin <mail@vomkonstant.in>
 published: '2022-05-13'
 illustration: '<svg viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">

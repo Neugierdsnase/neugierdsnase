@@ -1,5 +1,6 @@
 ---
 title: After Pong Ends
+alternateSubtitle: Part 2 of "Python's most underrated game engine for beginners
 author: Konstantin <mail@vomkonstant.in>
 published: '2019-01-19'
 illustration: '<svg viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg">

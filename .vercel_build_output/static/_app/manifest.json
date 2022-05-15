@@ -1,6 +1,6 @@
 {
   ".svelte-kit/runtime/client/start.js": {
-    "file": "start-4fcbeda7.js",
+    "file": "start-a0832c24.js",
     "src": ".svelte-kit/runtime/client/start.js",
     "isEntry": true,
     "imports": [
@@ -9,7 +9,7 @@
     "dynamicImports": [
       "src/routes/__layout.svelte",
       ".svelte-kit/runtime/components/error.svelte",
-      "src/routes/2019/01/21/pythons-most-underrated-game-engine-for-beginners.svelte",
+      "src/routes/2019/01/21/[slug].svelte",
       "src/routes/blog/comparing-tailwind-with-plain-css-is-wrong.md",
       "src/routes/blog/league-of-miserables.md",
       "src/routes/blog/pythons-most-underrated-game-engine-2.md",
@@ -46,9 +46,9 @@
       "_index-60c65196.js"
     ]
   },
-  "src/routes/2019/01/21/pythons-most-underrated-game-engine-for-beginners.svelte": {
-    "file": "pages/2019/01/21/pythons-most-underrated-game-engine-for-beginners.svelte-93e87514.js",
-    "src": "src/routes/2019/01/21/pythons-most-underrated-game-engine-for-beginners.svelte",
+  "src/routes/2019/01/21/[slug].svelte": {
+    "file": "pages/2019/01/21/_slug_.svelte-fd6b37e6.js",
+    "src": "src/routes/2019/01/21/[slug].svelte",
     "isEntry": true,
     "isDynamicEntry": true,
     "imports": [
@@ -82,7 +82,7 @@
     ]
   },
   "src/routes/blog/pythons-most-underrated-game-engine-2.md": {
-    "file": "pages/blog/pythons-most-underrated-game-engine-2.md-c3377a52.js",
+    "file": "pages/blog/pythons-most-underrated-game-engine-2.md-f4d42f17.js",
     "src": "src/routes/blog/pythons-most-underrated-game-engine-2.md",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -160,7 +160,7 @@
     ]
   },
   "src/routes/blog/youre-not-just-late-to-crypto.md": {
-    "file": "pages/blog/youre-not-just-late-to-crypto.md-babf371d.js",
+    "file": "pages/blog/youre-not-just-late-to-crypto.md-4a03560a.js",
     "src": "src/routes/blog/youre-not-just-late-to-crypto.md",
     "isEntry": true,
     "isDynamicEntry": true,
@@ -173,7 +173,7 @@
     ]
   },
   "src/routes/blog.svelte": {
-    "file": "pages/blog.svelte-28311f7b.js",
+    "file": "pages/blog.svelte-bbf2b7df.js",
     "src": "src/routes/blog.svelte",
     "isEntry": true,
     "isDynamicEntry": true,
