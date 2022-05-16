@@ -136,6 +136,8 @@ Aside from this minor nuisance, there are also natural limits to the atomic CSS 
 
 It is not possible to emulate this behavior with atomic classes alone, in fact, whenever we want to express relationships between certain elements, we have to deviate from the atomic CSS principle, by writing custom classes in our entry CSS file and applying those to our elements.
 
+*Edit 16.05.2022: This might not hold true for much longer, as there is an [upcoming feature called "arbitrary variants", which solves this exact issue.](https://github.com/tailwindlabs/tailwindcss/pull/8299) I will refactor my custom classes after the feature's release and share the process on this blog.*
+
 ## Conclusion
 
 Comparing TailwindCSS to plain CSS or even Sass/SCSS, you might question its benefit. When did you last write plain CSS though? Modern projects often rely on complex, component-based architectures, for which appropriate styling methods have evolved, and have long reigned supreme in the space. When compared to _these_ styling methods, it becomes clear why TailwindCSS has gained such a strong following over the past years.
