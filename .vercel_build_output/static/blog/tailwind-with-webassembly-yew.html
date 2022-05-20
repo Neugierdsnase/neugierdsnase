@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="description" content="" />
+    <link rel="icon" href="../favicon.png" />
+    <link
+      href="../syntaxHighlighting.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
+    <meta http-equiv="content-security-policy" content=""><title>Blog | Konstantin Kovar</title>
+	<link rel="stylesheet" href="/_app/assets/app-e93b226b.css">
+	<link rel="modulepreload" href="/_app/start-f82bed3f.js">
+	<link rel="modulepreload" href="/_app/chunks/index-a4305d86.js">
+	<link rel="modulepreload" href="/_app/pages/__layout.svelte-54194aaf.js">
+	<link rel="modulepreload" href="/_app/chunks/index-e10c4c74.js">
+	<link rel="modulepreload" href="/_app/pages/blog/tailwind-with-webassembly-yew.md-7da6cd8a.js">
+	<link rel="modulepreload" href="/_app/chunks/BlogPostLayout-2987b3f1.js">
+	<link rel="modulepreload" href="/_app/chunks/Article-1fb784f3.js">
+	<link rel="modulepreload" href="/_app/chunks/PageHeading-8fc8889e.js">
+    <style>
+      @font-face {
+        font-family: 'Lora';
+        font-style: normal;
+        font-display: swap;
+        font-weight: 400;
+        src: local('Lora'), local('Lora Regular'),
+          local('Lora-VariableFont_wght'),
+          url('../static/fonts/Lora.ttf') format('ttf');
+      }
+
+      @font-face {
+        font-family: 'Lora';
+        font-style: italic;
+        font-display: swap;
+        font-weight: 400;
+        src: local('Lora'), local('Lora Italic'),
+          local('Lora-Italic-VariableFont_wght'),
+          url('../static/fonts/Lora-Italic.ttf')
+            format('ttf');
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+
+
+
+
+
+
+<div class="min-h-[170vh]"><div class="left-0 right-0" style="position: fixed; transform: translate(0px);"><div class="relative mx-auto w-11/12 lg:w-2/3 xl:w-1/2 2xl:w-1/3">
+
+<nav class="mx-auto mb-8 border-b-4 border-stone-700 py-4"><ul class="flex justify-around"><li><a href="/"><div class="w-36 rounded py-2 text-center transition-colors hover:bg-stone-600 hover:text-stone-200">home</div></a></li><li><a href="/blog"><div class="w-36 rounded py-2 text-center transition-colors hover:bg-stone-600 hover:text-stone-200">blog</div></a></li></ul></nav>
+      
+
+
+
+<div class="relative h-52 overflow-hidden"><div class="relative my-4 h-52 w-full text-center"><h1 class="mb-8 text-6xl">Yew can use Tailwind anywhere!</h1>
+    <subtitle class="font-serif text-xl italic">even where there is no JavaScript</subtitle></div>
+  </div>
+<div class="relative h-56 bg-contain bg-center bg-no-repeat text-red-500" style="background-image: url(&#39;data:image/svg+xml;utf8,&lt;svg viewBox=&quot;0 0 250 250&quot; fill=&quot;none&quot; xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt; &lt;g transform=&quot;matrix(1.0416666666666667,0,0,1.0416666666666667,0,0)&quot;&gt;&lt;g id=&quot;Sketch-annotation-element-stroke-illustration-line-christmas-tree&quot;&gt; &lt;path id=&quot;Vector&quot; d=&quot;M109.792 217.109C109.765 204.323 110.467 191.578 110.325 178.8C95.681 180.458 64.1214 177.551 50.046 172.88C64.2747 156.903 81.393 143.904 93.3775 125.433C84.9496 125.157 76.8666 124.695 68.4687 123.744C82.5489 113.059 95.5235 99.3278 106.184 84.294C99.3939 83.8783 92.4928 84.4198 85.6814 84.2545C90.0047 78.3398 95.7493 73.6413 99.7443 67.475C109.028 53.1462 116.275 38.5515 123.15 22.6654C126.102 31.8228 130.862 39.6342 135.307 47.8405C141.169 58.6642 147.894 72.5774 157.736 79.6588C151.974 79.9709 146.271 80.8027 140.499 80.9746C146.46 95.5867 159.76 107.962 172.317 114.977C164.49 118.685 156.882 120.481 148.571 121.838C150.729 126.998 154.624 130.935 157.832 135.192C167.034 147.399 177.508 157.355 189.744 165.217C179.65 173.733 146.79 179.502 134.242 178.65C133.865 191.174 135.567 203.566 135.901 216.059&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;5&quot; stroke-miterlimit=&quot;1.5&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot;&gt;&lt;/path&gt; &lt;/g&gt;&lt;/g&gt;&lt;/svg&gt;&#39;);"></div>
+
+
+<article class="prose prose-stone mx-auto mt-4 translate-y-96 prose-code:font-mono prose-code:text-lg prose-code:font-normal before:prose-code:hidden after:prose-code:hidden xl:prose-xl 2xl:prose-2xl" style="transform: translateY(NaNpx);"><p><em>If you are just looking for a template and don’t care about the jibber-jabber: <a href="https://github.com/Neugierdsnase/yew-wasm-pack-template" rel="nofollow">Here you go. See ya!</a></em></p>
+<p>One of the reasons Tailwind is great is that it is completely JavaScript-agnostic. As soon as you have DOM elements - however they were created or are being updated - Tailwind just works. This means it can be used with Angular, React, Svelte as much as with Solid, Inferno or whatever other ten-minute old JavaScript frameworks you can think of. But why stop there? If it is true what I just wrote, then not even JavaScript should be the limiting factor here (as it is - quite obviously - for
+CSS-in-JS solutions).</p>
+<p>This is precisely why I argue it is a great choice for WebAssembly projects. Let’s look at an example. Fear not, you don’t have to fully understand what’s going on here. Just know that Yew is a front-end framework for WebAssembly in Rust, that you can probably compare best with pre-v16 React (no hooks, but lifetime methods).</p>
+<pre class="language-rust"><!-- HTML_TAG_START --><code class="language-rust"><span class="token comment">// ...</span>
+
+<span class="token keyword">pub</span> <span class="token keyword">struct</span> <span class="token type-definition class-name">State</span> <span class="token punctuation">&#123;</span>
+    entries<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token operator">></span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">impl</span> <span class="token class-name">Component</span> <span class="token keyword">for</span> <span class="token class-name">App</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">type</span> <span class="token type-definition class-name">Message</span> <span class="token operator">=</span> <span class="token class-name">Msg</span><span class="token punctuation">;</span>
+    <span class="token keyword">type</span> <span class="token type-definition class-name">Properties</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// ...</span>
+
+    <span class="token keyword">fn</span> <span class="token function-definition function">view</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Html</span> <span class="token punctuation">&#123;</span>
+        <span class="token macro property">html!</span> <span class="token punctuation">&#123;</span>
+            <span class="token operator">&lt;</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span>section<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>header<span class="token operator">></span>
+                        <span class="token operator">&lt;</span>h1<span class="token operator">></span><span class="token punctuation">&#123;</span> <span class="token string">"todos"</span> <span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>header<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>section<span class="token operator">></span>
+                        <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+                            <span class="token punctuation">&#123;</span> <span class="token keyword">for</span> <span class="token keyword">self</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>entries<span class="token punctuation">.</span><span class="token function">iter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token closure-params"><span class="token closure-punctuation punctuation">|</span>val<span class="token closure-punctuation punctuation">|</span></span> <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">view_entry</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#125;</span>
+                        <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>section<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>section<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">impl</span> <span class="token class-name">App</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">view_entry</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>idx<span class="token punctuation">,</span> entry<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token keyword">usize</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span><span class="token keyword">str</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Html</span> <span class="token punctuation">&#123;</span>
+      <span class="token macro property">html!</span> <span class="token punctuation">&#123;</span>
+          <span class="token operator">&lt;</span>li<span class="token operator">></span>
+              <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token punctuation">&#123;</span>entry<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+          <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+      <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code><!-- HTML_TAG_END --></pre>
+<p>This is a (not quite complete) component written in Rust using the Yew framework. Speaking fuzzily about what’s happening here: The <code>view</code> method uses the <code>html</code> macro to render HTML to the screen. You can also see an implementation block, that defines what an entry looks like, which is utilized by the iterator in the <code>ul</code> element.</p>
+<p>So instead of JavaScript, we are writing our code in a multi-threaded systems-level language (thinking about the performance gains this promises should give you the shivers). This is possible because of the recently standardized WASM compile target, <a target="_blank" href="https://webassembly.org/roadmap/">which all major browsers have now implemented.</a></p>
+<p>As their respective ecosystems matured, Rust and WebAssembly developed a special kind of relationship. Rust has now become somewhat of the first choice for intellectually curious web developers if I can trust the information in my bubble.</p>
+<p>Let’s imagine for a second, that we would have to reinvent things like styled-components and styled-system for Yew and all the other frameworks, languages and frameworks in languages, that can compile to WASM. The horror! Thankfully - <a href="https://blog.vomkonstant.in/blog/comparing-tailwind-with-plain-css-is-wrong" rel="nofollow">as I have outlined here</a> - Tailwind offers much (if not more) of the same functionality at practically no performance overhead.</p>
+<h2>Rust is complicated enough, let’s not also add CSS files</h2>
+<p>The question in my mind is: Can we set up Tailwind so that we can style our Yew components like this?</p>
+<pre class="language-rust"><!-- HTML_TAG_START --><code class="language-rust"><span class="token comment">// ...</span>
+
+<span class="token keyword">pub</span> <span class="token keyword">struct</span> <span class="token type-definition class-name">State</span> <span class="token punctuation">&#123;</span>
+    entries<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token operator">></span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">impl</span> <span class="token class-name">Component</span> <span class="token keyword">for</span> <span class="token class-name">App</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">type</span> <span class="token type-definition class-name">Message</span> <span class="token operator">=</span> <span class="token class-name">Msg</span><span class="token punctuation">;</span>
+    <span class="token keyword">type</span> <span class="token type-definition class-name">Properties</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// ...</span>
+
+    <span class="token keyword">fn</span> <span class="token function-definition function">view</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Html</span> <span class="token punctuation">&#123;</span>
+        <span class="token macro property">html!</span> <span class="token punctuation">&#123;</span>
+            <span class="token operator">&lt;</span>div class<span class="token operator">=</span><span class="token string">"w-2/3 mx-auto"</span><span class="token operator">></span>
+                <span class="token operator">&lt;</span>section<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>header class<span class="token operator">=</span><span class="token string">"text-center my-4"</span><span class="token operator">></span>
+                        <span class="token operator">&lt;</span>h1 class<span class="token operator">=</span><span class="token string">"text-6xl text-red-600"</span><span class="token operator">></span><span class="token punctuation">&#123;</span> <span class="token string">"todos"</span> <span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>header<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>section class<span class="token operator">=</span><span class="token string">"my-4"</span><span class="token operator">></span>
+                        <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+                            <span class="token punctuation">&#123;</span> <span class="token keyword">for</span> <span class="token keyword">self</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>entries<span class="token punctuation">.</span><span class="token function">iter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token closure-params"><span class="token closure-punctuation punctuation">|</span>val<span class="token closure-punctuation punctuation">|</span></span> <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">view_entry</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#125;</span>
+                        <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>section<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>section<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">impl</span> <span class="token class-name">App</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">view_entry</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>idx<span class="token punctuation">,</span> entry<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token keyword">usize</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span><span class="token keyword">str</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Html</span> <span class="token punctuation">&#123;</span>
+      <span class="token macro property">html!</span> <span class="token punctuation">&#123;</span>
+          <span class="token operator">&lt;</span>li class<span class="token operator">=</span><span class="token string">"p-4 pr-0 my-2 border-b-2 border-slate-200 last:border-0"</span><span class="token operator">></span>
+              <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token punctuation">&#123;</span>entry<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+          <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+      <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code><!-- HTML_TAG_END --></pre>
+<p>The short answer is: <strong>“Yes!”</strong> The slightly longer answer is: “Uhm, sure, but how do I set up my project for this? Will hot-reloading work?” Let’s find out. Spoiler alert: Everything will work just fine in the end.</p>
+<p>As is so often the case in technology, we can just copy the hard parts from the smart kids and some of them have created <a target="_blank" href="https://github.com/yewstack/yew-wasm-pack-template">this project template</a>, which sets up Yew with <a target="_blank" href="https://rustwasm.github.io/wasm-pack/installer/">wasm-pack</a>, which itself relies on <a target="_blank" href="https://webpack.js.org/">webpack</a> to bundle WebAssembly code with the necessary JavaScript and CSS to make everything flow together.</p>
+<h2>Updating dependencies and scripts</h2>
+<p>To add Tailwind to this, let’s - well - add tailwind.</p>
+<pre class="language-fish"><!-- HTML_TAG_START --><code class="language-fish">yarn add -D tailwindcss
+npx tailwindcss init</code><!-- HTML_TAG_END --></pre>
+<p>In the <code>package.json</code> I added these two scripts:</p>
+<pre class="language-json"><!-- HTML_TAG_START --><code class="language-json"><span class="token property">"tailwind"</span><span class="token operator">:</span> <span class="token string">"npx tailwindcss -i ./static/input.css -o ./output.css"</span><span class="token punctuation">,</span>
+<span class="token property">"tailwind:watch"</span><span class="token operator">:</span> <span class="token string">"npx tailwindcss -i ./static/input.css -o ./output.css --watch"</span><span class="token punctuation">,</span></code><!-- HTML_TAG_END --></pre>
+<p>also, I updated the dev and build scripts to include transpiling our CSS (you will need to install <a target="_blank" href="https://www.npmjs.com/package/concurrently">the <code>concurrently</code> package</a> globally if you haven’t already).</p>
+<pre class="language-json"><!-- HTML_TAG_START --><code class="language-json"><span class="token property">"dev"</span><span class="token operator">:</span> <span class="token string">"concurrently "webpack-dev-server --mode development --open" "yarn run tailwind:watch""</span><span class="token punctuation">,</span>
+<span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"yarn run tailwind &amp;&amp; webpack --mode production"</span><span class="token punctuation">,</span>
+<span class="token property">"build:dev"</span><span class="token operator">:</span> <span class="token string">"yarn run tailwind &amp;&amp; webpack --mode development"</span><span class="token punctuation">,</span></code><!-- HTML_TAG_END --></pre>
+<h2>Overhauling config files</h2>
+<p>Now simply tell tailwind which files to include via the <code>tailwind.config.js</code>:</p>
+<pre class="language-js"><!-- HTML_TAG_START --><code class="language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">content</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'./src/**/*.rs'</span><span class="token punctuation">,</span> <span class="token string">'./static/index.html'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">theme</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">extend</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">plugins</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span></code><!-- HTML_TAG_END --></pre>
+<p>When examining the structure of our project, we can see that the styles are included in our app via the <code>bootstrap.js</code> file. So instead of the <code>styles.scss</code> (we can delete that), let’s use our <code>output.css</code> file here.</p>
+<p>We can also see, that there is some SCSS stuff going on, that we don’t need, so let’s clean that up, by removing the <code>sass</code> and <code>sass-loader</code> dependencies and telling webpack to test for <code>/\.css$/i</code> instead of
+<code>/\.s[ac]ss$/i</code> in its config.</p>
+<p>Lastly, we don’t need the “todomvc” stylesheets, that are currently in the <code>index.html</code>’s <code>head</code>, so we can delete those too.</p>
+<p>There we go! Mission accomplished!</p>
+<p><img src="https://media2.giphy.com/media/Od0QRnzwRBYmDU3eEO/giphy.gif?cid=ecf05e477is7007gzagd8wbnm42z4wc0v0x9mewd2puwxc4k&rid=giphy.gif&ct=g" alt="Very nice!"></p>
+<h2>Some concerns</h2>
+<p>There are still two things that need addressing though.</p>
+<ol><li><p>If you are trying this by yourself, you will quickly realize, that Tailwind’s Intellisense needs an extra invitation to our <code>.rs</code> files. This is easily done by adding <code>&quot;tailwindCSS.includeLanguages&quot;: {&quot;rust&quot;: &quot;html&quot;}</code> to your settings (this is how it works in VSCode, haven’t tried it in other editors). After a reload tailwind should start working its magic for us in our Yew HTML macros, what a time to be alive!</p></li>
+<li><p>Unfortunately, I haven’t found a solution for this one. In all my other projects I use the <a target="_blank" href="https://github.com/tailwindlabs/prettier-plugin-tailwindcss">tailwind prettier plugin</a> to enforce its <a target="_blank" href="https://tailwindcss.com/blog/automatic-class-sorting-with-prettier#how-classes-are-sorted">recommended class order.</a></p></li>
+<li><p>You will notice that with every save, the hot-reloading is triggered <em>twice</em>. Presumably, the second reload is triggered by the updated <code>output.css</code> file. This is of course not optimal, but I have also not found it to be a huge burden while developing.</p></li></ol>
+<h2>Conclusion</h2>
+<p>Aside from missing a few luxuries that the incredibly mature JavaScript ecosystem offers, I think this is a very comfortable way to leverage the powers of WebAssembly. In my opinion, the versatility of Tailwind adds immense value here, as both the technical, but also the mental overhead while developing are being kept to a minimum.</p>
+<p>You find the finished setup <a href="https://github.com/Neugierdsnase/yew-wasm-pack-template" rel="nofollow">in this repository.</a></p></article></div>
+    <footer class="mt-8 h-4 border-t-2 border-stone-600 pt-4 text-center font-serif text-xs text-stone-600"><p>I am keeping all the cookies to myself and you can&#39;t
+    have <span class="underline">any</span>.
+  </p>
+  <p>This website uses <a target="_blank" href="https://www.goatcounter.com/">a very privacy aware analytics tool</a>.
+  </p>
+  <p class="mb-4">Do something nice today.</p></footer></div></div>
+
+
+		<script type="module" data-hydrate="2dust2">
+		import { start } from "/_app/start-f82bed3f.js";
+		start({
+			target: document.querySelector('[data-hydrate="2dust2"]').parentNode,
+			paths: {"base":"","assets":""},
+			session: {},
+			route: true,
+			spa: false,
+			trailing_slash: "never",
+			hydrate: {
+				status: 200,
+				error: null,
+				nodes: [
+					import("/_app/pages/__layout.svelte-54194aaf.js"),
+						import("/_app/pages/blog/tailwind-with-webassembly-yew.md-7da6cd8a.js")
+				],
+				params: {},
+				routeId: "blog/tailwind-with-webassembly-yew"
+			}
+		});
+	</script></div>
+    <script
+      defer
+      data-goatcounter="https://neugierdsnase.goatcounter.com/count"
+      async
+      src="//gc.zgo.at/count.js"
+    ></script>
+  </body>
+</html>

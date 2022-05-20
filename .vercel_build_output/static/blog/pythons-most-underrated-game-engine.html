@@ -14,15 +14,15 @@
       content="width=device-width, initial-scale=1"
     />
     <meta http-equiv="content-security-policy" content=""><title>Blog | Konstantin Kovar</title>
-	<link rel="stylesheet" href="/_app/assets/app-cfe219f4.css">
-	<link rel="modulepreload" href="/_app/start-a0832c24.js">
-	<link rel="modulepreload" href="/_app/chunks/index-60c65196.js">
-	<link rel="modulepreload" href="/_app/pages/__layout.svelte-d5aed45a.js">
-	<link rel="modulepreload" href="/_app/chunks/index-cc273379.js">
-	<link rel="modulepreload" href="/_app/pages/blog/pythons-most-underrated-game-engine.md-89ce546c.js">
-	<link rel="modulepreload" href="/_app/chunks/BlogPostLayout-f8946bf1.js">
-	<link rel="modulepreload" href="/_app/chunks/Article-2ce336f1.js">
-	<link rel="modulepreload" href="/_app/chunks/PageHeading-aabc0962.js">
+	<link rel="stylesheet" href="/_app/assets/app-e93b226b.css">
+	<link rel="modulepreload" href="/_app/start-f82bed3f.js">
+	<link rel="modulepreload" href="/_app/chunks/index-a4305d86.js">
+	<link rel="modulepreload" href="/_app/pages/__layout.svelte-54194aaf.js">
+	<link rel="modulepreload" href="/_app/chunks/index-e10c4c74.js">
+	<link rel="modulepreload" href="/_app/pages/blog/pythons-most-underrated-game-engine.md-9511f55f.js">
+	<link rel="modulepreload" href="/_app/chunks/BlogPostLayout-2987b3f1.js">
+	<link rel="modulepreload" href="/_app/chunks/Article-1fb784f3.js">
+	<link rel="modulepreload" href="/_app/chunks/PageHeading-8fc8889e.js">
     <style>
       @font-face {
         font-family: 'Lora';
@@ -67,7 +67,7 @@
 <div class="relative h-56 bg-contain bg-center bg-no-repeat text-red-500" style="background-image: url(&#39;data:image/svg+xml;utf8,&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot; fill=&quot;none&quot; viewBox=&quot;0 0 250 250&quot;&gt; &lt;g stroke=&quot;currentColor&quot; stroke-linecap=&quot;round&quot; stroke-linejoin=&quot;round&quot; stroke-miterlimit=&quot;1.5&quot; stroke-width=&quot;5&quot;&gt;&lt;path d=&quot;M206.993 80.897c23.523 40.434 5.156 89.568-30.854 118.461-28.994 23.264-84.795 29.399-123-11.86-21.456-23.172-25.306-61.89-12.482-94.75M63.288 58.174c5.754-5.595 12.326-10.479 19.704-14.41 29.815-15.888 72.622-16.661 102.123 6.846&quot; stroke-width=&quot;13.8889&quot;/&gt;&lt;path d=&quot;M160.417 131.78c-2.42 19.089-12.17 37.793-26.951 44.106-22.954 9.803-41.983-16.17-41.192-44.54 23.124-5.06 45.738-4.923 69.019-6.907M70.475 66.462c3.711-5.705 10.545-11.87 16.052-13.49 10.17-2.994 22.457 8.114 20.852 18.527-1.265 8.215-6.785 15.053-11.972 21.199-7.552 8.954-15.662 17.558-24.729 25.005-12.764-9.735-34.317-22.902-37.625-39.852-2.826-14.469 4.854-30.304 21.118-24.914 6.911 2.29 12.098 7.996 16.304 13.525zM178.756 57.654C182.51 51.88 189.427 45.641 195 44.002c10.293-3.031 22.729 8.211 21.104 18.748-1.282 8.316-6.865 15.236-12.115 21.457-7.643 9.063-15.853 17.772-25.028 25.307-12.918-9.852-34.73-23.18-38.08-40.332-2.858-14.645 4.913-30.671 21.375-25.216 6.995 2.317 12.243 8.09 16.5 13.688z&quot; stroke-width=&quot;13.8889&quot;/&gt;&lt;/g&gt; &lt;/svg&gt;&#39;);"></div>
 
 
-<article class="prose prose-stone mx-auto mt-4 prose-code:font-mono prose-code:text-lg prose-code:font-normal before:prose-code:hidden after:prose-code:hidden xl:prose-xl 2xl:prose-2xl" style="transform: translate(0px);"><p><em>This post has been ported from the old blog and slightly edited on the 13<sup>th</sup> of May 2022.</em></p>
+<article class="prose prose-stone mx-auto mt-4 translate-y-96 prose-code:font-mono prose-code:text-lg prose-code:font-normal before:prose-code:hidden after:prose-code:hidden xl:prose-xl 2xl:prose-2xl" style="transform: translateY(NaNpx);"><p><em>This post has been ported from the old blog and slightly edited on the 13<sup>th</sup> of May 2022.</em></p>
 <p>Making games is one of the coolest things you can do with self-taught programming skills. You have complete creative freedom, you don’t have to have a unique and marketable idea and you’re not potentially putting anyone in danger by messing up.</p>
 <p>While there are a lot of great game engines out there (my favorite being <a target="_blank" href="https://godotengine.org/">Godot</a>), I recently came across an awesome project on GitHub named <a target="_blank" href="https://github.com/kitao/pyxel">Pyxel</a>. It is a game engine aiming to enable a quick and easy way to develop games in a retro style.</p>
 <p>I have played around with it a little and I was having such a good time playing around with it, that I thought I would write up a small little tutorial about how I coded a quick version of “Pong” in just shy of 130 lines of Python.</p>
@@ -497,13 +497,18 @@ App<span class="token punctuation">(</span><span class="token punctuation">)</sp
 <hr>
 <p>Edit: Stepping every aspect of this tutorial up (and adding some new ones): Check out this project on GitHub: <a target="_blank" href="https://github.com/timbledum/asteroids">github.com/timbledum/asteroids</a>
 If you want to level up, examining this very well written and commented repository would be well-invested time.</p></article></div>
-    <footer class="h-4 p-2"></footer></div></div>
+    <footer class="mt-8 h-4 border-t-2 border-stone-600 pt-4 text-center font-serif text-xs text-stone-600"><p>I am keeping all the cookies to myself and you can&#39;t
+    have <span class="underline">any</span>.
+  </p>
+  <p>This website uses <a target="_blank" href="https://www.goatcounter.com/">a very privacy aware analytics tool</a>.
+  </p>
+  <p class="mb-4">Do something nice today.</p></footer></div></div>
 
 
-		<script type="module" data-hydrate="133e7vi">
-		import { start } from "/_app/start-a0832c24.js";
+		<script type="module" data-hydrate="5dkkoy">
+		import { start } from "/_app/start-f82bed3f.js";
 		start({
-			target: document.querySelector('[data-hydrate="133e7vi"]').parentNode,
+			target: document.querySelector('[data-hydrate="5dkkoy"]').parentNode,
 			paths: {"base":"","assets":""},
 			session: {},
 			route: true,
@@ -513,8 +518,8 @@ If you want to level up, examining this very well written and commented reposito
 				status: 200,
 				error: null,
 				nodes: [
-					import("/_app/pages/__layout.svelte-d5aed45a.js"),
-						import("/_app/pages/blog/pythons-most-underrated-game-engine.md-89ce546c.js")
+					import("/_app/pages/__layout.svelte-54194aaf.js"),
+						import("/_app/pages/blog/pythons-most-underrated-game-engine.md-9511f55f.js")
 				],
 				params: {},
 				routeId: "blog/pythons-most-underrated-game-engine"

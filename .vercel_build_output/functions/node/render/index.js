@@ -24,6 +24,9 @@ var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __esm = (fn, res) => function __init() {
   return fn && (res = (0, fn[__getOwnPropNames(fn)[0]])(fn = 0)), res;
 };
+var __commonJS = (cb, mod) => function __require() {
+  return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+};
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -541,8 +544,8 @@ async function consumeBody(data) {
     throw new FetchError(`Premature close of server response while trying to fetch ${data.url}`);
   }
 }
-function fromRawHeaders(headers = []) {
-  return new Headers2(headers.reduce((result, value, index, array) => {
+function fromRawHeaders(headers2 = []) {
+  return new Headers2(headers2.reduce((result, value, index, array) => {
     if (index % 2 === 0) {
       result.push(array.slice(index, index + 2));
     }
@@ -672,8 +675,8 @@ function determineRequestsReferrer(request, { referrerURLCallback, referrerOrigi
       throw new TypeError(`Invalid referrerPolicy: ${policy}`);
   }
 }
-function parseReferrerPolicyFromHeader(headers) {
-  const policyTokens = (headers.get("referrer-policy") || "").split(/[,\s]+/);
+function parseReferrerPolicyFromHeader(headers2) {
+  const policyTokens = (headers2.get("referrer-policy") || "").split(/[,\s]+/);
   let policy = "";
   for (const token of policyTokens) {
     if (token && ReferrerPolicy.has(token)) {
@@ -751,9 +754,9 @@ async function fetch2(url, options_) {
     }
     request_.on("response", (response_) => {
       request_.setTimeout(0);
-      const headers = fromRawHeaders(response_.rawHeaders);
+      const headers2 = fromRawHeaders(response_.rawHeaders);
       if (isRedirect(response_.statusCode)) {
-        const location = headers.get("Location");
+        const location = headers2.get("Location");
         const locationURL = location === null ? null : new URL(location, request.url);
         switch (request.redirect) {
           case "error":
@@ -762,7 +765,7 @@ async function fetch2(url, options_) {
             return;
           case "manual":
             if (locationURL !== null) {
-              headers.set("Location", locationURL);
+              headers2.set("Location", locationURL);
             }
             break;
           case "follow": {
@@ -797,7 +800,7 @@ async function fetch2(url, options_) {
               requestOptions.body = void 0;
               requestOptions.headers.delete("content-length");
             }
-            const responseReferrerPolicy = parseReferrerPolicyFromHeader(headers);
+            const responseReferrerPolicy = parseReferrerPolicyFromHeader(headers2);
             if (responseReferrerPolicy) {
               requestOptions.referrerPolicy = responseReferrerPolicy;
             }
@@ -822,12 +825,12 @@ async function fetch2(url, options_) {
         url: request.url,
         status: response_.statusCode,
         statusText: response_.statusMessage,
-        headers,
+        headers: headers2,
         size: request.size,
         counter: request.counter,
         highWaterMark: request.highWaterMark
       };
-      const codings = headers.get("Content-Encoding");
+      const codings = headers2.get("Content-Encoding");
       if (!request.compress || request.method === "HEAD" || codings === null || response_.statusCode === 204 || response_.statusCode === 304) {
         response = new Response2(body, responseOptions);
         resolve2(response);
@@ -870,8 +873,8 @@ function fixResponseChunkedTransferBadEnding(request, errorCallback) {
   let properLastChunkReceived = false;
   let previousChunk;
   request.on("response", (response) => {
-    const { headers } = response;
-    isChunkedTransfer = headers["transfer-encoding"] === "chunked" && !headers["content-length"];
+    const { headers: headers2 } = response;
+    isChunkedTransfer = headers2["transfer-encoding"] === "chunked" && !headers2["content-length"];
   });
   request.on("socket", (socket) => {
     const onSocketClose = () => {
@@ -5124,11 +5127,11 @@ var init_install_fetch = __esm({
       constructor(body = null, options = {}) {
         super(body, options);
         const status = options.status != null ? options.status : 200;
-        const headers = new Headers2(options.headers);
-        if (body !== null && !headers.has("Content-Type")) {
+        const headers2 = new Headers2(options.headers);
+        if (body !== null && !headers2.has("Content-Type")) {
           const contentType = extractContentType(body, this);
           if (contentType) {
-            headers.append("Content-Type", contentType);
+            headers2.append("Content-Type", contentType);
           }
         }
         this[INTERNALS$1] = {
@@ -5136,7 +5139,7 @@ var init_install_fetch = __esm({
           url: options.url,
           status,
           statusText: options.statusText || "",
-          headers,
+          headers: headers2,
           counter: options.counter,
           highWaterMark: options.highWaterMark
         };
@@ -5253,11 +5256,11 @@ var init_install_fetch = __esm({
         super(inputBody, {
           size: init2.size || input.size || 0
         });
-        const headers = new Headers2(init2.headers || input.headers || {});
-        if (inputBody !== null && !headers.has("Content-Type")) {
+        const headers2 = new Headers2(init2.headers || input.headers || {});
+        if (inputBody !== null && !headers2.has("Content-Type")) {
           const contentType = extractContentType(inputBody, this);
           if (contentType) {
-            headers.set("Content-Type", contentType);
+            headers2.set("Content-Type", contentType);
           }
         }
         let signal = isRequest(input) ? input.signal : null;
@@ -5279,7 +5282,7 @@ var init_install_fetch = __esm({
         this[INTERNALS] = {
           method,
           redirect: init2.redirect || input.redirect || "follow",
-          headers,
+          headers: headers2,
           parsedURL,
           signal,
           referrer
@@ -5344,9 +5347,9 @@ var init_install_fetch = __esm({
     });
     getNodeRequestOptions = (request) => {
       const { parsedURL } = request[INTERNALS];
-      const headers = new Headers2(request[INTERNALS].headers);
-      if (!headers.has("Accept")) {
-        headers.set("Accept", "*/*");
+      const headers2 = new Headers2(request[INTERNALS].headers);
+      if (!headers2.has("Accept")) {
+        headers2.set("Accept", "*/*");
       }
       let contentLengthValue = null;
       if (request.body === null && /^(post|put)$/i.test(request.method)) {
@@ -5359,7 +5362,7 @@ var init_install_fetch = __esm({
         }
       }
       if (contentLengthValue) {
-        headers.set("Content-Length", contentLengthValue);
+        headers2.set("Content-Length", contentLengthValue);
       }
       if (request.referrerPolicy === "") {
         request.referrerPolicy = DEFAULT_REFERRER_POLICY;
@@ -5370,26 +5373,26 @@ var init_install_fetch = __esm({
         request[INTERNALS].referrer = "no-referrer";
       }
       if (request[INTERNALS].referrer instanceof URL) {
-        headers.set("Referer", request.referrer);
+        headers2.set("Referer", request.referrer);
       }
-      if (!headers.has("User-Agent")) {
-        headers.set("User-Agent", "node-fetch");
+      if (!headers2.has("User-Agent")) {
+        headers2.set("User-Agent", "node-fetch");
       }
-      if (request.compress && !headers.has("Accept-Encoding")) {
-        headers.set("Accept-Encoding", "gzip,deflate,br");
+      if (request.compress && !headers2.has("Accept-Encoding")) {
+        headers2.set("Accept-Encoding", "gzip,deflate,br");
       }
       let { agent } = request;
       if (typeof agent === "function") {
         agent = agent(parsedURL);
       }
-      if (!headers.has("Connection") && !agent) {
-        headers.set("Connection", "close");
+      if (!headers2.has("Connection") && !agent) {
+        headers2.set("Connection", "close");
       }
       const search = getSearch(parsedURL);
       const options = {
         path: parsedURL.pathname + search,
         method: request.method,
-        headers: headers[Symbol.for("nodejs.util.inspect.custom")](),
+        headers: headers2[Symbol.for("nodejs.util.inspect.custom")](),
         insecureHTTPParser: request.insecureHTTPParser,
         agent
       };
@@ -5548,7 +5551,12 @@ var init_layout_svelte = __esm({
       })}</ul></nav>`;
     });
     Footer = create_ssr_component(($$result, $$props, $$bindings, slots) => {
-      return `<footer class="${"h-4 p-2"}"></footer>`;
+      return `<footer class="${"mt-8 h-4 border-t-2 border-stone-600 pt-4 text-center font-serif text-xs text-stone-600"}"><p>I am keeping all the cookies to myself and you can&#39;t
+    have <span class="${"underline"}">any</span>.
+  </p>
+  <p>This website uses <a target="${"_blank"}" href="${"https://www.goatcounter.com/"}">a very privacy aware analytics tool</a>.
+  </p>
+  <p class="${"mb-4"}">Do something nice today.</p></footer>`;
     });
     prerender = true;
     _layout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
@@ -5575,9 +5583,9 @@ var entry, js, css;
 var init__ = __esm({
   ".svelte-kit/output/server/nodes/0.js"() {
     init_layout_svelte();
-    entry = "pages/__layout.svelte-d5aed45a.js";
-    js = ["pages/__layout.svelte-d5aed45a.js", "chunks/index-60c65196.js", "chunks/index-cc273379.js"];
-    css = ["assets/app-cfe219f4.css"];
+    entry = "pages/__layout.svelte-54194aaf.js";
+    js = ["pages/__layout.svelte-54194aaf.js", "chunks/index-a4305d86.js", "chunks/index-e10c4c74.js"];
+    css = ["assets/app-e93b226b.css"];
   }
 });
 
@@ -5625,8 +5633,8 @@ var entry2, js2, css2;
 var init__2 = __esm({
   ".svelte-kit/output/server/nodes/1.js"() {
     init_error_svelte();
-    entry2 = "error.svelte-2158f84d.js";
-    js2 = ["error.svelte-2158f84d.js", "chunks/index-60c65196.js"];
+    entry2 = "error.svelte-5b50e8ef.js";
+    js2 = ["error.svelte-5b50e8ef.js", "chunks/index-a4305d86.js"];
     css2 = [];
   }
 });
@@ -5665,9 +5673,1275 @@ var entry3, js3, css3;
 var init__3 = __esm({
   ".svelte-kit/output/server/nodes/2.js"() {
     init_slug_svelte();
-    entry3 = "pages/2019/01/21/_slug_.svelte-fd6b37e6.js";
-    js3 = ["pages/2019/01/21/_slug_.svelte-fd6b37e6.js", "chunks/index-60c65196.js"];
+    entry3 = "pages/2019/01/21/_slug_.svelte-cb42f40f.js";
+    js3 = ["pages/2019/01/21/_slug_.svelte-cb42f40f.js", "chunks/index-a4305d86.js"];
     css3 = [];
+  }
+});
+
+// .svelte-kit/output/server/chunks/Article-700172e8.js
+var Article;
+var init_Article_700172e8 = __esm({
+  ".svelte-kit/output/server/chunks/Article-700172e8.js"() {
+    init_index_87d5ee21();
+    Article = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let y;
+      return `
+
+<article class="${"prose prose-stone mx-auto mt-4 translate-y-96 prose-code:font-mono prose-code:text-lg prose-code:font-normal before:prose-code:hidden after:prose-code:hidden xl:prose-xl 2xl:prose-2xl"}"${add_attribute("style", `transform: ${`translateY(${450 - y}px)`};`, 0)}>${slots.default ? slots.default({}) : ``}</article>`;
+    });
+  }
+});
+
+// node_modules/clsx/dist/clsx.js
+var require_clsx = __commonJS({
+  "node_modules/clsx/dist/clsx.js"(exports, module2) {
+    function toVal(mix) {
+      var k, y, str = "";
+      if (typeof mix === "string" || typeof mix === "number") {
+        str += mix;
+      } else if (typeof mix === "object") {
+        if (Array.isArray(mix)) {
+          for (k = 0; k < mix.length; k++) {
+            if (mix[k]) {
+              if (y = toVal(mix[k])) {
+                str && (str += " ");
+                str += y;
+              }
+            }
+          }
+        } else {
+          for (k in mix) {
+            if (mix[k]) {
+              str && (str += " ");
+              str += k;
+            }
+          }
+        }
+      }
+      return str;
+    }
+    module2.exports = function() {
+      var i2 = 0, tmp, x2, str = "";
+      while (i2 < arguments.length) {
+        if (tmp = arguments[i2++]) {
+          if (x2 = toVal(tmp)) {
+            str && (str += " ");
+            str += x2;
+          }
+        }
+      }
+      return str;
+    };
+  }
+});
+
+// .svelte-kit/output/server/chunks/PageHeading-da33bb91.js
+var import_clsx, PageHeading;
+var init_PageHeading_da33bb91 = __esm({
+  ".svelte-kit/output/server/chunks/PageHeading-da33bb91.js"() {
+    init_index_87d5ee21();
+    import_clsx = __toESM(require_clsx(), 1);
+    PageHeading = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let { headings } = $$props;
+      let { subheadings = [void 0, void 0] } = $$props;
+      let { illustration = void 0 } = $$props;
+      let longHeadings = headings.some((h2) => h2 && h2.length > 30);
+      if ($$props.headings === void 0 && $$bindings.headings && headings !== void 0)
+        $$bindings.headings(headings);
+      if ($$props.subheadings === void 0 && $$bindings.subheadings && subheadings !== void 0)
+        $$bindings.subheadings(subheadings);
+      if ($$props.illustration === void 0 && $$bindings.illustration && illustration !== void 0)
+        $$bindings.illustration(illustration);
+      return `
+
+<div class="${"relative h-52 overflow-hidden"}"><div class="${"relative my-4 h-52 w-full text-center"}"><h1${add_attribute("class", (0, import_clsx.default)("mb-8", longHeadings ? "text-3xl" : "text-6xl"), 0)}>${escape(headings[0] || "")}</h1>
+    ${subheadings.some(Boolean) ? `<subtitle class="${"font-serif text-xl italic"}">${escape(subheadings[0] || "")}</subtitle>` : ``}</div>
+  ${``}</div>
+<div class="${"relative h-56 bg-contain bg-center bg-no-repeat text-red-500"}"${add_attribute("style", `background-image: url('data:image/svg+xml;utf8,${illustration}');`, 0)}></div>`;
+    });
+  }
+});
+
+// .svelte-kit/output/server/chunks/BlogPostLayout-4a47a672.js
+var BlogPostLayout;
+var init_BlogPostLayout_4a47a672 = __esm({
+  ".svelte-kit/output/server/chunks/BlogPostLayout-4a47a672.js"() {
+    init_index_87d5ee21();
+    init_Article_700172e8();
+    init_PageHeading_da33bb91();
+    BlogPostLayout = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      let { title } = $$props;
+      let { alternateTitle } = $$props;
+      let { subtitle } = $$props;
+      let { alternateSubtitle } = $$props;
+      let { illustration } = $$props;
+      if ($$props.title === void 0 && $$bindings.title && title !== void 0)
+        $$bindings.title(title);
+      if ($$props.alternateTitle === void 0 && $$bindings.alternateTitle && alternateTitle !== void 0)
+        $$bindings.alternateTitle(alternateTitle);
+      if ($$props.subtitle === void 0 && $$bindings.subtitle && subtitle !== void 0)
+        $$bindings.subtitle(subtitle);
+      if ($$props.alternateSubtitle === void 0 && $$bindings.alternateSubtitle && alternateSubtitle !== void 0)
+        $$bindings.alternateSubtitle(alternateSubtitle);
+      if ($$props.illustration === void 0 && $$bindings.illustration && illustration !== void 0)
+        $$bindings.illustration(illustration);
+      return `${$$result.head += `${$$result.title = `<title>Blog | Konstantin Kovar</title>`, ""}`, ""}
+
+${validate_component(PageHeading, "PageHeading").$$render($$result, {
+        headings: [title, alternateTitle],
+        subheadings: [subtitle, alternateSubtitle],
+        illustration
+      }, {}, {})}
+${validate_component(Article, "Article").$$render($$result, {}, {}, {
+        default: () => {
+          return `${slots.default ? slots.default({}) : ``}`;
+        }
+      })}`;
+    });
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/blog/comparing-tailwind-with-plain-css-is-wrong.md.js
+var import_clsx2, metadata, Comparing_tailwind_with_plain_css_is_wrong;
+var init_comparing_tailwind_with_plain_css_is_wrong_md = __esm({
+  ".svelte-kit/output/server/entries/pages/blog/comparing-tailwind-with-plain-css-is-wrong.md.js"() {
+    init_index_87d5ee21();
+    init_BlogPostLayout_4a47a672();
+    init_Article_700172e8();
+    init_PageHeading_da33bb91();
+    import_clsx2 = __toESM(require_clsx(), 1);
+    metadata = {
+      "title": "Don't compare TailwindCSS with CSS",
+      "author": "Konstantin <mail@vomkonstant.in>",
+      "published": "2022-05-09",
+      "illustration": '<svg viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg"> <g stroke-width="10" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"> <path d="M11.27 89.844c5.437-7.04 11.214-12.512 18.943-16.929 55.62-31.782 87.677 36.25 135.593 50.062 30.354 8.75 73.913-3.376 72.299-42.482" stroke="currentcolor" stroke-width="20.491799999999998"/> <path d="M46.136 139.77c25.21-18.149 44.616-.906 65.137 14.145 26.56 19.479 59 38.254 91.556 19.935" stroke="currentColor" stroke-width="20.491799999999998"/> </g> </svg>'
+    };
+    Comparing_tailwind_with_plain_css_is_wrong = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      return `${validate_component(BlogPostLayout, "Layout_MDSVEX_DEFAULT").$$render($$result, Object.assign($$props, metadata), {}, {
+        default: () => {
+          return `<p>A year ago I was teaching web development students about the various approaches to writing and organizing CSS, which is notoriously hard to maintain, in its \u201Cnatural\u201D form. Among the things I was showing was a brief mention of the \u201Catomic CSS\u201D-approach and the fact that TailwindCSS had gained a considerable amount of steam over the last few years. Back then, I was playing it down as a fad, telling them I didn\u2019t understand what all the fuss was about, basically telling them it was unjustified hype.</p>
+<p>Fast forward to this semester, when I taught the same course to another class. My view had changed. I told my students, that I now believe there are good chances TailwindCSS will dominate the space for years to come, similar to how Bootstrap had been doing in the mid-2000s.</p>
+<h2>Plain CSS is not Tailwind\u2019s competition</h2>
+<p>So what changed? During the months in-between I had realized, that the issues I had with Tailwind were invalid. I was comparing it to plain CSS, even though I had not been writing plain CSS - or even SCSS, Less, etc. - outside of my teaching engagements for quite literally <em>years</em>.</p>
+<h2>What Tailwind is actually up against</h2>
+<p>Joining a ReactJS-legacy project you will quite likely find a stack similar to this:</p>
+<ol><li>TypeScript</li>
+<li>NextJS</li>
+<li>React (duh)</li>
+<li>Artifacts of a past Redux integration (\u201Cwe tried to delete it, but when we do it breaks and we don\u2019t know why\u201D)</li>
+<li>styled-components or emotionJS</li>
+<li>styled-system</li></ol>
+<p>Let\u2019s focus on the last two points. These have likely been integrated because keeping extra CSS files for every React component quickly becomes unmaintainable with a growing project. So a decision was made to keep the styles within the component files. Eventually, it turned out to be cumbersome to write a stylesheet for every component in your application. To the rescue comes styled-system, which provides you with reusable components using inline styles via props, comprehensive theming functionality and an intriguingly simple way to write responsive styles.</p>
+<h2>Performance-gore</h2>
+<p>None of this comes without a cost. The whole convoluted sentence you just decided not to read, is computed <em>at runtime</em> and believe me when I tell you, a peek under styled-system\u2019s hood reveals some treacherous caveats.</p>
+<p>So what if we could have all of that power, but none of that runtime overhead? Sounds too good to be true? Well, let\u2019s take a look at how we would replace styled-system code with TailwindCSS in this simple example.</p>
+<pre class="${"language-tsx"}"><!-- HTML_TAG_START -->${`<code class="language-tsx"><span class="token keyword">const</span> SomeComponent<span class="token operator">:</span> <span class="token function-variable function">FunctionComponent</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">&#123;</span>children<span class="token punctuation">&#125;</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">SomeKindOfGeneralPurposeDiv</span></span>
+    <span class="token attr-name">position</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>absolute<span class="token punctuation">'</span></span>
+    <span class="token attr-name">px</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>md<span class="token punctuation">'</span></span> <span class="token comment">// assuming a theme exsists where this is defined</span>
+    <span class="token attr-name">py</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>sm<span class="token punctuation">'</span></span> <span class="token comment">// assuming a theme exsists where this is defined</span>
+    <span class="token attr-name">top</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>10vh<span class="token punctuation">'</span></span>
+    <span class="token attr-name">left</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>20vw<span class="token punctuation">'</span></span>
+    <span class="token attr-name">w</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">'</span>60vw<span class="token punctuation">'</span></span>
+  <span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token punctuation">&#123;</span>children<span class="token punctuation">&#125;</span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">SomeKindOfGeneralPurposeDiv</span></span><span class="token punctuation">></span></span><span class="token plain-text">
+)
+</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>These are six props that need to be computed at runtime by the browser\u2019s JavaScript interpreter. If we would use Tailwind, this code would be to the same effect:</p>
+<pre class="${"language-tsx"}"><!-- HTML_TAG_START -->${`<code class="language-tsx"><span class="token keyword">const</span> SomeComponent<span class="token operator">:</span> <span class="token function-variable function">FunctionComponent</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">&#123;</span>children<span class="token punctuation">&#125;</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">(</span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span>
+    <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>
+      absolute
+      px-8
+      py-4
+      top-[10vh]
+      left-[20vh]
+      w-[60vw]
+    <span class="token punctuation">"</span></span>
+  <span class="token punctuation">></span></span><span class="token plain-text">
+    </span><span class="token punctuation">&#123;</span>children<span class="token punctuation">&#125;</span><span class="token plain-text">
+  </span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span><span class="token punctuation">></span></span><span class="token plain-text">
+)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>As we can see, the ideas at play are the same. In both examples, we</p>
+<ul><li>use values defined in our theme/config for the padding</li>
+<li>use arbitrary values for the positioning and width</li>
+<li>defined all of the styles inline</li></ul>
+<h2>Responsiveness</h2>
+<p>Let\u2019s take a look at responsive styling. I will just show single lines for brevity. This is how you might change a components margin depending on screen size in styled-system.</p>
+<pre class="${"language-tsx"}"><!-- HTML_TAG_START -->${`<code class="language-tsx">  m<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#123;</span>sm<span class="token operator">:</span> <span class="token string">'4px'</span><span class="token punctuation">,</span> md<span class="token operator">:</span> <span class="token string">'8px'</span><span class="token punctuation">,</span> lg<span class="token operator">:</span> <span class="token string">'16px'</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Easy enough, but note that added to everything else discussed above, the passed-in object gets created every time this component re-renders. <em>(Strictly speaking, this is a constant value, that should be moved out of the component entirely, defeating the whole point of readable responsive code.)</em></p>
+<p>On the other hand, doing the same thing in Tailwind looks very similar, but doesn\u2019t require unnecessary computing when running in the browser:</p>
+<pre class="${"language-tsx"}"><!-- HTML_TAG_START -->${`<code class="language-tsx">className <span class="token operator">=</span> <span class="token string">'sm:m-1 md:m-2 lg:m-4'</span></code>`}<!-- HTML_TAG_END --></pre>
+<h2>It goes even deeper\u2026</h2>
+<p>How would you give a component a hover effect in styled-system or styled-components? Inline CSS, right?</p>
+<pre class="${"language-tsx"}"><!-- HTML_TAG_START -->${`<code class="language-tsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token class-name">RedOnHover</span></span>
+  <span class="token attr-name">css</span><span class="token script language-javascript"><span class="token script-punctuation punctuation">=</span><span class="token punctuation">&#123;</span>css<span class="token template-string"><span class="token template-punctuation string">&#96;</span><span class="token string">
+    &amp;:hover &#123;
+      background-color: red;
+    &#125;
+  </span><span class="token template-punctuation string">&#96;</span></span><span class="token punctuation">&#125;</span></span>
+<span class="token punctuation">/></span></span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Now if that isn\u2019t some ugly code. Let\u2019s compare this to what tailwind has to offer:</p>
+<pre class="${"language-tsx"}"><!-- HTML_TAG_START -->${`<code class="language-tsx"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">className</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>hover:bg-red-500<span class="token punctuation">"</span></span><span class="token punctuation">></span></span></code>`}<!-- HTML_TAG_END --></pre>
+<p>The \u201Cbut tailwind is hard to read\u201D argument backfires at this point. Tailwind offers the same principles with most of the other pseudo-selectors and media queries you would normally use: <code>focus</code>, <code>active</code>, <code>visited</code>, <code>first</code>, <code>last</code> and even <code>even</code>. If you are using animations or transitions, there is even a modifier to handle the <code>prefers-reduced-motion</code> media query with <code>motion-reduce</code>.</p>
+<h2>\u2026 but it won\u2019t do that</h2>
+<p>Inexplicably, Tailwind does not yet support the <code>pointer</code> media query, which I frequently used to enlargen clickable areas for buttons on touch displays. <a href="${"https://github.com/ShiftLimits/tailwindcss-interaction-media"}" rel="${"nofollow"}">There seems to be a plugin in development</a>, but its activity doesn\u2019t stoke confidence.</p>
+<p>Aside from this minor nuisance, there are also natural limits to the atomic CSS approach. The one that had the most impact on me (while coding this very blog, actually) is the fact that there is no way to style an element while <em>another</em> element is interacted with. Consider the following SCSS, in which an image gets shown when its sibling text is hovered over.</p>
+<pre class="${"language-scss"}"><!-- HTML_TAG_START -->${`<code class="language-scss"><span class="token selector">.image </span><span class="token punctuation">&#123;</span>
+  <span class="token property">opacity</span><span class="token punctuation">:</span> 0<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token selector">.text:hover </span><span class="token punctuation">&#123;</span>
+  <span class="token selector"><span class="token parent important">&amp;</span> ~ .image </span><span class="token punctuation">&#123;</span>
+    <span class="token property">opacity</span><span class="token punctuation">:</span> 1<span class="token punctuation">;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>It is not possible to emulate this behavior with atomic classes alone, in fact, whenever we want to express relationships between certain elements, we have to deviate from the atomic CSS principle, by writing custom classes in our entry CSS file and applying those to our elements.</p>
+<p><em>Edit 16.05.2022: This might not hold true for much longer, as there is an <a href="${"https://github.com/tailwindlabs/tailwindcss/pull/8299"}" rel="${"nofollow"}">upcoming feature called \u201Carbitrary variants\u201D, which solves this exact issue.</a> I will refactor my custom classes after the feature\u2019s release and share the process on this blog.</em></p>
+<h2>Conclusion</h2>
+<p>Comparing TailwindCSS to plain CSS or even Sass/SCSS, you might question its benefit. When did you last write plain CSS though? Modern projects often rely on complex, component-based architectures, for which appropriate styling methods have evolved, and have long reigned supreme in the space. When compared to <em>these</em> styling methods, it becomes clear why TailwindCSS has gained such a strong following over the past years.</p>`;
+        }
+      })}`;
+    });
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/blog/youre-not-just-late-to-crypto.md.js
+var import_clsx3, metadata2, Youre_not_just_late_to_crypto;
+var init_youre_not_just_late_to_crypto_md = __esm({
+  ".svelte-kit/output/server/entries/pages/blog/youre-not-just-late-to-crypto.md.js"() {
+    init_index_87d5ee21();
+    init_BlogPostLayout_4a47a672();
+    init_Article_700172e8();
+    init_PageHeading_da33bb91();
+    import_clsx3 = __toESM(require_clsx(), 1);
+    metadata2 = {
+      "title": "You're not just late to crypto, it's already over",
+      "alternateTitle": "Scammers and fraudsters have destroyed it",
+      "author": "Konstantin <mail@vomkonstant.in>",
+      "published": "2022-05-13",
+      "illustration": '<svg viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg"> <g stroke="currentColor" stroke-width="6" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"><path clip-rule="evenodd" d="M188.386 115.61c-12.662 1.936-45.233 6.408-32 27.304-22.24-15.817-25.982 40.57-25.657 44.338-2.032-11.156-7.48-43.078-16.051-47.305-3.486-1.719-9.435 2.664-12.518 4.368 1.357-3.158 4.078-6.756 2.747-10.332-1.13-3.034-6.001-4.287-8.666-5.274-8.09-2.999-16.821-4.357-24.75-7.614 9.984-.621 21.591-4.561 29.306-11.113 4.662-3.959 6.902-10.177 1.238-14.578 17.311 2.86 19.516-10.068 21.278-24.291 1.256-10.136 2.778-20.308 3.77-30.507 1.173 4.062 2.307 8.123 3.335 12.225 3.44 13.717 4.058 44.782 24.714 38.618-8.558 20.986 21.252 21.145 33.254 24.161z" stroke-width="10.71426"/><path d="M74.502 75.103c2.284 2.003 5.628 3.319 8.141 5.058 2.87 1.986 5.76 4.664 8.932 6.15M165.43 83.057c7.457-5.712 14.754-11.866 21.902-17.972M125.511 9.821c.417 5.27.233 10.986 1.46 16.161M52.425 121.71c-11.18.326-22.763 2.825-33.675 5.264M90.032 159.421c-6.358 6.878-11.19 14.789-17.062 22.036M129.484 208.496c.379 10.543 1.933 20.95 1.978 31.541M165.253 154.834c4.955 4.82 11.292 8.123 16.518 12.703M205.566 113.615c8.079-.467 17.843 1.099 25.684-.227" stroke-width="10.71426"/> </g> </svg>'
+    };
+    Youre_not_just_late_to_crypto = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      return `${validate_component(BlogPostLayout, "Layout_MDSVEX_DEFAULT").$$render($$result, Object.assign($$props, metadata2), {}, {
+        default: () => {
+          return `<p>Crypto can be a huge source of <a href="${"https://en.wikipedia.org/wiki/Fear_of_missing_out"}" rel="${"nofollow"}">FOMO</a>. If you had only invested in Bitcoin when it was a few cents, you\u2019d be a multimillionaire now.</p>
+<p>Naturally, the question arises, whether or not you can still grind out some profit for yourself, by investing right now. After all, there are coins like Doge, Ada or Shib, that would have handsomely multiplied your investment at a much later point in time.</p>
+<p>Enthusiasts of the crypto space will tell you that it is still early and broad mainstream adaption is yet to happen, as the technology matures to be safer, cheaper to run and easier to interact with. After all, haven\u2019t we all heard that use cases of blockchain technology are limitless?</p>
+<p>I disagree with this. Strongly. While there might be technical and philosophical merit to crypto, which I do believe is the case, the space in which a lucky few have effortlessly acquired immense wealth has - in hindsight quite unsurprisingly - attracted an uncanny amount of scammers, fraudsters and con-artists, that have poisoned the whole ecosystem to a point, where you can safely assume that almost everything that is being pitched or sold to you, is either <a target="${"_blank"}" href="${"https://web3isgoinggreat.com/"}">fraudulent or just stupid.</a></p>
+<p>The percentage of projects for people to burn their money in, is surely enough to kill the entire idea of crypto many times over. Additionally, many of the newer iterations of the basic idea of crypto do not add any value to anything, as I expressed <a target="${"_blank"}" href="${"https://brutkasten.com/blockchain-bullshit/"}">in this (German) article back in August of 2016.</a></p>
+<p>I argued back then - and I agree with myself now - that while blockchain solved a real problem in that scarce resources and value could not be moved via the internet, there was little actual use outside of that. From what I can tell, this holds true, as I have yet to encounter a project, that uses some kind of token, be it fungible or not, in any meaningful way. Rather, just to sell people digital <a target="${"_blank"}" href="${"https://www.cryptokitties.co/"}">cats</a>, <a target="${"_blank"}" href="${"https://www.crypt-oink.io/webapp/guest"}">pigs</a> and <a target="${"_blank"}" href="${"https://crypko.ai/"}">waifus</a>, preying on their FOMO.</p>`;
+        }
+      })}`;
+    });
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/blog/pythons-most-underrated-game-engine.md.js
+var import_clsx4, metadata3, Pythons_most_underrated_game_engine;
+var init_pythons_most_underrated_game_engine_md = __esm({
+  ".svelte-kit/output/server/entries/pages/blog/pythons-most-underrated-game-engine.md.js"() {
+    init_index_87d5ee21();
+    init_BlogPostLayout_4a47a672();
+    init_Article_700172e8();
+    init_PageHeading_da33bb91();
+    import_clsx4 = __toESM(require_clsx(), 1);
+    metadata3 = {
+      "title": "Python's most underrated game engine for beginners",
+      "author": "Konstantin <mail@vomkonstant.in>",
+      "published": "2018-11-08",
+      "illustration": '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 250 250"> <g stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="1.5" stroke-width="5"><path d="M206.993 80.897c23.523 40.434 5.156 89.568-30.854 118.461-28.994 23.264-84.795 29.399-123-11.86-21.456-23.172-25.306-61.89-12.482-94.75M63.288 58.174c5.754-5.595 12.326-10.479 19.704-14.41 29.815-15.888 72.622-16.661 102.123 6.846" stroke-width="13.8889"/><path d="M160.417 131.78c-2.42 19.089-12.17 37.793-26.951 44.106-22.954 9.803-41.983-16.17-41.192-44.54 23.124-5.06 45.738-4.923 69.019-6.907M70.475 66.462c3.711-5.705 10.545-11.87 16.052-13.49 10.17-2.994 22.457 8.114 20.852 18.527-1.265 8.215-6.785 15.053-11.972 21.199-7.552 8.954-15.662 17.558-24.729 25.005-12.764-9.735-34.317-22.902-37.625-39.852-2.826-14.469 4.854-30.304 21.118-24.914 6.911 2.29 12.098 7.996 16.304 13.525zM178.756 57.654C182.51 51.88 189.427 45.641 195 44.002c10.293-3.031 22.729 8.211 21.104 18.748-1.282 8.316-6.865 15.236-12.115 21.457-7.643 9.063-15.853 17.772-25.028 25.307-12.918-9.852-34.73-23.18-38.08-40.332-2.858-14.645 4.913-30.671 21.375-25.216 6.995 2.317 12.243 8.09 16.5 13.688z" stroke-width="13.8889"/></g> </svg>'
+    };
+    Pythons_most_underrated_game_engine = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      return `${validate_component(BlogPostLayout, "Layout_MDSVEX_DEFAULT").$$render($$result, Object.assign($$props, metadata3), {}, {
+        default: () => {
+          return `<p><em>This post has been ported from the old blog and slightly edited on the 13<sup>th</sup> of May 2022.</em></p>
+<p>Making games is one of the coolest things you can do with self-taught programming skills. You have complete creative freedom, you don\u2019t have to have a unique and marketable idea and you\u2019re not potentially putting anyone in danger by messing up.</p>
+<p>While there are a lot of great game engines out there (my favorite being <a target="${"_blank"}" href="${"https://godotengine.org/"}">Godot</a>), I recently came across an awesome project on GitHub named <a target="${"_blank"}" href="${"https://github.com/kitao/pyxel"}">Pyxel</a>. It is a game engine aiming to enable a quick and easy way to develop games in a retro style.</p>
+<p>I have played around with it a little and I was having such a good time playing around with it, that I thought I would write up a small little tutorial about how I coded a quick version of \u201CPong\u201D in just shy of 130 lines of Python.</p>
+<h2>What we\u2019re building</h2>
+<p>So this version of Pong is a single-player version where one player controls both bats and gets a point every time they hit the ball. Easy enough? Let\u2019s do it.</p>
+<p><em>(Screenshot lost during porting, trying to recover.)</em></p>
+<h2>Setting up the basics</h2>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">import</span> pyxel
+
+SCREEN_WIDTH <span class="token operator">=</span> <span class="token number">255</span>
+SCREEN_HEIGHT <span class="token operator">=</span> <span class="token number">120</span>
+
+<span class="token keyword">class</span> <span class="token class-name">App</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    pyxel<span class="token punctuation">.</span>init<span class="token punctuation">(</span>SCREEN_WIDTH<span class="token punctuation">,</span> SCREEN_HEIGHT<span class="token punctuation">)</span>
+    pyxel<span class="token punctuation">.</span>run<span class="token punctuation">(</span>self<span class="token punctuation">.</span>update<span class="token punctuation">,</span> self<span class="token punctuation">.</span>draw<span class="token punctuation">)</span>
+
+App<span class="token punctuation">(</span><span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>So here we are just wrapping our app in its own class, using Pyxel\u2019s built-in methods to initialize the screen and run the game.</p>
+<p>Pyxel\u2019s <code>run()</code>-method takes in two functions as arguments, one that will update the game before every frame and one that will redraw the screen after the changes have been calculated, which I have named accordingly.</p>
+<p>So let\u2019s write those methods inside the <code>App</code>:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">if</span> pyxel<span class="token punctuation">.</span>btnp<span class="token punctuation">(</span>pyxel<span class="token punctuation">.</span>KEY_Q<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    pyxel<span class="token punctuation">.</span>quit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">draw</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  pyxel<span class="token punctuation">.</span>cls<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Here the <code>update()</code>-method does nothing more - for now -, but to listen for a button press of the \u201CQ\u201D-key and quit the program, when it receives <code>True</code>. The <code>draw()</code>-method uses the built-in <code>cls()</code>-method to clear the screen using the color passed to it (in this case, 0 represents black, Pyxel exposes an enumerated color palette of 16 colors you can view <a href="${"https://github.com/kitao/pyxel"}">in their docs</a>).</p>
+<p>Hooray! If we run this script, we should get a black window that does absolutely nothing. Not that exciting, however, you can check if everything is put together correctly by pressing the \u201CQ\u201D-key. If the window closes, everything works as expected.</p>
+<h2>Balling</h2>
+<p>Arguably the most important game object in Pong is the ball. Let\u2019s write a class for our ball.</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">class</span> <span class="token class-name">Ball</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> position<span class="token punctuation">,</span> velocity<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>position <span class="token operator">=</span> position
+    self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> velocity</code>`}<!-- HTML_TAG_END --></pre>
+<p>The ball doesn\u2019t really need any other properties than a position to define where it is and a velocity to define where it is going. So far so good. Let\u2019s make sure our <code>App</code> knows about our <code>Ball</code>: For this purpose we are going to initialize an instance of the <code>Ball</code>, right when the <code>App</code> loads, like so:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  pyxel<span class="token punctuation">.</span>init<span class="token punctuation">(</span>SCREEN_WIDTH<span class="token punctuation">,</span> SCREEN_HEIGHT<span class="token punctuation">)</span>
+  self<span class="token punctuation">.</span>ball <span class="token operator">=</span> Ball<span class="token punctuation">(</span>PLACEHOLDER_POSITION<span class="token punctuation">,</span> PLACEHOLDER_VELOCITY<span class="token punctuation">)</span>
+  pyxel<span class="token punctuation">.</span>run<span class="token punctuation">(</span>self<span class="token punctuation">.</span>update<span class="token punctuation">,</span> self<span class="token punctuation">.</span>draw<span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>and in the <code>draw()</code> method, we will make sure a circle is drawn to represent the ball:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">def</span> <span class="token function">draw</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  pyxel<span class="token punctuation">.</span>cls<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+  pyxel<span class="token punctuation">.</span>circ<span class="token punctuation">(</span>self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Here, 2 is the radius of the circle (aka our <code>Ball</code>) and 7 is the color in which the ball is drawn. Hold on though, Pyxel\u2019s <code>circ()</code> method needs two positional inputs, one for the x-axis (horizontal) and one for the y-axis (vertical). Let\u2019s get onto that.</p>
+<h2>Position and Velocity</h2>
+<p>On a two-dimensional playing field, you will generally need two values to define the position of an object, one for each dimension (axis).</p>
+<p>This is also true for the velocity, you need two values to know in which direction the object is moving, however, the fact that you probably also want to keep control over the speed of the object, makes this a little trickier, so let\u2019s focus on the position for now.</p>
+<h3>Position</h3>
+<p>Since we will have to manage the position of multiple objects in this project, it makes sense to write a class for those 2D vectors:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">class</span> <span class="token class-name">Vec2</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>x <span class="token operator">=</span> x
+    self<span class="token punctuation">.</span>y <span class="token operator">=</span> y</code>`}<!-- HTML_TAG_END --></pre>
+<p>Easy enough. Let\u2019s apply this to our <code>Ball</code>:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">class</span> <span class="token class-name">Ball</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> px<span class="token punctuation">,</span> py<span class="token punctuation">,</span> vx<span class="token punctuation">,</span> vy<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>position <span class="token operator">=</span> Vec2<span class="token punctuation">(</span>px<span class="token punctuation">,</span> py<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> Vec2<span class="token punctuation">(</span>vx<span class="token punctuation">,</span> vy<span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Now, our Ball gets initialized with four values: an <code>x</code> and a <code>y</code> value for each the position and the velocity. Those values are then swiftly turned into <code>Vec2</code>s, so we can easily access the values, i.e. via <code>any_ball.position.x</code>. Let\u2019s make use of that in our <code>App</code>\u2019s <code>draw() </code>method:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">def</span> draw<span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span> 
+  pyxel<span class="token punctuation">.</span>cls<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> 
+  pyxel<span class="token punctuation">.</span>circ<span class="token punctuation">(</span>
+    self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x<span class="token punctuation">,</span>
+    self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y<span class="token punctuation">,</span>
+    <span class="token number">2</span><span class="token punctuation">,</span> 
+    <span class="token number">7</span>
+  <span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Now let\u2019s properly initiate the <code>Ball</code> in our <code>App</code> by changing the line <code>self.ball = Ball(PLACEHOLDER_POSITION, PLACEHOLDER_VELOCITY)</code> from using the placeholders to something like <code>self.ball = Ball(20, 20, 2, 2)</code>. When you run the script now, you should see your ball, standing there, proudly, 20 pixels from the left and 20 pixels from the top border of the window. It won\u2019t move though, since we haven\u2019t told the <code>Ball</code> what to do with its velocity values yet.</p>
+<h3>Velocity</h3>
+<p>Now we should give our <code>Ball </code>class its own <code>update</code>()\xA0\`method to make sure it knows what to do with those velocity values:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">+=</span> self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>x
+  self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+=</span> self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y</code>`}<!-- HTML_TAG_END --></pre>
+<p>We now have to call this <code>update()</code> method within our <code>App</code>\u2019s own update method, otherwise, it won\u2019t be called at every frame. So add the line <code>self.ball.update()</code> there (but outside the scope of our existing if-statement). We\u2019re not done though. This will run our ball off the screen, never to be seen again (feel free to try it out). Let\u2019s constrain our ball\u2019s movement by adding two simple rules to the <code>update()</code>-method:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">if</span> self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">>=</span> SCREEN_HEIGHT <span class="token operator">-</span> <span class="token number">2</span><span class="token punctuation">:</span>
+  self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token operator">-</span>self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y
+
+<span class="token keyword">if</span> self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">&lt;=</span> <span class="token number">2</span><span class="token punctuation">:</span>
+  self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token operator">-</span>self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y</code>`}<!-- HTML_TAG_END --></pre>
+<p>This makes sure that when the ball hits either the top or the bottom border of the screen, it will change its direction on the y-axis. The number 2 here represents the size of the ball and since this is a value now that we are using repeatedly, we should store it in a variable with something like <code>BALL_SIZE = 2</code>.</p>
+<p>We could also add similar rules for the left and right border here, but since touching the left or right border should later end the game, we can omit this here.</p>
+<p>At this point, our <code>Ball</code>-class looks like this:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">class</span> <span class="token class-name">Ball</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> px<span class="token punctuation">,</span> py<span class="token punctuation">,</span> vx<span class="token punctuation">,</span> vy<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>position <span class="token operator">=</span> Vec2<span class="token punctuation">(</span>px<span class="token punctuation">,</span> py<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> Vec2<span class="token punctuation">(</span>vx<span class="token punctuation">,</span> vy<span class="token punctuation">)</span>
+
+  <span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">+=</span> self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>x
+    self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+=</span> self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y
+
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">>=</span> SCREEN_HEIGHT <span class="token operator">-</span> BALL_SIZE<span class="token punctuation">:</span>
+      self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token operator">-</span>self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y
+
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">&lt;=</span> BALL_SIZE<span class="token punctuation">:</span>
+      self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token operator">-</span>self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y</code>`}<!-- HTML_TAG_END --></pre>
+<p><strong>(Don\u2019t forget to update the <code>App</code>\u2019s <code>draw()</code> method to use the newly created <code>BALL_SIZE</code> constant as well.)</strong></p>
+<p>As of right now, we have no control over the ball\u2019s speed other than indirectly via the values we pass at the time of the initialization. This is a problem for two reasons: 1) The speed of the ball will vary based on its angle (I\u2019m not going to go into detail here, but if you want to try it out, you can take the script we have written so far and make some more balls with different velocity values and watch how they behave). 2) If we were to change the speed of the ball (to make it harder as the game goes along for example), we couldn\u2019t easily do so.</p>
+<p>To solve this problem, we need to \u2018normalize\u2019 the vector, which means that you figure out a vector\u2019s length, and reduce it to 1. With a vector always having the same length, regardless of its angle, you can then reliably control its speed.</p>
+<p>We could include something like a normalize() method in our existing Vec2 class, but for our purposes, I think it\u2019s a better solution to just write another class for normalized 2D vectors. A class that does everything we just discussed would look like this:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">class</span> <span class="token class-name">Vec2_norm</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>magnitude <span class="token operator">=</span> math<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>x <span class="token operator">*</span> x <span class="token operator">+</span> y <span class="token operator">*</span> y<span class="token punctuation">)</span> <span class="token comment"># this is how you get the magnitude (length) of a vector</span>
+    self<span class="token punctuation">.</span>x <span class="token operator">=</span> x <span class="token operator">/</span> self<span class="token punctuation">.</span>magnitude <span class="token operator">*</span> BALL_SPEED
+    self<span class="token punctuation">.</span>y <span class="token operator">=</span> y <span class="token operator">/</span> self<span class="token punctuation">.</span>magnitude <span class="token operator">*</span> BALL_SPEED</code>`}<!-- HTML_TAG_END --></pre>
+<p>For this to work we need to do three things: <code>import math</code> at the top of the script, update our <code>Ball</code>\u2019s <code>__init__()</code> method to use the new class like so: <code>self.velocity = Vec2_norm(vx, vy)</code> and create a constant variable <code>BALL_SPEED = 2</code>.</p>
+<p>Whew. That was a lot. If you need a break, this would be a great point to take one. Just so we\u2019re on the same page, here is the full script we are having so far:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">import</span> math
+<span class="token keyword">import</span> pyxel
+
+BALL_SIZE <span class="token operator">=</span> <span class="token number">2</span>
+BALL_SPEED <span class="token operator">=</span> <span class="token number">2</span>
+SCREEN_WIDTH <span class="token operator">=</span> <span class="token number">255</span>
+SCREEN_HEIGHT <span class="token operator">=</span> <span class="token number">120</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Vec2</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>x <span class="token operator">=</span> x
+    self<span class="token punctuation">.</span>y <span class="token operator">=</span> y
+
+<span class="token keyword">class</span> <span class="token class-name">Vec2_norm</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>magnitude <span class="token operator">=</span> math<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>x <span class="token operator">*</span> x <span class="token operator">+</span> y <span class="token operator">*</span> y<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>x <span class="token operator">=</span> x <span class="token operator">/</span> self<span class="token punctuation">.</span>magnitude <span class="token operator">*</span> BALL_SPEED
+    self<span class="token punctuation">.</span>y <span class="token operator">=</span> y <span class="token operator">/</span> self<span class="token punctuation">.</span>magnitude <span class="token operator">*</span> BALL_SPEED
+
+<span class="token keyword">class</span> <span class="token class-name">Ball</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> px<span class="token punctuation">,</span> py<span class="token punctuation">,</span> vx<span class="token punctuation">,</span> vy<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>position <span class="token operator">=</span> Vec2<span class="token punctuation">(</span>px<span class="token punctuation">,</span> py<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> Vec2_norm<span class="token punctuation">(</span>vx<span class="token punctuation">,</span> vy<span class="token punctuation">)</span>
+
+  <span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">+=</span> self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>x
+    self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+=</span> self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y
+
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">>=</span> SCREEN_HEIGHT <span class="token operator">-</span> BALL_SIZE<span class="token punctuation">:</span>
+      self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token operator">-</span>self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y
+
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">&lt;=</span> BALL_SIZE<span class="token punctuation">:</span>
+      self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token operator">-</span>self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y
+
+<span class="token keyword">class</span> <span class="token class-name">App</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    pyxel<span class="token punctuation">.</span>init<span class="token punctuation">(</span>SCREEN_WIDTH<span class="token punctuation">,</span> SCREEN_HEIGHT<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>ball <span class="token operator">=</span> Ball<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+    pyxel<span class="token punctuation">.</span>run<span class="token punctuation">(</span>self<span class="token punctuation">.</span>update<span class="token punctuation">,</span> self<span class="token punctuation">.</span>draw<span class="token punctuation">)</span>
+
+  <span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> pyxel<span class="token punctuation">.</span>btnp<span class="token punctuation">(</span>pyxel<span class="token punctuation">.</span>KEY_Q<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      pyxel<span class="token punctuation">.</span>quit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">def</span> <span class="token function">draw</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    pyxel<span class="token punctuation">.</span>cls<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+    pyxel<span class="token punctuation">.</span>circ<span class="token punctuation">(</span>
+      self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x<span class="token punctuation">,</span>
+      self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y<span class="token punctuation">,</span>
+      BALL_SIZE<span class="token punctuation">,</span>
+      <span class="token number">7</span>
+    <span class="token punctuation">)</span>
+
+App<span class="token punctuation">(</span><span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<h2>Batting</h2>
+<p>Did you run it, did it work? Cool. Now we\u2019re still missing a crucial part of the game, which is the bats. So let\u2019s implement the steps for the bats, what we already know how to do:</p>
+<ol><li>Write a class</li></ol>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">class</span> <span class="token class-name">Bat</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> px<span class="token punctuation">,</span> py<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>position <span class="token operator">=</span> Vec2<span class="token punctuation">(</span>px<span class="token punctuation">,</span> py<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token number">0</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>We don\u2019t need a vector for the velocity in this case, since the bats will only be moving on one axis and we can also just set it to 0 right away since the bats shouldn\u2019t be moving when the game starts.</p>
+<ol><li>Let\u2019s instantiate two bricks with positions on the left and on the right side of the screen in our App, right when it loads:</li></ol>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  pyxel<span class="token punctuation">.</span>init<span class="token punctuation">(</span>SCREEN_WIDTH<span class="token punctuation">,</span> SCREEN_HEIGHT<span class="token punctuation">)</span>
+  self<span class="token punctuation">.</span>ball <span class="token operator">=</span> Ball<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+  self<span class="token punctuation">.</span>bats <span class="token operator">=</span> <span class="token punctuation">[</span>Bat<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Bat<span class="token punctuation">(</span>SCREEN_WIDTH <span class="token operator">-</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+  pyxel<span class="token punctuation">.</span>run<span class="token punctuation">(</span>self<span class="token punctuation">.</span>update<span class="token punctuation">,</span> self<span class="token punctuation">.</span>draw<span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<ol><li>Let\u2019s draw a rectangle shape in our <code>App</code>\u2019s <code>draw()</code> method for our bats. Let\u2019s also apply what we have learned when making the <code>Ball</code> and set a variable for <code>BAT_SIZE = 8</code> right away.</li></ol>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">def</span> <span class="token function">draw</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  pyxel<span class="token punctuation">.</span>cls<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+  pyxel<span class="token punctuation">.</span>circ<span class="token punctuation">(</span>
+    self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x<span class="token punctuation">,</span>
+    self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y<span class="token punctuation">,</span>
+    BALL_SIZE<span class="token punctuation">,</span>
+    <span class="token number">7</span>
+  <span class="token punctuation">)</span>
+  <span class="token keyword">for</span> bat <span class="token keyword">in</span> self<span class="token punctuation">.</span>bats<span class="token punctuation">:</span>
+    pyxel<span class="token punctuation">.</span>rect<span class="token punctuation">(</span>
+      bat<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">-</span> BAT_SIZE <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token comment"># x-coordinate of top left corner</span>
+      bat<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">-</span> BAT_SIZE<span class="token punctuation">,</span>     <span class="token comment"># y-coordinate of top left corner</span>
+      bat<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">+</span> BAT_SIZE <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token comment"># x-coordinate of bottom right corner</span>
+      bat<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+</span> BAT_SIZE<span class="token punctuation">,</span>     <span class="token comment"># y-coordinate of bottom right corner</span>
+      <span class="token number">7</span>                               <span class="token comment"># fill color</span>
+    <span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<ol><li>In anticipation that this is what we are writing next, let\u2019s call our bats\u2019 <code>update()</code> method inside the <code>App</code>\u2019s own <code>update()</code> method as we did for the ball.</li></ol>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">if</span> pyxel<span class="token punctuation">.</span>btnp<span class="token punctuation">(</span>pyxel<span class="token punctuation">.</span>KEY_Q<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    pyxel<span class="token punctuation">.</span>quit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">for</span> bat <span class="token keyword">in</span> self<span class="token punctuation">.</span>bats<span class="token punctuation">:</span>
+    bat<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Okay, so now let\u2019s get to that <code>update()</code> method itself.</p>
+<p>First, we need to tell it (like the Ball), what to do with its velocity value,
+secondly, we want to tell it to change its velocity on button-press</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">if</span> pyxel<span class="token punctuation">.</span>btnp<span class="token punctuation">(</span>pyxel<span class="token punctuation">.</span>KEY_W<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">2</span>
+
+<span class="token keyword">if</span> pyxel<span class="token punctuation">.</span>btnp<span class="token punctuation">(</span>pyxel<span class="token punctuation">.</span>KEY_S<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token number">2</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>and third, we want the bats to stop when they hit the top or bottom edge of the screen.</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">if</span> self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">-</span> BAT_SIZE <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+  self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">=</span> BAT_SIZE
+  self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token number">0</span>
+
+<span class="token keyword">if</span> self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+</span> BAT_SIZE <span class="token operator">></span> SCREEN_HEIGHT<span class="token punctuation">:</span>
+  self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">=</span> SCREEN_HEIGHT <span class="token operator">-</span> BAT_SIZE
+  self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token number">0</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>If you run the script now, all the pieces are in place, but when we try to hit the ball with the bat, it just passes right through. That\u2019s obviously not what we want. If we were using a more sophisticated game engine, we\u2019d do something like drawing a \u2018hitbox\u2019 around our game objects, or we would make the objects rigid bodies, something of this sort. In Pyxel though, we have to implement this behavior ourselves. Let\u2019s hold on for a second and think about this thoroughly, remember: <strong>think twice, code once.</strong></p>
+<h2>Hitting on it</h2>
+Okay, so the hitbox is a property of the bats and it should correlate with the drawn rectangle. So it would make sense to have a hitbox attribute in the \`Bat\` class and then draw that hitbox rather than arbitrary values as we are doing right now.
+<p>Also, since the hitbox will be a collection of various values, it would be a good idea to write its own class, nothing fancy, something like:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">class</span> <span class="token class-name">HitBox</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x1<span class="token punctuation">,</span> y1<span class="token punctuation">,</span> x2<span class="token punctuation">,</span> y2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>x1 <span class="token operator">=</span> x1 <span class="token comment"># x-coordinate of top left corner</span>
+    self<span class="token punctuation">.</span>y1 <span class="token operator">=</span> y1 <span class="token comment"># y-coordinate of top left corner</span>
+    self<span class="token punctuation">.</span>x2 <span class="token operator">=</span> x2 <span class="token comment"># x-coordinate of bottom right corner</span>
+    self<span class="token punctuation">.</span>y2 <span class="token operator">=</span> y2 <span class="token comment"># y-coordinate of bottom right corner</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Let\u2019s take a look inside our <code>App</code>\u2019s <code>draw()</code> method:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">for</span> bat <span class="token keyword">in</span> self<span class="token punctuation">.</span>bats<span class="token punctuation">:</span>
+  pyxel<span class="token punctuation">.</span>rect<span class="token punctuation">(</span>
+    bat<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">-</span> BAT_SIZE <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token comment"># x-coordinate of top left corner</span>
+    bat<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">-</span> BAT_SIZE<span class="token punctuation">,</span>     <span class="token comment"># y-coordinate of top left corner</span>
+    bat<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">+</span> BAT_SIZE <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token comment"># x-coordinate of bottom right corner</span>
+    bat<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+</span> BAT_SIZE<span class="token punctuation">,</span>     <span class="token comment"># y-coordinate of bottom right corner</span>
+    <span class="token number">7</span>                              <span class="token comment"># fill color</span>
+  <span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Let\u2019s cut those calculations and rather use them in our <code>Bat</code> class to instantiate a hitbox:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">class</span> <span class="token class-name">Bat</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> px<span class="token punctuation">,</span> py<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>position <span class="token operator">=</span> Vec2<span class="token punctuation">(</span>px<span class="token punctuation">,</span> py<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token number">0</span>
+    self<span class="token punctuation">.</span>hitBox <span class="token operator">=</span> HitBox<span class="token punctuation">(</span>
+      self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">-</span> BAT_SIZE <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span>
+      self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">-</span> BAT_SIZE<span class="token punctuation">,</span>
+      self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">+</span> BAT_SIZE <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span>
+      self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+</span> BAT_SIZE
+    <span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>This allows us to use the hitboxes of our bats to draw the rectangles, again in our <code>App</code>\u2019s <code>draw()</code> method, we can simply write:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">for</span> bat <span class="token keyword">in</span> self<span class="token punctuation">.</span>bats<span class="token punctuation">:</span>
+  pyxel<span class="token punctuation">.</span>rect<span class="token punctuation">(</span>
+    bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>x1<span class="token punctuation">,</span>
+    bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>y1<span class="token punctuation">,</span>
+    bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>x2<span class="token punctuation">,</span>
+    bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>y2<span class="token punctuation">,</span>
+    <span class="token number">7</span>
+  <span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>It might not seem like a huge deal, but this actually means that if we calculate whether or not the ball has been hit by the bat, this will always align with what the user sees on their screen, which is kind of important for obvious reasons.</p>
+<p>Before we continue, we have to make sure the hitbox also updates every frame, so we have to update the <code>Bat</code>\u2019s <code>update()</code> method:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+=</span> self<span class="token punctuation">.</span>velocity
+  self<span class="token punctuation">.</span>hitBox <span class="token operator">=</span> HitBox<span class="token punctuation">(</span>
+    self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">-</span> BAT_SIZE <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span>
+    self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">-</span> BAT_SIZE<span class="token punctuation">,</span>
+    self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">+</span> BAT_SIZE <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span>
+    self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+</span> BAT_SIZE
+  <span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Great, so let\u2019s move over and write a simple conditional statement that checks whether or not the position of the ball is inside the bat\u2019s hitbox, and if it is, we want the ball to reverse it\u2019s velocity on the x-axis. This is what I came up with:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">for</span> bat <span class="token keyword">in</span> self<span class="token punctuation">.</span>bats<span class="token punctuation">:</span>
+  bat<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>x1 <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">&lt;</span> bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>x2
+  <span class="token keyword">and</span> bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>y1 <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">&lt;</span> bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>y2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token operator">-</span>self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>x</code>`}<!-- HTML_TAG_END --></pre>
+<p><strong>(If you spot a problem with this right away, you would be right, if not, I\u2019m revisiting this in the last segment as an opportunity to debug the script, for now though, this does what it\u2019s supposed to do.)</strong></p>
+<h2>Scoring and losing</h2>
+<p>The game works! Let\u2019s implement the score and the loss condition: For the loss condition, we just check for the ball\u2019s position on the x-axis and if it\u2019s below 0 or farther right than the screen width, the game is over. For the score, we initiate the <code>App</code> with a <code>score</code> attribute of 0. Now every time the ball hits a bat, we increment the score by 1. After those small changes, the <code>App</code>\u2019s <code>update()</code> method should look like this:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+  <span class="token keyword">if</span> pyxel<span class="token punctuation">.</span>btnp<span class="token punctuation">(</span>pyxel<span class="token punctuation">.</span>KEY_Q<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    pyxel<span class="token punctuation">.</span>quit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">for</span> bat <span class="token keyword">in</span> self<span class="token punctuation">.</span>bats<span class="token punctuation">:</span>
+    bat<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>x1 <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">&lt;</span> bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>x2
+    <span class="token keyword">and</span> bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>y1 <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">&lt;</span> bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>y2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token operator">-</span>self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>x
+      self<span class="token punctuation">.</span>score <span class="token operator">+=</span> <span class="token number">1</span>
+  <span class="token keyword">if</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">>=</span> SCREEN_WIDTH <span class="token operator">-</span> BALL_SIZE<span class="token punctuation">:</span>
+    pyxel<span class="token punctuation">.</span>quit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">&lt;=</span> BALL_SIZE<span class="token punctuation">:</span>
+    pyxel<span class="token punctuation">.</span>quit<span class="token punctuation">(</span><span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Finally, let\u2019s give the user some feedback on his score, by including the score as text on the screen. Inside the <code>App</code>\u2019s <code>draw()</code> method, let\u2019s insert:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py">pyxel<span class="token punctuation">.</span>text<span class="token punctuation">(</span>
+  SCREEN_WIDTH <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">,</span>   <span class="token comment"># x-position of the text</span>
+  SCREEN_HEIGHT <span class="token operator">/</span> <span class="token number">12</span><span class="token punctuation">,</span> <span class="token comment"># y position of the text</span>
+  <span class="token builtin">str</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>score<span class="token punctuation">)</span><span class="token punctuation">,</span>    <span class="token comment"># displayed text as string</span>
+  <span class="token number">7</span>                   <span class="token comment"># text color</span>
+<span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>And that\u2019s it! The game is working and is eager to be played. In case you went off the road somewhere and need help finding back, here is everything we just did, as a whole:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">import</span> math
+<span class="token keyword">import</span> pyxel
+
+BALL_SIZE <span class="token operator">=</span> <span class="token number">2</span>
+BALL_SPEED <span class="token operator">=</span> <span class="token number">2</span>
+BAT_SIZE <span class="token operator">=</span> <span class="token number">8</span>
+SCREEN_WIDTH <span class="token operator">=</span> <span class="token number">255</span>
+SCREEN_HEIGHT <span class="token operator">=</span> <span class="token number">120</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Vec2</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>x <span class="token operator">=</span> x
+    self<span class="token punctuation">.</span>y <span class="token operator">=</span> y
+
+<span class="token keyword">class</span> <span class="token class-name">Vec2_norm</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>magnitude <span class="token operator">=</span> math<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>x <span class="token operator">*</span> x <span class="token operator">+</span> y <span class="token operator">*</span> y<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>x <span class="token operator">=</span> x <span class="token operator">/</span> self<span class="token punctuation">.</span>magnitude <span class="token operator">*</span> BALL_SPEED
+    self<span class="token punctuation">.</span>y <span class="token operator">=</span> y <span class="token operator">/</span> self<span class="token punctuation">.</span>magnitude <span class="token operator">*</span> BALL_SPEED
+
+<span class="token keyword">class</span> <span class="token class-name">HitBox</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x1<span class="token punctuation">,</span> y1<span class="token punctuation">,</span> x2<span class="token punctuation">,</span> y2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>x1 <span class="token operator">=</span> x1 <span class="token comment"># x-coordinate of top left corner</span>
+    self<span class="token punctuation">.</span>y1 <span class="token operator">=</span> y1 <span class="token comment"># y-coordinate of top left corner</span>
+    self<span class="token punctuation">.</span>x2 <span class="token operator">=</span> x2 <span class="token comment"># x-coordinate of bottom right corner</span>
+    self<span class="token punctuation">.</span>y2 <span class="token operator">=</span> y2 <span class="token comment"># y-coordinate of bottom right corner</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Ball</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> px<span class="token punctuation">,</span> py<span class="token punctuation">,</span> vx<span class="token punctuation">,</span> vy<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>position <span class="token operator">=</span> Vec2<span class="token punctuation">(</span>px<span class="token punctuation">,</span> py<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> Vec2_norm<span class="token punctuation">(</span>vx<span class="token punctuation">,</span> vy<span class="token punctuation">)</span>
+
+  <span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">+=</span> self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>x
+    self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+=</span> self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y
+
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">>=</span> SCREEN_HEIGHT <span class="token operator">-</span> BALL_SIZE<span class="token punctuation">:</span>
+      self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token operator">-</span>self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y
+
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">&lt;=</span> BALL_SIZE<span class="token punctuation">:</span>
+      self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token operator">-</span>self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y
+
+<span class="token keyword">class</span> <span class="token class-name">Bat</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> px<span class="token punctuation">,</span> py<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>position <span class="token operator">=</span> Vec2<span class="token punctuation">(</span>px<span class="token punctuation">,</span> py<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token number">0</span>
+    self<span class="token punctuation">.</span>hitBox <span class="token operator">=</span> HitBox<span class="token punctuation">(</span>
+      self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">-</span> BAT_SIZE <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span>
+      self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">-</span> BAT_SIZE<span class="token punctuation">,</span>
+      self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">+</span> BAT_SIZE <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span>
+      self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+</span> BAT_SIZE
+    <span class="token punctuation">)</span>
+
+  <span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+=</span> self<span class="token punctuation">.</span>velocity
+    self<span class="token punctuation">.</span>hitBox <span class="token operator">=</span> HitBox<span class="token punctuation">(</span>
+      self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">-</span> BAT_SIZE <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span>
+      self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">-</span> BAT_SIZE<span class="token punctuation">,</span>
+      self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">+</span> BAT_SIZE <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span>
+      self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+</span> BAT_SIZE
+    <span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> pyxel<span class="token punctuation">.</span>btnp<span class="token punctuation">(</span>pyxel<span class="token punctuation">.</span>KEY_W<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">2</span>
+
+    <span class="token keyword">if</span> pyxel<span class="token punctuation">.</span>btnp<span class="token punctuation">(</span>pyxel<span class="token punctuation">.</span>KEY_S<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token number">2</span>
+
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">-</span> BAT_SIZE <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+      self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">=</span> BAT_SIZE
+      self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token number">0</span>
+
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+</span> BAT_SIZE <span class="token operator">></span> SCREEN_HEIGHT<span class="token punctuation">:</span>
+      self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">=</span> SCREEN_HEIGHT <span class="token operator">-</span> BAT_SIZE
+      self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token number">0</span>
+
+<span class="token keyword">class</span> <span class="token class-name">App</span><span class="token punctuation">:</span>
+  <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    pyxel<span class="token punctuation">.</span>init<span class="token punctuation">(</span>SCREEN_WIDTH<span class="token punctuation">,</span> SCREEN_HEIGHT<span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>ball <span class="token operator">=</span> Ball<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>bats <span class="token operator">=</span> <span class="token punctuation">[</span>Bat<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Bat<span class="token punctuation">(</span>SCREEN_WIDTH <span class="token operator">-</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+    self<span class="token punctuation">.</span>score <span class="token operator">=</span> <span class="token number">0</span>
+    pyxel<span class="token punctuation">.</span>run<span class="token punctuation">(</span>self<span class="token punctuation">.</span>update<span class="token punctuation">,</span> self<span class="token punctuation">.</span>draw<span class="token punctuation">)</span>
+
+  <span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> pyxel<span class="token punctuation">.</span>btnp<span class="token punctuation">(</span>pyxel<span class="token punctuation">.</span>KEY_Q<span class="token punctuation">)</span><span class="token punctuation">:</span>
+      pyxel<span class="token punctuation">.</span>quit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> bat <span class="token keyword">in</span> self<span class="token punctuation">.</span>bats<span class="token punctuation">:</span>
+      bat<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">)</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>x1 <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">&lt;</span> bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>x2
+      <span class="token keyword">and</span> bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>y1 <span class="token operator">&lt;</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">&lt;</span> bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>y2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token operator">-</span>self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>x
+        self<span class="token punctuation">.</span>score <span class="token operator">+=</span> <span class="token number">1</span>
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">>=</span> SCREEN_WIDTH <span class="token operator">-</span> BALL_SIZE<span class="token punctuation">:</span>
+      pyxel<span class="token punctuation">.</span>quit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">&lt;=</span> BALL_SIZE<span class="token punctuation">:</span>
+      pyxel<span class="token punctuation">.</span>quit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+  <span class="token keyword">def</span> <span class="token function">draw</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    pyxel<span class="token punctuation">.</span>cls<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+    pyxel<span class="token punctuation">.</span>circ<span class="token punctuation">(</span>
+      self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x<span class="token punctuation">,</span>
+      self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y<span class="token punctuation">,</span>
+      BALL_SIZE<span class="token punctuation">,</span>
+      <span class="token number">7</span>
+    <span class="token punctuation">)</span>
+    <span class="token keyword">for</span> bat <span class="token keyword">in</span> self<span class="token punctuation">.</span>bats<span class="token punctuation">:</span>
+      pyxel<span class="token punctuation">.</span>rect<span class="token punctuation">(</span>
+        bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>x1<span class="token punctuation">,</span>
+        bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>y1<span class="token punctuation">,</span>
+        bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>x2<span class="token punctuation">,</span>
+        bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>y2<span class="token punctuation">,</span>
+        <span class="token number">7</span>
+      <span class="token punctuation">)</span>
+    pyxel<span class="token punctuation">.</span>text<span class="token punctuation">(</span>
+      SCREEN_WIDTH <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">,</span>
+      SCREEN_HEIGHT <span class="token operator">/</span> <span class="token number">12</span><span class="token punctuation">,</span>
+      <span class="token builtin">str</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>score<span class="token punctuation">)</span><span class="token punctuation">,</span>
+      <span class="token number">7</span>
+    <span class="token punctuation">)</span>
+
+App<span class="token punctuation">(</span><span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<h2>Where to go from here</h2>
+<p>Alright, a very basic version of the game is done, but let\u2019s be honest, it could be more exciting. Here are some suggestions about how to improve the game, that you can try on your own:</p>
+<ul><li>To make the game less predictable, let\u2019s change the ball\u2019s angle with which he bounces back from the bat by a small random value. Hint: you will probably want to <code>from random import uniform</code> for this one.<ul><li>More advanced: Make the angle change based on the position of the ball relative to the position of the bat at the time of contact.</li></ul></li>
+<li>Make the game harder as it goes along, maybe increase the ball speed a little every 5 points (it isn\u2019t technically necessary, but it would be good practice to rename the <code>BALL_SPEED</code> variable to <code>ball_speed</code>, since all-cap variable names generally indicate constants).</li>
+<li>Use different color schemes. Maybe even change colors dynamically throughout the game (to indicate an increase in ball speed for example).</li>
+<li>There is a bug, that when the ball enters the bat from the bottom or top rather than the side, it will get kind of stuck there, maybe you can figure out what the problem is and fix it?</li></ul>
+<hr>
+<p>Edit: Stepping every aspect of this tutorial up (and adding some new ones): Check out this project on GitHub: <a target="${"_blank"}" href="${"https://github.com/timbledum/asteroids"}">github.com/timbledum/asteroids</a>
+If you want to level up, examining this very well written and commented repository would be well-invested time.</p>`;
+        }
+      })}`;
+    });
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/blog/pythons-most-underrated-game-engine-2.md.js
+var import_clsx5, metadata4, Pythons_most_underrated_game_engine_2;
+var init_pythons_most_underrated_game_engine_2_md = __esm({
+  ".svelte-kit/output/server/entries/pages/blog/pythons-most-underrated-game-engine-2.md.js"() {
+    init_index_87d5ee21();
+    init_BlogPostLayout_4a47a672();
+    init_Article_700172e8();
+    init_PageHeading_da33bb91();
+    import_clsx5 = __toESM(require_clsx(), 1);
+    metadata4 = {
+      "title": "After Pong Ends",
+      "alternateSubtitle": `Part 2 of "Python's most underrated game engine for beginners`,
+      "author": "Konstantin <mail@vomkonstant.in>",
+      "published": "2019-01-19",
+      "illustration": '<svg viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg"> <g stroke="currentColor"> <path d="M25 195.048c0-.903 1.306-1.3 1.695-2.115.089-.189 1.369-2.83 1.61-2.75 1.094.365 2.962 4.112 3.611 5.111.075.114 1.354 2.037 1.445 1.916 2.428-3.238 1.174-9.757 4.138-12.72.443-.443.635 1.08.971 1.61.174.273 3.394 2.287 3.5 2.14.71-.993 1.891-7.563 4.166-6.806 1.83.61 3.845 5.96 4.25 7.5.068.257 1.16 3.788 1.556 3.472 3.122-2.498 2.886-6.793 3.61-10.416 1.227-6.133 2.111-15.104 5.083-20.553.402-.737 4.14-3.45 4.75-3.084 1.675 1.006 3.609 5.502 5.693 1.334 1.45-2.899 4.684-9.488 4.833-12.471.05-1.007.533-4.693 2.028-4.444 3.622.604 4.92 6.355 6.165 9.11 4.055 8.979 6.373 18.608 10.61 27.386 1.331 2.757 2.05 5.952 3.111 8.833.167.45 1.11 3.009 1.89 2.749 2.237-.746 3.327-9.56 4.47-11.72 6.7-12.654 11.67-26.623 16.22-40.274.284-.852.573-3.457.7-4.337.585-4.027.8-8.594 2.052-12.483.19-.594 1.195-4.368 1.94-4.301 2.59.236 1.963 5.492 3.551 6.55.152.102.77-3.646.86-4.124.462-2.42 1.331-1.368 2.316-1.368.931 0 1 3.625 1.5 4.125.7.7 2.321-.645 2.624-.088.227.415 1.594 5.43 1.875 5.36.574-.144.878-1.826 1.743-1.566.358.108 1.363 2.687 1.742 2.404.545-.41.491-2.801.728-3.485 1.22-3.54 2.552-6.904 4.036-10.366.25-.585 1.7 4.065 2.073 1.456.055-.386.126-.765.198-1.147.63-3.3.657-7.047 2.052-10.145.22-.489.567-2.543 1.08-2.713 1.18-.393 2.666 6.184 3.066 7.234.057.151.954 2.224 1.059 2.16 1.126-.675.726-2.44.683-3.484-.116-2.857-.285-5.675.177-8.513.036-.22.484-3.59.882-3.44.751.28 1.071 2.205 1.257 2.823.82 2.73 1.502 5.5 2.404 8.204 2.736 8.208 3.553 17.308 6.682 25.276.737 1.872 1.373 3.79 2.207 5.623.06.133.734 1.552.881 1.478.505-.252-.128-1.976.331-2.206.042-.02.504 1.035.573 1.125.528.679 1.061 1.343 1.522 2.073.21.332.595 1.407.595 1.015.542.902 1.038.45 1.358-.09.788-1.33.992-3.038 1.271-4.526.888-4.733 1.954-9.12 2.489-13.922.745-6.71 2.869-12.716 4.207-19.216.823-3.993.428-7.79 1.854-11.75 1.084-3.013 1.618-7.68 3.943-10.005.063-.063 1.966 5.483 2.462 5.929.719.647 1.88-2.486 2.487-1.88 1.32 1.322 1.78 4.426 2.382 6.115 1.543 4.333 2.84 8.812 4.711 13.022.025.054.427-.812.477-.921.39-.864.742-1.747 1.132-2.611.932-2.061 3.322-3.87 3.794-6.01 1.635-7.426 3.087-15.224 5.879-22.44.192-.498.968.01 1.444-.24 2.713-1.43 2.405 2.244 3.745 4.7.2.366 1.234 4.043 1.65 3.705 1.504-1.221 1.79-5.813 2.259-7.588 1.925-7.283 3.977-14.1 3.75-21.768" stroke-width="8.3333" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"> </path> </g> </svg>'
+    };
+    Pythons_most_underrated_game_engine_2 = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      return `${validate_component(BlogPostLayout, "Layout_MDSVEX_DEFAULT").$$render($$result, Object.assign($$props, metadata4), {}, {
+        default: () => {
+          return `<p><em>This post has been ported from the old blog and slightly edited on the 15<sup>th</sup> of May 2022.</em></p>
+<p><a href="${"/blog/pythons-most-underrated-game-engine"}">\u201CPython\u2019s most underrated game engine for beginners\u201D</a> is by far the most popular post on this blog and it seems to help a lot of people making their first steps with Python, so I decided to expand on this post by 1) refactoring the code to be both better and more pythonic and 2) solve the challenges I posted at the bottom of the first post utilizing the advantages of the new, refactored code.</p>
+<p>For this tutorial, I will constantly refer back to the original code, so it might be helpful if you have a copy of it somewhere nearby.</p>
+<p>The first thing we need to address is our Vec2 classes. We define two of them, one for normal vectors and one for normalized vectors. In most circumstances, this would be considered bad practice, because as you expand the functionality of your <code>Vec2</code> class, you also have to copy that functionality over to the <code>Vec2_norm</code> class, which isn\u2019t very <a target="${"_blank"}" href="${"https://en.wikipedia.org/wiki/Don't_repeat_yourself"}">DRY</a>, to say the least.</p>
+<p>So let\u2019s merge these two classes into one:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">class</span> <span class="token class-name">Vec2</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>x <span class="token operator">=</span> x
+        self<span class="token punctuation">.</span>y <span class="token operator">=</span> y
+        self<span class="token punctuation">.</span>magnitude <span class="token operator">=</span> math<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>x <span class="token operator">*</span> x <span class="token operator">+</span> y <span class="token operator">*</span> y<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">normalized</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> Vec2<span class="token punctuation">(</span>self<span class="token punctuation">.</span>x <span class="token operator">/</span> self<span class="token punctuation">.</span>magnitude<span class="token punctuation">,</span> self<span class="token punctuation">.</span>y <span class="token operator">/</span> self<span class="token punctuation">.</span>magnitude<span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Cool, so now we can use our <code>Vec2</code> class like we are used to and when we want to use a normalized vector we can use its <code>normalized(</code>)\` method. Easy peasy.</p>
+<p>Above I mentioned something about expanding our <code>Vec2</code> classes functionality. Well, what do I mean by that? After all, we have been getting by just fine with just an <code>x</code>, a <code>y</code> and a <code>magnitude</code> attribute. Now we can even normalize a vector by calling a single method, what else could we want from our class, right?</p>
+<p>Consider this: How would you add two vector objects together? Probably something like this:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py">vector_1 <span class="token operator">=</span> Vec2<span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+vector_2 <span class="token operator">=</span> Vec2<span class="token punctuation">(</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
+vector_sum <span class="token operator">=</span> Vec2<span class="token punctuation">(</span>vector_1<span class="token punctuation">.</span>x <span class="token operator">+</span> vector_2<span class="token punctuation">.</span>x<span class="token punctuation">,</span> vector_1<span class="token punctuation">.</span>y <span class="token operator">+</span> vector_2<span class="token punctuation">.</span>y<span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>That\u2019s an awful lot of code for such a simple operation though, isn\u2019t it? Shouldn\u2019t it be a simple as <code>vector_sum = vector_1 + vector2</code>? This is where Python\u2019s magic methods come into play. You see, we can achieve exactly this behavior, by specifying our vector\u2019s <code>**add**</code> method like this:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">def</span> <span class="token function">__add__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> Vec2<span class="token punctuation">(</span>self<span class="token punctuation">.</span>x <span class="token operator">+</span> other<span class="token punctuation">.</span>x<span class="token punctuation">,</span> self<span class="token punctuation">.</span>y <span class="token operator">+</span> other<span class="token punctuation">.</span>y<span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Now, whenever we use the + operator with two vector objects it will perform the addition and return a new vector object with the new values.</p>
+<p>Here is a little exercise: Try and define magic methods for all the other basic arithmetic operations and when you have done that I show you my solution. The methods you are looking for are called <code>**sub**</code>, <code>**mul**</code> and <code>**truediv**</code>.</p>
+<hr>
+<p>Have you done it? Great. Here is what I have:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">class</span> <span class="token class-name">Vec2</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>x <span class="token operator">=</span> x
+        self<span class="token punctuation">.</span>y <span class="token operator">=</span> y
+        self<span class="token punctuation">.</span>magnitude <span class="token operator">=</span> math<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>x <span class="token operator">*</span> x <span class="token operator">+</span> y <span class="token operator">*</span> y<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__add__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>other<span class="token punctuation">,</span> Vec2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> TypeError<span class="token punctuation">(</span><span class="token string">"Only 2 Vec2 can be added to each other!"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> Vec2<span class="token punctuation">(</span>self<span class="token punctuation">.</span>x <span class="token operator">+</span> other<span class="token punctuation">.</span>x<span class="token punctuation">,</span> self<span class="token punctuation">.</span>y <span class="token operator">+</span> other<span class="token punctuation">.</span>y<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__sub__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>other<span class="token punctuation">,</span> Vec2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> TypeError<span class="token punctuation">(</span><span class="token string">"Only a Vec2 can be subtracted from another!"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> Vec2<span class="token punctuation">(</span>self<span class="token punctuation">.</span>x <span class="token operator">-</span> other<span class="token punctuation">.</span>x<span class="token punctuation">,</span> self<span class="token punctuation">.</span>y <span class="token operator">-</span> other<span class="token punctuation">.</span>y<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__mul__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> scalar<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>scalar<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token builtin">float</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> TypeError<span class="token punctuation">(</span><span class="token string">"A Vec2 can only be mulitplied by a scalar!"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> Vec2<span class="token punctuation">(</span>self<span class="token punctuation">.</span>x <span class="token operator">*</span> scalar<span class="token punctuation">,</span> self<span class="token punctuation">.</span>y <span class="token operator">*</span> scalar<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__truediv__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> scalar<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>scalar<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token builtin">float</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> TypeError<span class="token punctuation">(</span><span class="token string">"A Vec2 can only be divided by a scalar!"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> Vec2<span class="token punctuation">(</span>self<span class="token punctuation">.</span>x <span class="token operator">/</span> scalar<span class="token punctuation">,</span> self<span class="token punctuation">.</span>y <span class="token operator">/</span> scalar<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">normalized</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self <span class="token operator">/</span> self<span class="token punctuation">.</span>magnitude</code>`}<!-- HTML_TAG_END --></pre>
+<p>Easy right? You are probably noticing two things in my code though: Firstly, I have included checks to make sure the operators are used with the right data type since vectors can only be added to and subtracted from other vectors, yet can only be multiplied and divided by single numbers (called scalars). Secondly, I have refactored the <code>normalized()</code> method yet again to take advantage of this new functionality right away. Looking mighty fine, let\u2019s move on.</p>
+<p>Next, let\u2019s look at our <code>HitBox</code> class. The first thing we should notice is that this class actually has no functionality at all. It consists exclusively of attributes and has no methods. Whenever you encounter a class like this, it is a perfect opportunity to refactor, since a class like this can (and should) be refactored into a collection type called <code>namedtuple</code>. So after adding the <code>from collections import namedtuple</code> statement at the top of our file, let\u2019s refactor our HitBox to look like this: <code>HitBox = namedtuple(&quot;HitBox&quot;, &quot;x1 y1 x2 y2&quot;)</code>. Single line. Easy as pie. If something about this confuses you, check out <a href="${"https://docs.python.org/2/library/collections.html#collections.namedtuple"}">the official documentation here</a>.</p>
+<p>The best part is that we can actually use this like our original <code>HitBox</code> class, so we can leave the parts of our code that used the class as they are, but not only that, since this is now a sequence type, we have now implicitly made any <code>HitBox</code> iterable. <em>\u201CYeah that\u2019s nice\u201D</em>, you might say, <em>\u201Cbut when do I realistically need to iterate through the coordinates of a hitbox? That\u2019s not very useful.\u201D</em></p>
+<p>Well, let\u2019s take a look at the <code>draw</code> method of our original <code>App</code> class. Until now it looks like this:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">def</span> <span class="token function">draw</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    pyxel<span class="token punctuation">.</span>cls<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+    pyxel<span class="token punctuation">.</span>circ<span class="token punctuation">(</span>self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x<span class="token punctuation">,</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y<span class="token punctuation">,</span> BALL_SIZE<span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">)</span>
+    <span class="token keyword">for</span> bat <span class="token keyword">in</span> self<span class="token punctuation">.</span>bats<span class="token punctuation">:</span>
+        pyxel<span class="token punctuation">.</span>rect<span class="token punctuation">(</span>bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>x1<span class="token punctuation">,</span> bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>y1<span class="token punctuation">,</span> bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>x2<span class="token punctuation">,</span> bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>y2<span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">)</span>
+    pyxel<span class="token punctuation">.</span>text<span class="token punctuation">(</span>SCREEN_WIDTH <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">,</span> SCREEN_HEIGHT <span class="token operator">/</span> <span class="token number">12</span><span class="token punctuation">,</span> <span class="token builtin">str</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>score<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Notice how we need to reference every single coordinate when drawing a rectangle for our bats? You see, being iterable does not only mean that we can iterate through it, it also means that we can make use of Python\u2019s very powerful packing/unpacking features. Here we can refactor the relevant line to <code>pyxel.rect(\\*bat.hitBox, 7)</code>, which is way prettier and to the point.</p>
+<p>For the rest of the script, the refactoring is rather unexciting, but what we definitely should do, is to move the BALL_SPEED, BALL_SIZE and BRICK_SIZE constants to where they belong: Their respective classes. You can do that yourself or copy it from below, where you find the complete script as we have it right now, just so we are on the same page:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">from</span> collections <span class="token keyword">import</span> namedtuple
+<span class="token keyword">import</span> math
+<span class="token keyword">import</span> pyxel
+
+SCREEN_WIDTH <span class="token operator">=</span> <span class="token number">255</span>
+SCREEN_HEIGHT <span class="token operator">=</span> <span class="token number">120</span>
+
+HitBox <span class="token operator">=</span> namedtuple<span class="token punctuation">(</span><span class="token string">"HitBox"</span><span class="token punctuation">,</span> <span class="token string">"x1 y1 x2 y2"</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">Vec2</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> x<span class="token punctuation">,</span> y<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>x <span class="token operator">=</span> x
+        self<span class="token punctuation">.</span>y <span class="token operator">=</span> y
+        self<span class="token punctuation">.</span>magnitude <span class="token operator">=</span> math<span class="token punctuation">.</span>sqrt<span class="token punctuation">(</span>x <span class="token operator">*</span> x <span class="token operator">+</span> y <span class="token operator">*</span> y<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__add__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>other<span class="token punctuation">,</span> Vec2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> TypeError<span class="token punctuation">(</span><span class="token string">"Only 2 Vec2 can be added to each other!"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> Vec2<span class="token punctuation">(</span>self<span class="token punctuation">.</span>x <span class="token operator">+</span> other<span class="token punctuation">.</span>x<span class="token punctuation">,</span> self<span class="token punctuation">.</span>y <span class="token operator">+</span> other<span class="token punctuation">.</span>y<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__sub__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> other<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>other<span class="token punctuation">,</span> Vec2<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> TypeError<span class="token punctuation">(</span><span class="token string">"Only a Vec2 can be subtracted from another!"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> Vec2<span class="token punctuation">(</span>self<span class="token punctuation">.</span>x <span class="token operator">-</span> other<span class="token punctuation">.</span>x<span class="token punctuation">,</span> self<span class="token punctuation">.</span>y <span class="token operator">-</span> other<span class="token punctuation">.</span>y<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__mul__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> scalar<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>scalar<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token builtin">float</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> TypeError<span class="token punctuation">(</span><span class="token string">"A Vec2 can only be mulitplied by a scalar!"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> Vec2<span class="token punctuation">(</span>self<span class="token punctuation">.</span>x <span class="token operator">*</span> scalar<span class="token punctuation">,</span> self<span class="token punctuation">.</span>y <span class="token operator">*</span> scalar<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">__truediv__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> scalar<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> <span class="token keyword">not</span> <span class="token builtin">isinstance</span><span class="token punctuation">(</span>scalar<span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token builtin">int</span><span class="token punctuation">,</span> <span class="token builtin">float</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            <span class="token keyword">raise</span> TypeError<span class="token punctuation">(</span><span class="token string">"A Vec2 can only be divided by a scalar!"</span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> Vec2<span class="token punctuation">(</span>self<span class="token punctuation">.</span>x <span class="token operator">/</span> scalar<span class="token punctuation">,</span> self<span class="token punctuation">.</span>y <span class="token operator">/</span> scalar<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">normalized</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self <span class="token operator">/</span> self<span class="token punctuation">.</span>magnitude
+
+
+<span class="token keyword">class</span> <span class="token class-name">Ball</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> px<span class="token punctuation">,</span> py<span class="token punctuation">,</span> vx<span class="token punctuation">,</span> vy<span class="token punctuation">,</span> speed<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">,</span> size<span class="token operator">=</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>position <span class="token operator">=</span> Vec2<span class="token punctuation">(</span>px<span class="token punctuation">,</span> py<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>speed <span class="token operator">=</span> speed
+        self<span class="token punctuation">.</span>size <span class="token operator">=</span> size
+        self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> Vec2<span class="token punctuation">(</span>vx<span class="token punctuation">,</span> vy<span class="token punctuation">)</span><span class="token punctuation">.</span>normalized<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> self<span class="token punctuation">.</span>speed
+
+    <span class="token keyword">def</span> <span class="token function">changeSpeedBy</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> number<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>speed <span class="token operator">*=</span> number
+        self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>normalized<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> self<span class="token punctuation">.</span>speed
+
+    <span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">+=</span> self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>x
+        self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+=</span> self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y
+
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token operator">=</span> SCREEN_HEIGHT <span class="token operator">-</span> self<span class="token punctuation">.</span>size<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token operator">-</span>self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y
+
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">&amp;</span>lt<span class="token punctuation">;</span><span class="token operator">=</span> self<span class="token punctuation">.</span>size<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y <span class="token operator">=</span> <span class="token operator">-</span>self<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>y
+
+
+<span class="token keyword">class</span> <span class="token class-name">Bat</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> px<span class="token punctuation">,</span> py<span class="token punctuation">,</span> size<span class="token operator">=</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>position <span class="token operator">=</span> Vec2<span class="token punctuation">(</span>px<span class="token punctuation">,</span> py<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token number">0</span>
+        self<span class="token punctuation">.</span>size <span class="token operator">=</span> size
+        self<span class="token punctuation">.</span>hitBox <span class="token operator">=</span> HitBox<span class="token punctuation">(</span>
+            self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">-</span> self<span class="token punctuation">.</span>size <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span>
+            self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">-</span> self<span class="token punctuation">.</span>size<span class="token punctuation">,</span>
+            self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">+</span> self<span class="token punctuation">.</span>size <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span>
+            self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+</span> self<span class="token punctuation">.</span>size<span class="token punctuation">,</span>
+        <span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+=</span> self<span class="token punctuation">.</span>velocity
+        self<span class="token punctuation">.</span>hitBox <span class="token operator">=</span> HitBox<span class="token punctuation">(</span>
+            self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">-</span> self<span class="token punctuation">.</span>size <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span>
+            self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">-</span> self<span class="token punctuation">.</span>size<span class="token punctuation">,</span>
+            self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">+</span> self<span class="token punctuation">.</span>size <span class="token operator">/</span> <span class="token number">4</span><span class="token punctuation">,</span>
+            self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+</span> self<span class="token punctuation">.</span>size<span class="token punctuation">,</span>
+        <span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> pyxel<span class="token punctuation">.</span>btnp<span class="token punctuation">(</span>pyxel<span class="token punctuation">.</span>KEY_W<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">2</span>
+
+        <span class="token keyword">if</span> pyxel<span class="token punctuation">.</span>btnp<span class="token punctuation">(</span>pyxel<span class="token punctuation">.</span>KEY_S<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token number">2</span>
+
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">-</span> self<span class="token punctuation">.</span>size <span class="token operator">&amp;</span>lt<span class="token punctuation">;</span> <span class="token number">0</span><span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">=</span> self<span class="token punctuation">.</span>size
+            self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token number">0</span>
+
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">+</span> self<span class="token punctuation">.</span>size <span class="token operator">&amp;</span>gt<span class="token punctuation">;</span> SCREEN_HEIGHT<span class="token punctuation">:</span>
+            self<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">=</span> SCREEN_HEIGHT <span class="token operator">-</span> self<span class="token punctuation">.</span>size
+            self<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token number">0</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">App</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        pyxel<span class="token punctuation">.</span>init<span class="token punctuation">(</span>SCREEN_WIDTH<span class="token punctuation">,</span> SCREEN_HEIGHT<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>ball <span class="token operator">=</span> Ball<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>score <span class="token operator">=</span> <span class="token number">0</span>
+        pyxel<span class="token punctuation">.</span>run<span class="token punctuation">(</span>self<span class="token punctuation">.</span>update<span class="token punctuation">,</span> self<span class="token punctuation">.</span>draw<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> pyxel<span class="token punctuation">.</span>btnp<span class="token punctuation">(</span>pyxel<span class="token punctuation">.</span>KEY_Q<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            pyxel<span class="token punctuation">.</span>quit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token operator">=</span> SCREEN_WIDTH <span class="token operator">-</span> self<span class="token punctuation">.</span>size<span class="token punctuation">:</span>
+            pyxel<span class="token punctuation">.</span>quit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">&amp;</span>lt<span class="token punctuation">;</span><span class="token operator">=</span> self<span class="token punctuation">.</span>size<span class="token punctuation">:</span>
+            pyxel<span class="token punctuation">.</span>quit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">draw</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        pyxel<span class="token punctuation">.</span>cls<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+        pyxel<span class="token punctuation">.</span>circ<span class="token punctuation">(</span>self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x<span class="token punctuation">,</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y<span class="token punctuation">,</span> self<span class="token punctuation">.</span>size<span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">)</span>
+        pyxel<span class="token punctuation">.</span>text<span class="token punctuation">(</span>SCREEN_WIDTH <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">,</span> SCREEN_HEIGHT <span class="token operator">/</span> <span class="token number">12</span><span class="token punctuation">,</span> <span class="token builtin">str</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>score<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">)</span>
+
+
+<span class="token keyword">class</span> <span class="token class-name">App</span><span class="token punctuation">:</span>
+    <span class="token keyword">def</span> <span class="token function">__init__</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        pyxel<span class="token punctuation">.</span>init<span class="token punctuation">(</span>SCREEN_WIDTH<span class="token punctuation">,</span> SCREEN_HEIGHT<span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>ball <span class="token operator">=</span> Ball<span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>bats <span class="token operator">=</span> <span class="token punctuation">[</span>Bat<span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">,</span> Bat<span class="token punctuation">(</span>SCREEN_WIDTH <span class="token operator">-</span> <span class="token number">10</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">]</span>
+        self<span class="token punctuation">.</span>score <span class="token operator">=</span> <span class="token number">0</span>
+        pyxel<span class="token punctuation">.</span>run<span class="token punctuation">(</span>self<span class="token punctuation">.</span>update<span class="token punctuation">,</span> self<span class="token punctuation">.</span>draw<span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">update</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">if</span> pyxel<span class="token punctuation">.</span>btnp<span class="token punctuation">(</span>pyxel<span class="token punctuation">.</span>KEY_Q<span class="token punctuation">)</span><span class="token punctuation">:</span>
+            pyxel<span class="token punctuation">.</span>quit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> bat <span class="token keyword">in</span> self<span class="token punctuation">.</span>bats<span class="token punctuation">:</span>
+            bat<span class="token punctuation">.</span>update<span class="token punctuation">(</span><span class="token punctuation">)</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>
+                bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>x1 <span class="token operator">&amp;</span>lt<span class="token punctuation">;</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">&amp;</span>lt<span class="token punctuation">;</span> bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>x2
+                <span class="token keyword">and</span> bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>y1 <span class="token operator">&amp;</span>lt<span class="token punctuation">;</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">&amp;</span>lt<span class="token punctuation">;</span> bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">.</span>y2
+            <span class="token punctuation">)</span><span class="token punctuation">:</span>
+                self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>x <span class="token operator">=</span> <span class="token operator">-</span>self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>x
+                self<span class="token punctuation">.</span>score <span class="token operator">+=</span> <span class="token number">1</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">&amp;</span>gt<span class="token punctuation">;</span><span class="token operator">=</span> SCREEN_WIDTH <span class="token operator">-</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>size<span class="token punctuation">:</span>
+            pyxel<span class="token punctuation">.</span>quit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x <span class="token operator">&amp;</span>lt<span class="token punctuation">;</span><span class="token operator">=</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>size<span class="token punctuation">:</span>
+            pyxel<span class="token punctuation">.</span>quit<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">draw</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        pyxel<span class="token punctuation">.</span>cls<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+        pyxel<span class="token punctuation">.</span>circ<span class="token punctuation">(</span>self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x<span class="token punctuation">,</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y<span class="token punctuation">,</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>size<span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">)</span>
+        <span class="token keyword">for</span> bat <span class="token keyword">in</span> self<span class="token punctuation">.</span>bats<span class="token punctuation">:</span>
+            pyxel<span class="token punctuation">.</span>rect<span class="token punctuation">(</span><span class="token operator">*</span>bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">)</span>
+        pyxel<span class="token punctuation">.</span>text<span class="token punctuation">(</span>SCREEN_WIDTH <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">,</span> SCREEN_HEIGHT <span class="token operator">/</span> <span class="token number">12</span><span class="token punctuation">,</span> <span class="token builtin">str</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>score<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">7</span><span class="token punctuation">)</span>
+
+
+App<span class="token punctuation">(</span><span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Now that we have a much better version of the original code, let\u2019s try and implement the improvements I was suggesting at the end of the first post, these were:</p>
+<ul><li>To make the game less predictable, let\u2019s change the ball\u2019s angle by which he bounces back from the bat by a small random value. Hint: you will probably want to \`from random import uniform for this one.<ul><li>More advanced: Make the angle change based on the position of the ball relative to the position of the bat at the time of contact.</li></ul></li>
+<li>Make the game harder as it goes along, maybe increase the ball speed a little every 5 points (it isn\u2019t technically necessary, but it would be good practice to rename the <code>BALL_SPEED</code> variable to <code>ball_speed</code>, since all-cap variable names generally indicate constants).</li>
+<li>Use different color schemes. Maybe even change colors dynamically throughout the game (to indicate an increase in ball speed for example).</li>
+<li>There is a bug, that when the ball enters the bat from the bottom or top rather than the side, it will get kind of stuck there, maybe you can figure out what the problem is and fix it?</li></ul>
+<h2>Change the balls angle based on the position of the ball relative to the position of the bat at the time of contact</h2>
+<p>Let\u2019s just go for the more advanced version right away. First, let\u2019s clarify what we mean by \u201Cangle\u201D and what we mean by \u201Crelative to\u201D in terms of our code. When we say \u201Cangle, we mean that not only the x-attribute of our balls velocity vector changes but also the y-attribute. When we say \u201Crelative to\u201D we mean to compare the ball\u2019s y-position with the bat\u2019s y-position.</p>
+<p>Let\u2019s start looking at our code. We check for the collision between ball and bat starting on line 113 inside our <code>App</code>\u2019s <code>update</code> method. Instead of just reversing the direction of the ball on the x-axis like we are doing right now, let\u2019s also play with the y-value of the velocity vector.</p>
+<p>The problem here is that this can become messy since we have lots of cases we want to avoid. We don\u2019t want to make it so big for example, that the ball is just moving in a straight vertical line, we also don\u2019t want it to lock in to just go perfectly horizontal near the edge of the screen forever (which could potentially happen). Put aptly, we want to keep control over the range of acceptable y-values. In other words: We want to keep the ball from getting crazy.</p>
+<p>Here is how I would go about this. Knowing that this can get messy, I will not attempt to edit the code right then and there, but rather define its own function for this behavior.</p>
+<p>The idea is this: We take in a value I\u2019m calling offset, which is what determines how much the value should be changed. Then I\u2019m also defining a range of inputs (minimum and maximum value of the offset) and a range of outputs (this is how I keep control over what I want to allow). Then I am mapping my range of inputs to the range of outputs and translate my offset to fit the mapping. Phu, that was a lot, let\u2019s see it in action:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">def</span> <span class="token function">mutate_y_value</span><span class="token punctuation">(</span>offset<span class="token punctuation">,</span> min_input<span class="token punctuation">,</span> max_input<span class="token punctuation">,</span> min_output<span class="token punctuation">,</span> max_output<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token comment"># determining the size of each range</span>
+    offset_range <span class="token operator">=</span> max_offset <span class="token operator">-</span> min_offset
+    output_range <span class="token operator">=</span> max_output <span class="token operator">-</span> min_output
+
+    <span class="token comment"># converting the offset_range to a range 0-1</span>
+
+offset_scaled <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span>offset <span class="token operator">-</span> min_offset<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token builtin">float</span><span class="token punctuation">(</span>offset_range<span class="token punctuation">)</span>
+
+    <span class="token comment"># returning the mapped value</span>
+    <span class="token keyword">return</span> min_output <span class="token operator">+</span> <span class="token punctuation">(</span>offset_scaled <span class="token operator">*</span> output_range<span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>This would work, but writing a function like this could be considered bad practice. Functionality like this should be encapsulated by the entity it belongs to. I would argue this functionality belongs to our <code>Vec2</code> class. Rewritten as a method of the <code>Vec2</code> class, it now looks like this:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">def</span> <span class="token function">mutate_y_value_in_range</span><span class="token punctuation">(</span>
+    self<span class="token punctuation">,</span> offset<span class="token punctuation">,</span> min_offset<span class="token punctuation">,</span> max_offset<span class="token punctuation">,</span> min_output<span class="token punctuation">,</span> max_output
+<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    offset_range <span class="token operator">=</span> max_offset <span class="token operator">-</span> min_offset
+    output_range <span class="token operator">=</span> max_output <span class="token operator">-</span> min_output
+
+    offset_scaled <span class="token operator">=</span> <span class="token builtin">float</span><span class="token punctuation">(</span>offset <span class="token operator">-</span> min_offset<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token builtin">float</span><span class="token punctuation">(</span>offset_range<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> Vec2<span class="token punctuation">(</span>self<span class="token punctuation">.</span>x<span class="token punctuation">,</span> self<span class="token punctuation">.</span>y <span class="token operator">+</span> min_output <span class="token operator">+</span> <span class="token punctuation">(</span>offset_scaled <span class="token operator">*</span> output_range<span class="token punctuation">)</span><span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Notice how I have added the <code>self</code> argument and how I am utilizing it to return a new vector object, to make its application easier.</p>
+<p>So how do we apply this function? In our App\u2019s update method, between reversing the ball\u2019s velocity\u2019s x-value, and incrementing the score, we call our new method:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py">self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token punctuation">(</span>
+    self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>mutate_y_value_in_range<span class="token punctuation">(</span>
+        <span class="token punctuation">(</span>self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y <span class="token operator">-</span> bat<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">,</span>
+        <span class="token operator">-</span>bat<span class="token punctuation">.</span>size<span class="token punctuation">,</span>
+        bat<span class="token punctuation">.</span>size<span class="token punctuation">,</span>
+        <span class="token operator">-</span><span class="token number">1.5</span><span class="token punctuation">,</span>
+        <span class="token number">1.5</span><span class="token punctuation">,</span>
+     <span class="token punctuation">)</span><span class="token punctuation">.</span>normalized<span class="token punctuation">(</span><span class="token punctuation">)</span>
+     <span class="token operator">*</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>speed
+<span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>Here we assign a new vector to <code>self.ball.velocity</code>. Keep in mind the x-value has already been reversed. The first argument here is the difference between the ball\u2019s y-position and the bat\u2019s y-position. The <code>min_offset</code> and <code>max_offset</code> arguments cannot possibly be bigger than the size of the bats (because in that case, they would not touch the bat). The output I determined by just playing around a little. The bigger the range the sharper the angle. Whatever feels right. I went for 1.5. Time to give it a test run, maybe take a break, and move on.</p>
+<h2>Increase the ball speed a little every 5 points</h2>
+<p>If you powered through until this point you are beyond the level where I need to explain this one, so I\u2019m just pasting the code here.</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py">self<span class="token punctuation">.</span>score <span class="token operator">+=</span> <span class="token number">1</span>                 <span class="token comment"># this line already exists</span>
+<span class="token keyword">if</span> self<span class="token punctuation">.</span>score <span class="token operator">%</span> <span class="token number">5</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">:</span>
+    self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>speed <span class="token operator">+=</span> <span class="token number">1</span>
+    self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>velocity <span class="token operator">=</span> <span class="token punctuation">(</span>
+        self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>velocity<span class="token punctuation">.</span>normalized<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>speed
+    <span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>
+<h2>Use different color schemes. Maybe even change colors dynamically throughout the game</h2>
+<p>Let\u2019s use the same <code>if</code> statement for this one, but before we do that we have to substitute all the colors we are using right now with variables we can change dynamically. Right now, we are using two different colors, a foreground color for the ball the bats and the text and a background color to fill out the window. So let\u2019s define it this way: At the top of the file, create a dictionary to hold that information with something like <code>colors = dict(foreground=7, background=0)</code>. Luckily, we only use colors in our <code>App</code>\u2019s <code>draw</code> method, so we don\u2019t have to search the whole file to replace colors. After replacing these values the <code>draw</code> method should look like this:</p>
+<pre class="${"language-py"}"><!-- HTML_TAG_START -->${`<code class="language-py"><span class="token keyword">def</span> <span class="token function">draw</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    pyxel<span class="token punctuation">.</span>cls<span class="token punctuation">(</span>colors<span class="token punctuation">[</span><span class="token string">"background"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    pyxel<span class="token punctuation">.</span>circ<span class="token punctuation">(</span>
+        self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>x<span class="token punctuation">,</span>
+        self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>position<span class="token punctuation">.</span>y<span class="token punctuation">,</span>
+        self<span class="token punctuation">.</span>ball<span class="token punctuation">.</span>size<span class="token punctuation">,</span>
+        colors<span class="token punctuation">[</span><span class="token string">"foreground"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+    <span class="token keyword">for</span> bat <span class="token keyword">in</span> self<span class="token punctuation">.</span>bats<span class="token punctuation">:</span>
+        pyxel<span class="token punctuation">.</span>rect<span class="token punctuation">(</span><span class="token operator">*</span>bat<span class="token punctuation">.</span>hitBox<span class="token punctuation">,</span> colors<span class="token punctuation">[</span><span class="token string">"foreground"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+    pyxel<span class="token punctuation">.</span>text<span class="token punctuation">(</span>
+        SCREEN_WIDTH <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">,</span> SCREEN_HEIGHT <span class="token operator">/</span> <span class="token number">12</span><span class="token punctuation">,</span> <span class="token builtin">str</span><span class="token punctuation">(</span>self<span class="token punctuation">.</span>score<span class="token punctuation">)</span><span class="token punctuation">,</span> colors<span class="token punctuation">[</span><span class="token string">"foreground"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">)</span></code>`}<!-- HTML_TAG_END --></pre>`;
+        }
+      })}`;
+    });
+  }
+});
+
+// .svelte-kit/output/server/entries/pages/blog/tailwind-with-webassembly-yew.md.js
+var import_clsx6, metadata5, Tailwind_with_webassembly_yew;
+var init_tailwind_with_webassembly_yew_md = __esm({
+  ".svelte-kit/output/server/entries/pages/blog/tailwind-with-webassembly-yew.md.js"() {
+    init_index_87d5ee21();
+    init_BlogPostLayout_4a47a672();
+    init_Article_700172e8();
+    init_PageHeading_da33bb91();
+    import_clsx6 = __toESM(require_clsx(), 1);
+    metadata5 = {
+      "title": "Yew can use Tailwind anywhere!",
+      "alternateTitle": "How to set up Tailwind in Yew",
+      "subtitle": "even where there is no JavaScript",
+      "alternateSubtitle": "hot-reloading included",
+      "author": "Konstantin <mail@vomkonstant.in>",
+      "published": "2022-05-20",
+      "illustration": '<svg viewBox="0 0 250 250" fill="none" xmlns="http://www.w3.org/2000/svg"> <g transform="matrix(1.0416666666666667,0,0,1.0416666666666667,0,0)"><g id="Sketch-annotation-element-stroke-illustration-line-christmas-tree"> <path id="Vector" d="M109.792 217.109C109.765 204.323 110.467 191.578 110.325 178.8C95.681 180.458 64.1214 177.551 50.046 172.88C64.2747 156.903 81.393 143.904 93.3775 125.433C84.9496 125.157 76.8666 124.695 68.4687 123.744C82.5489 113.059 95.5235 99.3278 106.184 84.294C99.3939 83.8783 92.4928 84.4198 85.6814 84.2545C90.0047 78.3398 95.7493 73.6413 99.7443 67.475C109.028 53.1462 116.275 38.5515 123.15 22.6654C126.102 31.8228 130.862 39.6342 135.307 47.8405C141.169 58.6642 147.894 72.5774 157.736 79.6588C151.974 79.9709 146.271 80.8027 140.499 80.9746C146.46 95.5867 159.76 107.962 172.317 114.977C164.49 118.685 156.882 120.481 148.571 121.838C150.729 126.998 154.624 130.935 157.832 135.192C167.034 147.399 177.508 157.355 189.744 165.217C179.65 173.733 146.79 179.502 134.242 178.65C133.865 191.174 135.567 203.566 135.901 216.059" stroke="currentColor" stroke-width="5" stroke-miterlimit="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></g></svg>'
+    };
+    Tailwind_with_webassembly_yew = create_ssr_component(($$result, $$props, $$bindings, slots) => {
+      return `${validate_component(BlogPostLayout, "Layout_MDSVEX_DEFAULT").$$render($$result, Object.assign($$props, metadata5), {}, {
+        default: () => {
+          return `<p><em>If you are just looking for a template and don\u2019t care about the jibber-jabber: <a href="${"https://github.com/Neugierdsnase/yew-wasm-pack-template"}" rel="${"nofollow"}">Here you go. See ya!</a></em></p>
+<p>One of the reasons Tailwind is great is that it is completely JavaScript-agnostic. As soon as you have DOM elements - however they were created or are being updated - Tailwind just works. This means it can be used with Angular, React, Svelte as much as with Solid, Inferno or whatever other ten-minute old JavaScript frameworks you can think of. But why stop there? If it is true what I just wrote, then not even JavaScript should be the limiting factor here (as it is - quite obviously - for
+CSS-in-JS solutions).</p>
+<p>This is precisely why I argue it is a great choice for WebAssembly projects. Let\u2019s look at an example. Fear not, you don\u2019t have to fully understand what\u2019s going on here. Just know that Yew is a front-end framework for WebAssembly in Rust, that you can probably compare best with pre-v16 React (no hooks, but lifetime methods).</p>
+<pre class="${"language-rust"}"><!-- HTML_TAG_START -->${`<code class="language-rust"><span class="token comment">// ...</span>
+
+<span class="token keyword">pub</span> <span class="token keyword">struct</span> <span class="token type-definition class-name">State</span> <span class="token punctuation">&#123;</span>
+    entries<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token operator">></span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">impl</span> <span class="token class-name">Component</span> <span class="token keyword">for</span> <span class="token class-name">App</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">type</span> <span class="token type-definition class-name">Message</span> <span class="token operator">=</span> <span class="token class-name">Msg</span><span class="token punctuation">;</span>
+    <span class="token keyword">type</span> <span class="token type-definition class-name">Properties</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// ...</span>
+
+    <span class="token keyword">fn</span> <span class="token function-definition function">view</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Html</span> <span class="token punctuation">&#123;</span>
+        <span class="token macro property">html!</span> <span class="token punctuation">&#123;</span>
+            <span class="token operator">&lt;</span>div<span class="token operator">></span>
+                <span class="token operator">&lt;</span>section<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>header<span class="token operator">></span>
+                        <span class="token operator">&lt;</span>h1<span class="token operator">></span><span class="token punctuation">&#123;</span> <span class="token string">"todos"</span> <span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>header<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>section<span class="token operator">></span>
+                        <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+                            <span class="token punctuation">&#123;</span> <span class="token keyword">for</span> <span class="token keyword">self</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>entries<span class="token punctuation">.</span><span class="token function">iter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token closure-params"><span class="token closure-punctuation punctuation">|</span>val<span class="token closure-punctuation punctuation">|</span></span> <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">view_entry</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#125;</span>
+                        <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>section<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>section<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">impl</span> <span class="token class-name">App</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">view_entry</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>idx<span class="token punctuation">,</span> entry<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token keyword">usize</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span><span class="token keyword">str</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Html</span> <span class="token punctuation">&#123;</span>
+      <span class="token macro property">html!</span> <span class="token punctuation">&#123;</span>
+          <span class="token operator">&lt;</span>li<span class="token operator">></span>
+              <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token punctuation">&#123;</span>entry<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+          <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+      <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>This is a (not quite complete) component written in Rust using the Yew framework. Speaking fuzzily about what\u2019s happening here: The <code>view</code> method uses the <code>html</code> macro to render HTML to the screen. You can also see an implementation block, that defines what an entry looks like, which is utilized by the iterator in the <code>ul</code> element.</p>
+<p>So instead of JavaScript, we are writing our code in a multi-threaded systems-level language (thinking about the performance gains this promises should give you the shivers). This is possible because of the recently standardized WASM compile target, <a target="${"_blank"}" href="${"https://webassembly.org/roadmap/"}">which all major browsers have now implemented.</a></p>
+<p>As their respective ecosystems matured, Rust and WebAssembly developed a special kind of relationship. Rust has now become somewhat of the first choice for intellectually curious web developers if I can trust the information in my bubble.</p>
+<p>Let\u2019s imagine for a second, that we would have to reinvent things like styled-components and styled-system for Yew and all the other frameworks, languages and frameworks in languages, that can compile to WASM. The horror! Thankfully - <a href="${"https://blog.vomkonstant.in/blog/comparing-tailwind-with-plain-css-is-wrong"}" rel="${"nofollow"}">as I have outlined here</a> - Tailwind offers much (if not more) of the same functionality at practically no performance overhead.</p>
+<h2>Rust is complicated enough, let\u2019s not also add CSS files</h2>
+<p>The question in my mind is: Can we set up Tailwind so that we can style our Yew components like this?</p>
+<pre class="${"language-rust"}"><!-- HTML_TAG_START -->${`<code class="language-rust"><span class="token comment">// ...</span>
+
+<span class="token keyword">pub</span> <span class="token keyword">struct</span> <span class="token type-definition class-name">State</span> <span class="token punctuation">&#123;</span>
+    entries<span class="token punctuation">:</span> <span class="token class-name">Vec</span><span class="token operator">&lt;</span><span class="token class-name">String</span><span class="token operator">></span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">impl</span> <span class="token class-name">Component</span> <span class="token keyword">for</span> <span class="token class-name">App</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">type</span> <span class="token type-definition class-name">Message</span> <span class="token operator">=</span> <span class="token class-name">Msg</span><span class="token punctuation">;</span>
+    <span class="token keyword">type</span> <span class="token type-definition class-name">Properties</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// ...</span>
+
+    <span class="token keyword">fn</span> <span class="token function-definition function">view</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Html</span> <span class="token punctuation">&#123;</span>
+        <span class="token macro property">html!</span> <span class="token punctuation">&#123;</span>
+            <span class="token operator">&lt;</span>div class<span class="token operator">=</span><span class="token string">"w-2/3 mx-auto"</span><span class="token operator">></span>
+                <span class="token operator">&lt;</span>section<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>header class<span class="token operator">=</span><span class="token string">"text-center my-4"</span><span class="token operator">></span>
+                        <span class="token operator">&lt;</span>h1 class<span class="token operator">=</span><span class="token string">"text-6xl text-red-600"</span><span class="token operator">></span><span class="token punctuation">&#123;</span> <span class="token string">"todos"</span> <span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>header<span class="token operator">></span>
+                    <span class="token operator">&lt;</span>section class<span class="token operator">=</span><span class="token string">"my-4"</span><span class="token operator">></span>
+                        <span class="token operator">&lt;</span>ul<span class="token operator">></span>
+                            <span class="token punctuation">&#123;</span> <span class="token keyword">for</span> <span class="token keyword">self</span><span class="token punctuation">.</span>state<span class="token punctuation">.</span>entries<span class="token punctuation">.</span><span class="token function">iter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token closure-params"><span class="token closure-punctuation punctuation">|</span>val<span class="token closure-punctuation punctuation">|</span></span> <span class="token keyword">self</span><span class="token punctuation">.</span><span class="token function">view_entry</span><span class="token punctuation">(</span>val<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">&#125;</span>
+                        <span class="token operator">&lt;</span><span class="token operator">/</span>ul<span class="token operator">></span>
+                    <span class="token operator">&lt;</span><span class="token operator">/</span>section<span class="token operator">></span>
+                <span class="token operator">&lt;</span><span class="token operator">/</span>section<span class="token operator">></span>
+            <span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+        <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+
+<span class="token keyword">impl</span> <span class="token class-name">App</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">fn</span> <span class="token function-definition function">view_entry</span><span class="token punctuation">(</span><span class="token operator">&amp;</span><span class="token keyword">self</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>idx<span class="token punctuation">,</span> entry<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token keyword">usize</span><span class="token punctuation">,</span> <span class="token operator">&amp;</span><span class="token keyword">str</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">-></span> <span class="token class-name">Html</span> <span class="token punctuation">&#123;</span>
+      <span class="token macro property">html!</span> <span class="token punctuation">&#123;</span>
+          <span class="token operator">&lt;</span>li class<span class="token operator">=</span><span class="token string">"p-4 pr-0 my-2 border-b-2 border-slate-200 last:border-0"</span><span class="token operator">></span>
+              <span class="token operator">&lt;</span>p<span class="token operator">></span><span class="token punctuation">&#123;</span>entry<span class="token punctuation">&#125;</span><span class="token operator">&lt;</span><span class="token operator">/</span>p<span class="token operator">></span>
+          <span class="token operator">&lt;</span><span class="token operator">/</span>li<span class="token operator">></span>
+      <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>The short answer is: <strong>\u201CYes!\u201D</strong> The slightly longer answer is: \u201CUhm, sure, but how do I set up my project for this? Will hot-reloading work?\u201D Let\u2019s find out. Spoiler alert: Everything will work just fine in the end.</p>
+<p>As is so often the case in technology, we can just copy the hard parts from the smart kids and some of them have created <a target="${"_blank"}" href="${"https://github.com/yewstack/yew-wasm-pack-template"}">this project template</a>, which sets up Yew with <a target="${"_blank"}" href="${"https://rustwasm.github.io/wasm-pack/installer/"}">wasm-pack</a>, which itself relies on <a target="${"_blank"}" href="${"https://webpack.js.org/"}">webpack</a> to bundle WebAssembly code with the necessary JavaScript and CSS to make everything flow together.</p>
+<h2>Updating dependencies and scripts</h2>
+<p>To add Tailwind to this, let\u2019s - well - add tailwind.</p>
+<pre class="${"language-fish"}"><!-- HTML_TAG_START -->${`<code class="language-fish">yarn add -D tailwindcss
+npx tailwindcss init</code>`}<!-- HTML_TAG_END --></pre>
+<p>In the <code>package.json</code> I added these two scripts:</p>
+<pre class="${"language-json"}"><!-- HTML_TAG_START -->${`<code class="language-json"><span class="token property">"tailwind"</span><span class="token operator">:</span> <span class="token string">"npx tailwindcss -i ./static/input.css -o ./output.css"</span><span class="token punctuation">,</span>
+<span class="token property">"tailwind:watch"</span><span class="token operator">:</span> <span class="token string">"npx tailwindcss -i ./static/input.css -o ./output.css --watch"</span><span class="token punctuation">,</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>also, I updated the dev and build scripts to include transpiling our CSS (you will need to install <a target="${"_blank"}" href="${"https://www.npmjs.com/package/concurrently"}">the <code>concurrently</code> package</a> globally if you haven\u2019t already).</p>
+<pre class="${"language-json"}"><!-- HTML_TAG_START -->${`<code class="language-json"><span class="token property">"dev"</span><span class="token operator">:</span> <span class="token string">"concurrently "webpack-dev-server --mode development --open" "yarn run tailwind:watch""</span><span class="token punctuation">,</span>
+<span class="token property">"build"</span><span class="token operator">:</span> <span class="token string">"yarn run tailwind &amp;&amp; webpack --mode production"</span><span class="token punctuation">,</span>
+<span class="token property">"build:dev"</span><span class="token operator">:</span> <span class="token string">"yarn run tailwind &amp;&amp; webpack --mode development"</span><span class="token punctuation">,</span></code>`}<!-- HTML_TAG_END --></pre>
+<h2>Overhauling config files</h2>
+<p>Now simply tell tailwind which files to include via the <code>tailwind.config.js</code>:</p>
+<pre class="${"language-js"}"><!-- HTML_TAG_START -->${`<code class="language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+  <span class="token literal-property property">content</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">'./src/**/*.rs'</span><span class="token punctuation">,</span> <span class="token string">'./static/index.html'</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">theme</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token literal-property property">extend</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token literal-property property">plugins</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span></code>`}<!-- HTML_TAG_END --></pre>
+<p>When examining the structure of our project, we can see that the styles are included in our app via the <code>bootstrap.js</code> file. So instead of the <code>styles.scss</code> (we can delete that), let\u2019s use our <code>output.css</code> file here.</p>
+<p>We can also see, that there is some SCSS stuff going on, that we don\u2019t need, so let\u2019s clean that up, by removing the <code>sass</code> and <code>sass-loader</code> dependencies and telling webpack to test for <code>/\\.css$/i</code> instead of
+<code>/\\.s[ac]ss$/i</code> in its config.</p>
+<p>Lastly, we don\u2019t need the \u201Ctodomvc\u201D stylesheets, that are currently in the <code>index.html</code>\u2019s <code>head</code>, so we can delete those too.</p>
+<p>There we go! Mission accomplished!</p>
+<p><img src="${"https://media2.giphy.com/media/Od0QRnzwRBYmDU3eEO/giphy.gif?cid=ecf05e477is7007gzagd8wbnm42z4wc0v0x9mewd2puwxc4k&rid=giphy.gif&ct=g"}" alt="${"Very nice!"}"></p>
+<h2>Some concerns</h2>
+<p>There are still two things that need addressing though.</p>
+<ol><li><p>If you are trying this by yourself, you will quickly realize, that Tailwind\u2019s Intellisense needs an extra invitation to our <code>.rs</code> files. This is easily done by adding <code>&quot;tailwindCSS.includeLanguages&quot;: {&quot;rust&quot;: &quot;html&quot;}</code> to your settings (this is how it works in VSCode, haven\u2019t tried it in other editors). After a reload tailwind should start working its magic for us in our Yew HTML macros, what a time to be alive!</p></li>
+<li><p>Unfortunately, I haven\u2019t found a solution for this one. In all my other projects I use the <a target="${"_blank"}" href="${"https://github.com/tailwindlabs/prettier-plugin-tailwindcss"}">tailwind prettier plugin</a> to enforce its <a target="${"_blank"}" href="${"https://tailwindcss.com/blog/automatic-class-sorting-with-prettier#how-classes-are-sorted"}">recommended class order.</a></p></li>
+<li><p>You will notice that with every save, the hot-reloading is triggered <em>twice</em>. Presumably, the second reload is triggered by the updated <code>output.css</code> file. This is of course not optimal, but I have also not found it to be a huge burden while developing.</p></li></ol>
+<h2>Conclusion</h2>
+<p>Aside from missing a few luxuries that the incredibly mature JavaScript ecosystem offers, I think this is a very comfortable way to leverage the powers of WebAssembly. In my opinion, the versatility of Tailwind adds immense value here, as both the technical, but also the mental overhead while developing are being kept to a minimum.</p>
+<p>You find the finished setup <a href="${"https://github.com/Neugierdsnase/yew-wasm-pack-template"}" rel="${"nofollow"}">in this repository.</a></p>`;
+        }
+      })}`;
+    });
+  }
+});
+
+// .svelte-kit/output/server/chunks/publishedBlogposts-f2111c91.js
+var blogPosts;
+var init_publishedBlogposts_f2111c91 = __esm({
+  ".svelte-kit/output/server/chunks/publishedBlogposts-f2111c91.js"() {
+    init_comparing_tailwind_with_plain_css_is_wrong_md();
+    init_youre_not_just_late_to_crypto_md();
+    init_pythons_most_underrated_game_engine_md();
+    init_pythons_most_underrated_game_engine_2_md();
+    init_tailwind_with_webassembly_yew_md();
+    blogPosts = [
+      __spreadProps(__spreadValues({}, metadata3), {
+        slug: "pythons-most-underrated-game-engine"
+      }),
+      __spreadProps(__spreadValues({}, metadata4), {
+        slug: "pythons-most-underrated-game-engine-2"
+      }),
+      __spreadProps(__spreadValues({}, metadata), {
+        slug: "comparing-tailwind-with-plain-css-is-wrong"
+      }),
+      __spreadProps(__spreadValues({}, metadata2), {
+        slug: "youre-not-just-late-to-crypto"
+      }),
+      __spreadProps(__spreadValues({}, metadata5), {
+        slug: "tailwind-with-webassembly-yew"
+      })
+    ].reverse();
+  }
+});
+
+// .svelte-kit/output/server/entries/endpoints/rss.ts.js
+var rss_ts_exports = {};
+__export(rss_ts_exports, {
+  get: () => get,
+  prerender: () => prerender2
+});
+var import_clsx7, prerender2, headers, renderFeed, get;
+var init_rss_ts = __esm({
+  ".svelte-kit/output/server/entries/endpoints/rss.ts.js"() {
+    init_publishedBlogposts_f2111c91();
+    init_comparing_tailwind_with_plain_css_is_wrong_md();
+    init_index_87d5ee21();
+    init_BlogPostLayout_4a47a672();
+    init_Article_700172e8();
+    init_PageHeading_da33bb91();
+    import_clsx7 = __toESM(require_clsx(), 1);
+    init_youre_not_just_late_to_crypto_md();
+    init_pythons_most_underrated_game_engine_md();
+    init_pythons_most_underrated_game_engine_2_md();
+    init_tailwind_with_webassembly_yew_md();
+    prerender2 = true;
+    headers = {
+      "Cache-Control": `max-age=0, s-max-age=600`,
+      "Content-Type": "application/xml"
+    };
+    renderFeed = (posts) => `<?xml version="1.0" encoding="UTF-8" ?>
+  <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <atom:link href="http://blog.vomkonstant.in/rss" rel="self" type="application/rss+xml" />
+    <title>Konstantin Kovar</title>
+    <link>https://blog.vomkonstant.in</link>
+    <description>Blog vom Konstantin</description>
+    ${posts.map(({
+      title,
+      published,
+      slug,
+      description,
+      author
+    }) => `<item>
+      <guid>https://blog.vomkonstant.in/blog/${slug}</guid>
+      <title>${title}</title>
+      <link>https://blog.vomkonstant.in/blog/${slug}</link>
+      <author>${author.split("<")[1].split(">")[0]}</author>
+      ${description ? `<description>${description}</description>` : ""}
+      <pubDate>${new Date(published).toUTCString()}</pubDate>
+      </item>`).join("")}
+  </channel>
+</rss>
+  `;
+    get = () => {
+      const body = renderFeed(blogPosts);
+      return {
+        body,
+        headers
+      };
+    };
   }
 });
 
@@ -5723,26 +6997,26 @@ function get_raw_body(req) {
   });
 }
 async function getRequest(base2, req) {
-  let headers = req.headers;
+  let headers2 = req.headers;
   if (req.httpVersionMajor === 2) {
-    headers = Object.assign({}, headers);
-    delete headers[":method"];
-    delete headers[":path"];
-    delete headers[":authority"];
-    delete headers[":scheme"];
+    headers2 = Object.assign({}, headers2);
+    delete headers2[":method"];
+    delete headers2[":path"];
+    delete headers2[":authority"];
+    delete headers2[":scheme"];
   }
   return new Request(base2 + req.url, {
     method: req.method,
-    headers,
+    headers: headers2,
     body: await get_raw_body(req)
   });
 }
 async function setResponse(res, response) {
-  const headers = Object.fromEntries(response.headers);
+  const headers2 = Object.fromEntries(response.headers);
   if (response.headers.has("set-cookie")) {
-    headers["set-cookie"] = response.headers.raw()["set-cookie"];
+    headers2["set-cookie"] = response.headers.raw()["set-cookie"];
   }
-  res.writeHead(response.status, headers);
+  res.writeHead(response.status, headers2);
   if (response.body instanceof import_stream.Readable) {
     response.body.pipe(res);
   } else {
@@ -5822,7 +7096,7 @@ ${components[1] ? `${validate_component(components[0] || missing_component, "sve
 ${``}`;
 });
 function to_headers(object) {
-  const headers = new Headers();
+  const headers2 = new Headers();
   if (object) {
     for (const key2 in object) {
       const value = object[key2];
@@ -5830,14 +7104,14 @@ function to_headers(object) {
         continue;
       if (Array.isArray(value)) {
         value.forEach((value2) => {
-          headers.append(key2, value2);
+          headers2.append(key2, value2);
         });
       } else {
-        headers.set(key2, value);
+        headers2.set(key2, value);
       }
     }
   }
-  return headers;
+  return headers2;
 }
 function hash(value) {
   let hash2 = 5381;
@@ -5923,27 +7197,27 @@ async function render_endpoint(event, mod) {
     throw new Error("fallthrough is no longer supported. Use matchers instead: https://kit.svelte.dev/docs/routing#advanced-routing-matching");
   }
   const { status = 200, body = {} } = response;
-  const headers = response.headers instanceof Headers ? new Headers(response.headers) : to_headers(response.headers);
-  const type = headers.get("content-type");
+  const headers2 = response.headers instanceof Headers ? new Headers(response.headers) : to_headers(response.headers);
+  const type = headers2.get("content-type");
   if (!is_text(type) && !(body instanceof Uint8Array || is_string(body))) {
     return error(`${preface}: body must be an instance of string or Uint8Array if content-type is not a supported textual content-type`);
   }
   let normalized_body;
   if (is_pojo(body) && (!type || type.startsWith("application/json"))) {
-    headers.set("content-type", "application/json; charset=utf-8");
+    headers2.set("content-type", "application/json; charset=utf-8");
     normalized_body = JSON.stringify(body);
   } else {
     normalized_body = body;
   }
-  if ((typeof normalized_body === "string" || normalized_body instanceof Uint8Array) && !headers.has("etag")) {
-    const cache_control = headers.get("cache-control");
+  if ((typeof normalized_body === "string" || normalized_body instanceof Uint8Array) && !headers2.has("etag")) {
+    const cache_control = headers2.get("cache-control");
     if (!cache_control || !/(no-store|immutable)/.test(cache_control)) {
-      headers.set("etag", `"${hash(normalized_body)}"`);
+      headers2.set("etag", `"${hash(normalized_body)}"`);
     }
   }
   return new Response(method !== "head" ? normalized_body : void 0, {
     status,
-    headers
+    headers: headers2
   });
 }
 var chars$1 = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_$";
@@ -6420,7 +7694,7 @@ var quoted = /* @__PURE__ */ new Set([
 ]);
 var crypto_pattern = /^(nonce|sha\d\d\d)-/;
 var Csp = class {
-  constructor({ mode, directives }, { dev, prerender: prerender2, needs_nonce }) {
+  constructor({ mode, directives }, { dev, prerender: prerender3, needs_nonce }) {
     __privateAdd2(this, _use_hashes, void 0);
     __privateAdd2(this, _dev, void 0);
     __privateAdd2(this, _script_needs_csp, void 0);
@@ -6428,7 +7702,7 @@ var Csp = class {
     __privateAdd2(this, _directives, void 0);
     __privateAdd2(this, _script_src, void 0);
     __privateAdd2(this, _style_src, void 0);
-    __privateSet2(this, _use_hashes, mode === "hash" || mode === "auto" && prerender2);
+    __privateSet2(this, _use_hashes, mode === "hash" || mode === "auto" && prerender3);
     __privateSet2(this, _directives, dev ? __spreadValues({}, directives) : directives);
     __privateSet2(this, _dev, dev);
     const d = __privateGet2(this, _directives);
@@ -6719,25 +7993,25 @@ ${rendered.css.code}`;
   const html = await resolve_opts.transformPage({
     html: options.template({ head, body, assets: assets2, nonce: csp.nonce })
   });
-  const headers = new Headers({
+  const headers2 = new Headers({
     "content-type": "text/html",
     etag: `"${hash(html)}"`
   });
   if (maxage) {
-    headers.set("cache-control", `${is_private ? "private" : "public"}, max-age=${maxage}`);
+    headers2.set("cache-control", `${is_private ? "private" : "public"}, max-age=${maxage}`);
   }
   if (!options.floc) {
-    headers.set("permissions-policy", "interest-cohort=()");
+    headers2.set("permissions-policy", "interest-cohort=()");
   }
   if (!state.prerender) {
     const csp_header = csp.get_header();
     if (csp_header) {
-      headers.set("content-security-policy", csp_header);
+      headers2.set("content-security-policy", csp_header);
     }
   }
   return new Response(html, {
     status,
-    headers
+    headers: headers2
   });
 }
 function try_serialize(data, fail) {
@@ -6970,12 +8244,12 @@ async function load_node({
           get(response2, key2, _receiver) {
             async function text() {
               const body = await response2.text();
-              const headers = {};
+              const headers2 = {};
               for (const [key3, value] of response2.headers) {
                 if (key3 === "set-cookie") {
                   set_cookie_headers = set_cookie_headers.concat(value);
                 } else if (key3 !== "etag") {
-                  headers[key3] = value;
+                  headers2[key3] = value;
                 }
               }
               if (!opts.body || typeof opts.body === "string") {
@@ -6989,7 +8263,7 @@ async function load_node({
                   response: {
                     status: status_number,
                     statusText: response2.statusText,
-                    headers,
+                    headers: headers2,
                     body
                   }
                 });
@@ -7064,12 +8338,12 @@ async function load_node({
     uses_credentials
   };
 }
-async function load_shadow_data(route, event, options, prerender2) {
+async function load_shadow_data(route, event, options, prerender3) {
   if (!route.shadow)
     return {};
   try {
     const mod = await route.shadow();
-    if (prerender2 && (mod.post || mod.put || mod.del || mod.patch)) {
+    if (prerender3 && (mod.post || mod.put || mod.del || mod.patch)) {
       throw new Error("Cannot prerender pages that have endpoints with mutative methods");
     }
     const method = normalize_request_method(event);
@@ -7091,30 +8365,30 @@ async function load_shadow_data(route, event, options, prerender2) {
       if (result.fallthrough) {
         throw new Error("fallthrough is no longer supported. Use matchers instead: https://kit.svelte.dev/docs/routing#advanced-routing-matching");
       }
-      const { status, headers, body } = validate_shadow_output(result);
+      const { status, headers: headers2, body } = validate_shadow_output(result);
       data.status = status;
-      add_cookies(data.cookies, headers);
+      add_cookies(data.cookies, headers2);
       if (status >= 300 && status < 400) {
-        data.redirect = headers instanceof Headers ? headers.get("location") : headers.location;
+        data.redirect = headers2 instanceof Headers ? headers2.get("location") : headers2.location;
         return data;
       }
       data.body = body;
     }
-    const get = method === "head" && mod.head || mod.get;
-    if (get) {
-      const result = await get(event);
+    const get2 = method === "head" && mod.head || mod.get;
+    if (get2) {
+      const result = await get2(event);
       if (result.fallthrough) {
         throw new Error("fallthrough is no longer supported. Use matchers instead: https://kit.svelte.dev/docs/routing#advanced-routing-matching");
       }
-      const { status, headers, body } = validate_shadow_output(result);
-      add_cookies(data.cookies, headers);
+      const { status, headers: headers2, body } = validate_shadow_output(result);
+      add_cookies(data.cookies, headers2);
       data.status = status;
       if (status >= 400) {
         data.error = new Error("Failed to load data");
         return data;
       }
       if (status >= 300) {
-        data.redirect = headers instanceof Headers ? headers.get("location") : headers.location;
+        data.redirect = headers2 instanceof Headers ? headers2.get("location") : headers2.location;
         return data;
       }
       data.body = __spreadValues(__spreadValues({}, body), data.body);
@@ -7129,8 +8403,8 @@ async function load_shadow_data(route, event, options, prerender2) {
     };
   }
 }
-function add_cookies(target, headers) {
-  const cookies = headers["set-cookie"];
+function add_cookies(target, headers2) {
+  const cookies = headers2["set-cookie"];
   if (cookies) {
     if (Array.isArray(cookies)) {
       target.push(...cookies);
@@ -7141,18 +8415,18 @@ function add_cookies(target, headers) {
 }
 function validate_shadow_output(result) {
   const { status = 200, body = {} } = result;
-  let headers = result.headers || {};
-  if (headers instanceof Headers) {
-    if (headers.has("set-cookie")) {
+  let headers2 = result.headers || {};
+  if (headers2 instanceof Headers) {
+    if (headers2.has("set-cookie")) {
       throw new Error("Endpoint request handler cannot use Headers interface with Set-Cookie headers");
     }
   } else {
-    headers = lowercase_keys(headers);
+    headers2 = lowercase_keys(headers2);
   }
   if (!is_pojo(body)) {
     throw new Error("Body returned from endpoint request handler must be a plain object");
   }
-  return { status, headers, body };
+  return { status, headers: headers2, body };
 }
 async function respond_with_error({
   event,
@@ -7598,11 +8872,11 @@ async function respond(request, options, state) {
               if (response2.status >= 300 && response2.status < 400) {
                 const location = response2.headers.get("location");
                 if (location) {
-                  const headers = new Headers(response2.headers);
-                  headers.set("x-sveltekit-location", location);
+                  const headers2 = new Headers(response2.headers);
+                  headers2.set("x-sveltekit-location", location);
                   response2 = new Response(void 0, {
                     status: 204,
-                    headers
+                    headers: headers2
                   });
                 }
               }
@@ -7618,7 +8892,7 @@ async function respond(request, options, state) {
               }
               const etag = response2.headers.get("etag");
               if (if_none_match_value === etag) {
-                const headers = new Headers({ etag });
+                const headers2 = new Headers({ etag });
                 for (const key2 of [
                   "cache-control",
                   "content-location",
@@ -7628,11 +8902,11 @@ async function respond(request, options, state) {
                 ]) {
                   const value = response2.headers.get(key2);
                   if (value)
-                    headers.set(key2, value);
+                    headers2.set(key2, value);
                 }
                 return new Response(void 0, {
                   status: 304,
-                  headers
+                  headers: headers2
                 });
               }
             }
@@ -7752,13 +9026,21 @@ var manifest = {
   assets: /* @__PURE__ */ new Set(["favicon.png", "fonts/Lora-Italic.ttf", "fonts/Lora.ttf", "syntaxHighlighting.css"]),
   mimeTypes: { ".png": "image/png", ".ttf": "font/ttf", ".css": "text/css" },
   _: {
-    entry: { "file": "start-a0832c24.js", "js": ["start-a0832c24.js", "chunks/index-60c65196.js"], "css": [] },
+    entry: { "file": "start-f82bed3f.js", "js": ["start-f82bed3f.js", "chunks/index-a4305d86.js"], "css": [] },
     nodes: [
       () => Promise.resolve().then(() => (init__(), __exports)),
       () => Promise.resolve().then(() => (init__2(), __exports2)),
       () => Promise.resolve().then(() => (init__3(), __exports3))
     ],
     routes: [
+      {
+        type: "endpoint",
+        id: "rss",
+        pattern: /^\/rss\/?$/,
+        names: [],
+        types: [],
+        load: () => Promise.resolve().then(() => (init_rss_ts(), rss_ts_exports))
+      },
       {
         type: "page",
         id: "2019/01/21/[slug]",

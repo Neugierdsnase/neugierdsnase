@@ -136,7 +136,7 @@ Aside from this minor nuisance, there are also natural limits to the atomic CSS 
 
 It is not possible to emulate this behavior with atomic classes alone, in fact, whenever we want to express relationships between certain elements, we have to deviate from the atomic CSS principle, by writing custom classes in our entry CSS file and applying those to our elements.
 
-*Edit 16.05.2022: This might not hold true for much longer, as there is an [upcoming feature called "arbitrary variants", which solves this exact issue.](https://github.com/tailwindlabs/tailwindcss/pull/8299) I will refactor my custom classes after the feature's release and share the process on this blog.*
+_Edit 16.05.2022: This might not hold true for much longer, as there is an [upcoming feature called "arbitrary variants", which solves this exact issue.](https://github.com/tailwindlabs/tailwindcss/pull/8299) I will refactor my custom classes after the feature's release and share the process on this blog._
 
 ## Conclusion
 
